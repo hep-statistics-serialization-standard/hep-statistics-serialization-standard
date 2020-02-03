@@ -5,7 +5,7 @@ Overview of HEP statistics standard
 
 In short
 ========
-The HEP Statistics Standard (HSS) defines standards of different statistical procedures and results used in High Energy Physics (HEP) in terms of human-and machine readable representations. Different versions are defined with specifications and semantics that are acknowledged by a committee. Corresponding implementations to check the validity of files are also provided, at a _best effort_ basis.
+The HEP Statistics Standard (HSS) defines standards of different statistical procedures and results used in High Energy Physics (HEP) in terms of human-and machine readable representations. Different versions are defined with specifications and semantics that are acknowledged by a committee. Corresponding implementations to check the validity of files are also provided, at a *best effort* basis.
 
 More information can be found in the corresponding projects.
 
