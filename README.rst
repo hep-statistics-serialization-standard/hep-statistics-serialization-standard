@@ -4,7 +4,7 @@ HEP Statistics Standard
 Welcome to the High Energy Physics Statistics Standard.
 
 
-**The project is in its very early stage and currently resembles more of a working group then a standard.**
+**The project is in its very early stage and currently resembles more of a working group and not yet a standard.**
 
 In short
 ========
