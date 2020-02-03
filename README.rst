@@ -1,7 +1,7 @@
 ***********************
 HEP Statistics Standard
 ***********************
-Welcome to the main page of the High Energy Physics Statiscs Standard
+Welcome to the High Energy Physics Statiscs Standard.
 
 In short
 ========
