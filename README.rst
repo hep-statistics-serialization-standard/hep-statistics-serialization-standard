@@ -1,12 +1,16 @@
-# HEP Statistics Standard
+***********************
+HEP Statistics Standard
+***********************
 Overview of HEP statistics standard
 
-## What is HSS
-The HSS defines standards of statistics used in HEP in terms of human-and machine readable representations. It defines different versions with specifications and semantics that are acknowledged by a committee. Corresponding implementations to check the validity of files are also provided, at a _best effort_ basis.
+In short
+========
+The HEP Statistics Standard (HSS) defines standards of different statistical procedures and results used in High Energy Physics (HEP) in terms of human-and machine readable representations. Different versions are defined with specifications and semantics that are acknowledged by a committee. Corresponding implementations to check the validity of files are also provided, at a _best effort_ basis.
 
 More information can be found in the corresponding projects.
 
-## Why
+Why
+====
 
 The main motivation is to have a code-independent representation of the likelihood and inference results.
 
@@ -16,7 +20,8 @@ An framework- and language independent representation allows to use different fr
 reasonable complicated cases. It removes the dependency on code and reduces the need for maintenance of legacy projects.
 
 
-## Projects
+Projects
+========
 
 `HEP fit serialization <https://github.com/hep-statistics-standard/hep-fit-serialization>`_ provies a standard to store the essential parts of a fit, including models, data and the loss.
 
