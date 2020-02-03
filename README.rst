@@ -12,11 +12,11 @@ More information can be found in the corresponding projects.
 Why
 ====
 
-The main motivation is to have a code-independent representation of the likelihood and inference results.
+There are two main motivation to have a code-independent representation of the likelihood and inference results.
 
-This allows to publish the likelihood; a long-term goal in High Energy Physics experiments.
+- It allows to publish the likelihood; a long-term goal in High Energy Physics experiments.
 
-An framework- and language independent representation allows to use different frameworks interchangeably; at least for
+- A framework- and language independent representation allows to use different frameworks interchangeably; at least for
 reasonable complicated cases. It removes the dependency on code and reduces the need for maintenance of legacy projects.
 
 
