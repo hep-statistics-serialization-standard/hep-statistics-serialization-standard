@@ -1,7 +1,7 @@
 *************************************
 HEP Statistics Serialization Standard
 *************************************
-Welcome to the High Energy Physics Statistics Standard.
+Welcome to the High Energy Physics Statistics Serialization Standard.
 
 
 **The project is in its very early stage and currently resembles more of a working group and not yet a standard.**
