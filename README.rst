@@ -1,6 +1,6 @@
-***********************
-HEP Statistics Standard
-***********************
+*************************************
+HEP Statistics Serialization Standard
+*************************************
 Welcome to the High Energy Physics Statistics Standard.
 
 
@@ -8,7 +8,7 @@ Welcome to the High Energy Physics Statistics Standard.
 
 In short
 ========
-The HEP Statistics Standard (HSS) defines standards of different statistical procedures and results used in High Energy Physics (HEP) in terms of human-and machine readable representations. Different versions are defined with specifications and semantics that are acknowledged by a committee. Corresponding implementations to check the validity of files are also provided, at a *best effort* basis.
+The HEP Statistics Serialization Standard (HS3) defines standards of different statistical procedures and results used in High Energy Physics (HEP) in terms of human-and machine readable representations. Different versions are defined with specifications and semantics that are acknowledged by a committee. Corresponding implementations to check the validity of files are also provided, at a *best effort* basis.
 
 More information can be found in the corresponding projects.
 
@@ -26,6 +26,6 @@ reasonable complicated cases. It removes the dependency on code and reduces the 
 Projects
 ========
 
-`HEP fit serialization <https://github.com/hep-statistics-standard/hep-fit-serialization>`_ provies a standard to store the essential parts of a fit, including models, data and the loss.
+`HEP fit serialization <https://github.com/hep-statistics-serialization-standard/hep-fit-serialization>`_ provies a standard to store the essential parts of a fit, including models, data and the loss.
 
-`HEP result serialization <https://github.com/hep-statistics-standard/hep-result-serialization>`_ provides a standard to store results from simple parameter uncertainty estimation to large toy studies.
+`HEP result serialization <https://github.com/hep-statistics-serialization-standard/hep-result-serialization>`_ provides a standard to store results from simple parameter uncertainty estimation to large toy studies.
