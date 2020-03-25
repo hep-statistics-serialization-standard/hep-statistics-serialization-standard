@@ -6,6 +6,9 @@ Welcome to the High Energy Physics Statistics Serialization Standard.
 
 **The project is in its very early stage and currently resembles more of a working group and not yet a standard.**
 
+**Everything, including naming, folder structure etc is under construction and open to discussion**
+
+
 In short
 ========
 The HEP Statistics Serialization Standard (HS3) defines standards of different statistical procedures and results used in High Energy Physics (HEP) in terms of human-and machine readable representations. Different versions are defined with specifications and semantics that are acknowledged by a committee. Corresponding implementations to check the validity of files are also provided, at a *best effort* basis.
