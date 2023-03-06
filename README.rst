@@ -1,10 +1,10 @@
 *************************************
-HEP Statistics Serialization Standard
+HS3 - HEP Statistics Serialization Standard
 *************************************
 Welcome to the High Energy Physics Statistics Serialization Standard.
 
 
-**The project is in its very early stage and currently resembles more of a working group and not yet a standard.**
+**The project is in an early stage and currently resembles more of a working group and not yet a standard.**
 
 **Everything, including naming, folder structure etc is under construction and open to discussion**
 
@@ -25,10 +25,3 @@ There are two main motivation to have a code-independent representation of the l
 - A framework- and language independent representation allows to use different frameworks interchangeably; at least for
 reasonable complicated cases. It removes the dependency on code and reduces the need for maintenance of legacy projects.
 
-
-Projects
-========
-
-`HEP fit serialization <https://github.com/hep-statistics-serialization-standard/hep-fit-serialization>`_ provies a standard to store the essential parts of a fit, including models, data and the loss.
-
-`HEP result serialization <https://github.com/hep-statistics-serialization-standard/hep-result-serialization>`_ provides a standard to store results from simple parameter uncertainty estimation to large toy studies.
