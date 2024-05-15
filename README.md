@@ -108,6 +108,13 @@ The Bayesian Analysis Toolkit in Julia.
 
 [BAT.jl on Github](https://github.com/bat/BAT.jl)
 
+# Users
+
+## ATLAS
+
+The ATLAS Collaboration has published measurements in this format:
+ - Measurement of the $t\bar{t}$ cross section and its ratio to the $Z$ production cross section using $pp$  collisions at $\sqrt{s}=13.6$ TeV with the ATLAS detector ([HEPdata](https://www.hepdata.net/record/ins2689657?version=1))
+
 # Committee
 
 The comittee is responsible for the acceptance and denial of new
