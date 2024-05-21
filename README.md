@@ -115,6 +115,7 @@ The Bayesian Analysis Toolkit in Julia.
 The ATLAS Collaboration has published measurements in this format:
  - Measurement of the $t\bar{t}$ cross section and its ratio to the $Z$ production cross section using $pp$  collisions at $\sqrt{s}=13.6$ TeV with the ATLAS detector ([HEPdata](https://www.hepdata.net/record/ins2689657))
  - Inclusive and differential cross-section measurements of $t\bar{t}Z$ production in $pp$ collisions at $\sqrt{s}=13.6$ TeV with the ATLAS detector, including EFT and spin-correlation interpretations ([HEPdata](https://www.hepdata.net/record/ins2744513))
+ - Measurement of the charge asymmetry in top-quark pair production in association with a photon with the ATLAS experiment ([HEPdata](https://www.hepdata.net/record/ins2616326))
 
 # Committee
 
