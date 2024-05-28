@@ -1,5 +1,5 @@
-# HS3 - HEP Statistics Serialization
-Standard
+# HS3 - HEP Statistics Serialization Standard
+
 Welcome to the High Energy Physics Statistics Serialization Standard.
 
 **The project is in an early stage and currently resembles more of a
