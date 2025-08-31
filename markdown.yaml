@@ -13,3 +13,5 @@ bibliography: ./hs3.bib
 date: 2025-01-24
 title: HS<sup>3</sup> v0.2.9
 
+resource-path:
+  - docs
