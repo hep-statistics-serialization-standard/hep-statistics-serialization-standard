@@ -1,0 +1,931 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Official documentation for HS3">
+      
+      
+      
+        <link rel="canonical" href="https://hep-statistics-serialization-standard.github.io/hep-statistics-serialization-standard/parts/histfactory/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Histfactory - HEP Statistics Serialization Standard (HS3)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../styles/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="HEP Statistics Serialization Standard (HS3)" class="md-header__button md-logo" aria-label="HEP Statistics Serialization Standard (HS3)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HEP Statistics Serialization Standard (HS3)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Histfactory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="HEP Statistics Serialization Standard (HS3)" class="md-nav__button md-logo" aria-label="HEP Statistics Serialization Standard (HS3)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    HEP Statistics Serialization Standard (HS3)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../main/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/1_introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contents
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Contents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/2_toplevels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Top Levels
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/2.1_distributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distributions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/2.1.1_fundamental_distributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fundamental Distributions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/2.1.2_composite_distributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Composite Distributions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/2.2_functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/2.3_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/2.4_likelihoods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Likelihoods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/2.5_domains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Domains
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/2.6_parameter_points/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parameter Points
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/2.7_analyses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Analyses
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/2.8_metadata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadata
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/2.9_misc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Misc
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Appendix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/3_supplementary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supplementary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapters/3.1_generic_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Generic Expressions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Histfactory</h1>
+
+<p>HistFactory [^hf] is a language to describe statistical models consisting only of "histograms" (which is used interchangeably with "step-functions" in this context). Each HistFactory distribution describes one "channel" or "region" of a binned measurement, containing a stack of "samples", i. e.&nbsp;binned distributions sharing the same binning (step-functions describing the signal or background of a measurement). Such a HistFactory model is shown in Figure <a href="#fig:hf-example" reference="fig:hf-example" reference-type="ref">1</a> (originally from  [^atlashzz]). Each of the contributions may be subject to <code>modifiers</code>. </p>
+<p><img alt="A binned statistical model describing a High Energy Physics measurement, in this case of the \(H\to4\ell\) process by the ATLAS collaboration. Three different sample (blue, red, violet) are considered." id="fig:hf-example" src="/images/hf-example.pdf" width=".6\%" /> </p>
+<p>The prediction for a binned region is given as </p>
+<div class="arithmatex">\[
+\begin{aligned} \lambda(x)=\sum_{s\in\text{samples}} \left[ \left( d_s(x) + \sum_{\delta\in M_{\delta}} \delta(x,\theta_\delta) \right) \prod_{\kappa\in M_\kappa} \kappa(x,\theta_\kappa)   \right] \end{aligned} 
+\]</div>
+<p>Here <span class="arithmatex">\(d_s(x)\)</span> is the prediction associated with the sample <span class="arithmatex">\(s\)</span>, a step function </p>
+<div class="arithmatex">\[
+\begin{aligned} d_s(x) = \chi^{y_s}_{b}(x) \end{aligned} 
+\]</div>
+<p>In this section, <span class="arithmatex">\(\chi^{y_s}_{b}(x)\)</span> denotes a generic step function in the binning <span class="arithmatex">\(b\)</span> such that <span class="arithmatex">\(\chi_{b}(x) = y_{s,i}\)</span>, some constant, if <span class="arithmatex">\(x\in[b_i,b_{i+1})\)</span>. The <span class="arithmatex">\(y_{s,i}\)</span> in this case are the bin contents (yields) of the histograms. 
+The <span class="arithmatex">\(M_\kappa\)</span> are the multiplicative modifiers, the <span class="arithmatex">\(M_\delta\)</span> are the additive modifiers. Each of the modifiers is either multiplicative (<span class="arithmatex">\(\kappa\)</span>) or additive (<span class="arithmatex">\(\delta\)</span>). All samples and modifiers share the same binning <span class="arithmatex">\(b\)</span>. 
+The modifiers depend on a set of nuisance parameters <span class="arithmatex">\(\theta\)</span>, where each modifier can only depend on one <span class="arithmatex">\(\theta_i\)</span>, but the <span class="arithmatex">\(\theta_i\)</span> can take the form of vectors and the same <span class="arithmatex">\(\theta_i\)</span> can be shared by several modifiers. By convention, these are denoted <span class="arithmatex">\(\alpha\)</span> if they affect all bins in a correlated way, and <span class="arithmatex">\(\gamma\)</span> if they affect only one bin at a time. The types of modifiers are </p>
+<ul>
+<li>A <em>uncorrelated shape systematic</em> or <code>shapefactor</code> modifier is a     multiplicative modifier that scales each single bin by the value of     some independent parameter <span class="arithmatex">\(\gamma\)</span>. Here, <span class="arithmatex">\(\theta_i=\vec{\gamma}\)</span>,     where the length of <span class="arithmatex">\(\vec{\gamma}\)</span> is equal to the number of bins in     this region. <em>This type of modifier is sometimes called <code>shapesys</code>,     with some nuance in the meaning. However, both are synonymous in the     context of this standard.</em> </li>
+<li>A <em>correlated shape systematic</em> or <code>histosys</code> modifier is an     additive modifier that adds or subtracts a constant step function     <span class="arithmatex">\(\chi^f\)</span>, scaled with a single factor <span class="arithmatex">\(\alpha\)</span>. The modifier     contains a <code>data</code> section, which contains the subsections     <span class="arithmatex">\(\texttt{hi}\)</span> and <span class="arithmatex">\(\texttt{lo}\)</span> that help to define the step     function <span class="arithmatex">\(\chi^f\)</span>. They contain <code>contents</code>, which define the     bin-wise additions or subtractions for <span class="arithmatex">\(\alpha=1\)</span>. Here,     <span class="arithmatex">\(\theta_i=\alpha\)</span>. </li>
+<li>A <em>normalization systematic</em> or <code>normsys</code> modifier is a     multiplicative modifier that scales the entire sample with the same     constant factor <span class="arithmatex">\(f\)</span> that is a function of <span class="arithmatex">\(\alpha\)</span>. The modifier     contains a <code>data</code> section, which contains the values <span class="arithmatex">\(\texttt{hi}\)</span>     and <span class="arithmatex">\(\texttt{lo}\)</span> that help to define <span class="arithmatex">\(f\)</span>. There are different     functional forms that can be chosen for <span class="arithmatex">\(f\)</span>. However, by convention     <span class="arithmatex">\(f(\alpha=0)=1\)</span>, <span class="arithmatex">\(f(\alpha=+1)=\)</span>"<code>hi</code>" and     <span class="arithmatex">\(f(\alpha=-1)=\)</span>"<code>lo</code>". In this case, <span class="arithmatex">\(\theta_i=\alpha\)</span>. </li>
+<li>A <em>normalization factor</em> or <code>normfactor</code> modifier is a     multiplicative modifier that scales the entire sample in this region     with the value of the parameter <span class="arithmatex">\(\mu\)</span> itself. In this case,     <span class="arithmatex">\(\theta_i=\mu\)</span>. </li>
+<li>The <code>staterror</code> modifier is a shorthand for encoding uncorrelated     statistical uncertainties on the values of the step-functions, using     a variant<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> of the Barlow-Beeston Method [^barlowbeeston]. Here,     the relative uncertainty on the sum of all samples in this region     containing the <code>staterror</code> modifier is computed bin-by-bin. Then, a     constrained <em>uncorrelated shape systematic</em> (<code>shapesys</code>) is created,     encoding these relative uncertainties in the corresponding <code>Poisson</code>     (or <code>Gaussian</code>) constraint term. </li>
+</ul>
+<p>The different modifies and their descriptions are also summarized in the following table: </p>
+<table>
+<thead>
+<tr>
+<th><strong>Type of Modifier</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Definition</strong></th>
+<th><strong>Free Parameters</strong></th>
+<th><strong>Number of Free Parameters</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>histosys</code></td>
+<td>Correlated Shape systematic</td>
+<td><span class="arithmatex">\(\delta(x,\alpha) = \alpha * \chi_b^f\)</span></td>
+<td><span class="arithmatex">\(\alpha\)</span></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>normsys</code></td>
+<td>Normalization systematic</td>
+<td><span class="arithmatex">\(\kappa(x,\alpha) = f(\alpha)\)</span></td>
+<td><span class="arithmatex">\(\alpha\)</span></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>normfactor</code></td>
+<td>Normalization factor</td>
+<td><span class="arithmatex">\(\kappa(x,\mu) = \mu\)</span></td>
+<td><span class="arithmatex">\(\mu\)</span></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>shapefactor</code>, <code>staterror</code></td>
+<td>Shape factor</td>
+<td><span class="arithmatex">\(\kappa(x,\vec{\gamma}) = \chi_b^{\gamma}\)</span></td>
+<td><span class="arithmatex">\(\gamma_0\)</span>, ..., <span class="arithmatex">\(\gamma_n\)</span></td>
+<td>#bins</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>staterror</code> modifier is a special subtype of <code>shapefactor</code>, where the mean of the constraint is given as the sum of the predictions of all the samples carrying a <code>staterror</code> modifier in this bin. 
+The way modifiers affect the yield in the corresponding bin is subject to an interpolation function. The <code>overallsys</code> and <code>histosys</code> modifiers thus allow for an additional key <code>interpolation</code>, which identifies one of the following functions: </p>
+<ul>
+<li><code>lin</code>: <span class="arithmatex">\(\begin{cases}     y_{\textit{nominal}} + x \cdot (y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x\geq0\\     y_{\textit{nominal}} + x \cdot (y_{\textit{nominal}} - y_{\textit{low}}) \text{ if } x&lt;0     \end{cases}\)</span> </li>
+<li><code>log</code>: <span class="arithmatex">\(\begin{cases}     y_{\textit{nominal}} \cdot \left(\frac{y_{\textit{high}}}{y_{\textit{nominal}}}\right)^x \text{ if } x\geq0\\     y_{\textit{nominal}} \cdot \left(\frac{y_{\textit{low}}}{y_{\textit{nominal}}}\right)^{-x}\text{ if } x&lt;0     \end{cases}\)</span> </li>
+<li><code>parabolic</code>: <span class="arithmatex">\(\begin{cases}     y_{\textit{nominal}} + (2s+d)\cdot(x-1)+(y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x&gt;1\\     y_{\textit{nominal}} - (2s-d)\cdot(x+1)+(y_{\textit{low}} - y_{\textit{nominal})}\text{ if } x&lt;-1\\     s \cdot x^2 + d\cdot x  \text{ otherwise}     \end{cases}\)</span>\     with     <span class="arithmatex">\(s=\frac{1}{2}(y_{\textit{high}} + y_{\textit{low}}) - y_{\textit{nominal}}\)</span>     and <span class="arithmatex">\(d=\frac{1}{2}(y_{\textit{high}} - y_{\textit{low}})\)</span> </li>
+<li><code>poly6</code>: <span class="arithmatex">\(\begin{cases}     y_{\textit{nominal}} + x \cdot (y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x&gt;1\\     y_{\textit{nominal}} + x \cdot (y_{\textit{nominal}} - y_{\textit{low}}) \text{ if } x&lt;-1\\     y_{\textit{nominal}} + x \cdot (S + x \cdot A \cdot (15 + x^2 \cdot (3x^2-10))) \text{ otherwise}     \end{cases}\)</span>\     with <span class="arithmatex">\(S = \frac{1}{2}(y_{\textit{high}} - y_{\textit{low}})\)</span> and     <span class="arithmatex">\(A=\frac{1}{16}(y_{\textit{high}} + y_{\textit{low}} - 2\cdot y_{\textit{nominal}})\)</span> </li>
+</ul>
+<p>Modifiers can be constrained. This is indicated by the component <code>constraint</code>, which identifies the type of the constraint term. In essence, the likelihood picks up a penalty term for changing the corresponding parameter too far away from its nominal value. The nominal value is, by convention, defined by the type of constraint, and is 0 for all modifiers of type <code>sys</code> (<code>histosys</code>, <code>normsys</code>) and is 1 for all modifiers of type <code>factor</code> (<code>normfactor</code>, <code>shapefactor</code>). The strength of the constraint is always such that the standard deviation of constraint distribution is <span class="arithmatex">\(1\)</span>. </p>
+<p>The supported constraint distributions, also called constraint types, are <code>Gauss</code> for a gaussian with unit width (a gaussian distribution with a variance of <span class="arithmatex">\(1\)</span>), <code>Poisson</code> for a unit Poissonian (e.g. a continous Poissonian with a central value 1), or <code>LogNormal</code> for a unit LogNormal,. If a constraint is given, a corresponding distribution will be considered in addition to the <code>aux_likelihood</code> section of the likelihood, constraining the parameter to its nominal value. </p>
+<p>An exception to this is provided by the <code>staterror</code> modifier as described above, and the <code>shapesys</code> for which a Poissonian constraint is defined with the central values defined as the squares of the values defined in <code>vals</code>. </p>
+<p>The components of a HistFactory distribution are: </p>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>histfactory_yield</code> </li>
+<li><code>axes</code>: array of structs representing the axes. If given each struct     needs to have the component <code>name</code>. Further,     (<span class="smallcaps">optional</span>) components are <code>max</code>, <code>min</code> and <code>nbins</code>,     or, alternatively, <code>edges</code>. The definition of the axes follows the     format for binned data (see Section 
+    <a href="#sec:binned-data" reference="sec:binned-data" reference-type="ref">Binned Data</a>). </li>
+<li><code>samples</code>: array of structs containing the samples of this channel.     For details see below. 
+Struct of one sample: </li>
+<li><code>name</code>: (<span class="smallcaps">optional</span>) custom string, unique within this     function </li>
+<li><code>data</code>: struct containing the components <code>contents</code> and <code>errors</code>,     depicting the data contents and their errors. Both components are     arrays of the same length. </li>
+<li><code>modifiers</code>: array of structs with each struct containing a     component <code>type</code> of the modifier, as well as a component <code>parameter</code>     (defining a string) or a component <code>parameters</code> (defining an array     of strings) relating to the name or names of parameters controlling     this modifier. Further (<span class="smallcaps">optional</span>) components are     <code>data</code> and <code>constraint</code>, both depending on the type of modifier. For     details on these components, see the description above. 
+Two modifiers are correlated exactly if they share the same parameters as indicated by <code>parameter</code> or <code>parameters</code>. In such a case, it is mandatory that they share the same constraint term. If this is not the case, the behavior is undefined. </li>
+</ul>
+<div class="highlight"><span class="filename">HistFactory</span><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myAnalysisChannel&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;histfactory_dist&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;axes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myRegion&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;nbins&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;myChannel1&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;samples&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">           </span><span class="p">{</span><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mySignal&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;contents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;errors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="nt">&quot;modifiers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                 </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lumi&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;normfactor&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                 </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mu_signal_strength&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;normfactor&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                 </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;constraint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Gauss&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;hi&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;lo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_normalization_systematic_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;normsys&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                 </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;constraint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Poisson&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;gamma_stat_1&quot;</span><span class="p">,</span><span class="s2">&quot;gamma_stat_2&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;staterror&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                 </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;constraint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Gauss&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;hi&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;contents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">-2.5</span><span class="p">,</span><span class="w"> </span><span class="mf">-3.1</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;lo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;contents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">2.2</span><span class="p">,</span><span class="w"> </span><span class="mf">3.7</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_correlated_shape_systematic_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;histosys&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                 </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;constraint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Poisson&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;vals&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.2</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_uncorrelated_shape_systematic_2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shapesys&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                   </span><span class="p">]</span>
+<span class="w">           </span><span class="p">},</span>
+<span class="w">               </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myBackground&quot;</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span>
+<span class="w">         </span><span class="p">]</span>
+<span class="p">}</span><span class="w"> </span>
+</code></pre></div>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>The variation consists of summarizing all contributions in the     stack to a single contribution as far as treatment of the     statistical uncertainties is concerned.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "content.code.copy", "content.code.annotate", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

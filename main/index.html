@@ -1,0 +1,1693 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Official documentation for HS3">
+      
+      
+        <meta name="author" content="['Carsten Burgard', 'Tomas Dado', 'Jonas Eschle', 'Matthew Feickert', 'Cornelius   Grunwald', 'Alexander Held', 'Jerry Ling', 'Robin Pelkner', 'Jonas Rembser', 'Oliver Schulz']">
+      
+      
+        <link rel="canonical" href="https://hep-statistics-serialization-standard.github.io/hep-statistics-serialization-standard/main/">
+      
+      
+      
+        <link rel="next" href="../chapters/1_introduction/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>HS<sup>3</sup> v0.2.9 - HEP Statistics Serialization Standard (HS3)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../styles/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#about-this-document" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="HEP Statistics Serialization Standard (HS3)" class="md-header__button md-logo" aria-label="HEP Statistics Serialization Standard (HS3)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HEP Statistics Serialization Standard (HS3)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              HS<sup>3</sup> v0.2.9
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="HEP Statistics Serialization Standard (HS3)" class="md-nav__button md-logo" aria-label="HEP Statistics Serialization Standard (HS3)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    HEP Statistics Serialization Standard (HS3)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapters/1_introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contents
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Contents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapters/2_toplevels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Top Levels
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapters/2.1_distributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distributions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapters/2.1.1_fundamental_distributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fundamental Distributions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapters/2.1.2_composite_distributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Composite Distributions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapters/2.2_functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapters/2.3_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapters/2.4_likelihoods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Likelihoods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapters/2.5_domains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Domains
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapters/2.6_parameter_points/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parameter Points
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapters/2.7_analyses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Analyses
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapters/2.8_metadata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadata
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapters/2.9_misc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Misc
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Appendix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapters/3_supplementary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supplementary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapters/3.1_generic_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Generic Expressions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 class="unnumbered" id="about-this-document">About this document<a class="headerlink" href="#about-this-document" title="Permanent link">&para;</a></h1>
+<hr />
+<p><img alt="image" src="../images/cc0.png" style="vertical-align: text-bottom; height:1em" />  To the extent possible under law, the authors have waived all 
+  copyright and related or neighboring rights to this document. For details, 
+  please refer to the <em>Creative Commons</em> <code>CC0</code> license <sup id="fnref:cc0"><a class="footnote-ref" href="#fn:cc0">2</a></sup>. 
+  This work is published from: CERN, Geneva. </p>
+<hr />
+<h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1>
+<p><em>This section is non-normative.</em> </p>
+<p>It is widely agreed upon that the publication of likelihood models from high energy physics experiments is imperative for the preservation and public access to these results. Detailed arguments have been made elsewhere already <sup id="fnref:Cranmer_2022"><a class="footnote-ref" href="#fn:Cranmer_2022">3</a></sup>. This document sets out to provide a standardized format to publish and archive statistical models of any size and across a wide range of mathematical formalisms in a way that is readable by both humans and machines. 
+With the introduction of <code>pyhf</code> <sup id="fnref:pyhf"><a class="footnote-ref" href="#fn:pyhf">4</a></sup><sup id="fnref:pyhf-joss"><a class="footnote-ref" href="#fn:pyhf-joss">5</a></sup>, a <code>JSON</code> format for likelihood serialization has been put forward. However, an interoperable format that encompasses likelihoods with a scope beyond stacks of binned histograms was lacking. With the release of <code>ROOT</code> 6.26/00 <sup id="fnref:root"><a class="footnote-ref" href="#fn:root">6</a></sup> and the experimental <code>RooJSONFactoryWSTool</code> therein, this gap has now been filled. 
+This document sets out to document the syntax and features of the Statistics Serialization Standard (HS<sup>3</sup>) for likelihoods and statistical models in general, as to be adopted by any HS<sup>3</sup>-compatible statistics framework. The examples in this document employ the <code>JSON</code> notation, but are intended to encompass also representations as <code>YAML</code> or <code>TOML</code>. </p>
+<h2 id="how-to-use-this-document">How to use this document<a class="headerlink" href="#how-to-use-this-document" title="Permanent link">&para;</a></h2>
+<p>Developers of statistical toolkits are invited to specifically refer to versions of this document relating to the support of this standard in their respective implementations. 
+Please note that this document as well as the HS<sup>3</sup> standard are still in development and can still undergo minor and major changes in the future. This document describes the syntax of HS<sup>3</sup> v0.2.9. </p>
+<h2 id="sec:hs3-semantics">Statistical semantics of HS<sup>3</sup><a class="headerlink" href="#sec:hs3-semantics" title="Permanent link">&para;</a></h2>
+<h3 id="sec:models-and-parameters">Statistical models, probability distributions and parameters<a class="headerlink" href="#sec:models-and-parameters" title="Permanent link">&para;</a></h3>
+<p>HS<sup>3</sup> takes a "forward-modelling" approach throughout: a statistical model <span class="arithmatex">\(m\)</span> maps a space <span class="arithmatex">\(\Theta\)</span> of free parameters <span class="arithmatex">\(\theta\)</span> to a space of probability distributions that describe the possible outcomes of a specific experiment. For any given parameters <span class="arithmatex">\(\theta\)</span>, the model returns a concrete probability distribution <span class="arithmatex">\(m(\theta)\)</span>. Observed data <span class="arithmatex">\(x\)</span> is then treated as random variate, presumed to be drawn from the model: <span class="arithmatex">\(x \sim m(\theta)\)</span>. 
+Parameters in HS<sup>3</sup> are always named, so semantically the elements of a parameter space <span class="arithmatex">\(\Theta\)</span> are named tuples <span class="arithmatex">\(\theta\)</span> (meaning tuples in which every entry has a name). Even if there is only a single free parameter, <span class="arithmatex">\(\theta\)</span> should be thought of as a single-entry named tuple. In the current version of this standard, parameter tuples must be flat and only consist of real numbers, vector-valued or nested entries are not supported yet. Future versions of the standard will likely be less restrictive, especially with respect to discrete or vector-valued parameters. Parameter domains defined as part of this standard may be of various types, even though the current version only supports product domains. Future versions are likely to be less restrictive in this regard. 
+Mathematically and computationally, it is often convenient to treat parameters as flat real-valued vectors instead of named tuples, it is the responsibility of the implementation to map between these different views of parameters when and where necessary. 
+Probability distributions in HS<sup>3</sup> (see 
+<a href="#sec:distributions" reference="sec:distributions" reference-type="ref">Distributions</a>) are typically parameterized. Any instance of a distribution that has some of its parameters bound to names instead of concrete values, e.g. <span class="arithmatex">\(m = d_{\mu = a, \sigma = 0.7, \lambda = b, ...}\)</span>, constitutes a valid statistical model <span class="arithmatex">\(m(\theta)\)</span> with model parameters <span class="arithmatex">\(\theta = (a, b)\)</span>. 
+When probability distributions are combined via a Cartesian product (see 
+<a href="#sec:product-distribution" reference="sec:product-distribution" reference-type="ref">Product distribution</a>), then the named tuples that contain their free parameter values are concatenated. So <span class="arithmatex">\(m = d_{\mu = a, \sigma = b} \times d_{\mu = c, \sigma = 0.7}\)</span> constitutes a model <span class="arithmatex">\(m(\theta)\)</span> with model parameters <span class="arithmatex">\(\theta = (a, b, c)\)</span>. 
+Distribution parameters may also be bound to the output of functions, and if those functions have inputs that are bound to names instead of values (or again bound to such functions, recursively), then those names become part of the model parameters. A configuration <span class="arithmatex">\(m = d_{\mu = a, \sigma = 0.7, \lambda = f}, f = \texttt{sum}(4.2, g), g = \texttt{sum}(1.3, b)\)</span>, for example, also constitutes a (different) model <span class="arithmatex">\(m(\theta)\)</span> with parameters <span class="arithmatex">\(\theta = (a, b, c)\)</span>. 
+If all parameter values of a probability distribution are set to concrete values, so if there are not directly (or indirectly via functions) bound to names, we call this probability distribution a concrete distribution here. Such distributions can be used as Bayesian 
+priors (see <a href="#sec:bayesian-inference" reference="sec:bayesian-inference" reference-type="ref">Bayesian inference</a>). 
+The variates of all distributions (so the possible results of random draws from them) are also named tuples in all cases. So even instances of univariate distributions, like the normal distributions, have variates like <span class="arithmatex">\((x = \ldots)\)</span>. The names in the variate tuples can be configured for each instance of a distribution, and must be unique across all distributions that are used together in a model. In Cartesian products of distributions, their variate tuples are concatenated. As with parameter tuples, nested tuples are not supported. The tuple entries, however, may be vector-valued, in contrast to parameter tuples. </p>
+<h3 id="sec:what-is-a-pdf">Probability density functions (PDFs)<a class="headerlink" href="#sec:what-is-a-pdf" title="Permanent link">&para;</a></h3>
+<p>Statistics literature often discriminates between probability density functions (PDF) for continuous probability distributions and probability mass functions (PMF) for discrete probability distributions. This standard use the term PDF for both continuous and discrete distributions. The concept of density is to be understood in terms of densities in the realm of measure theory here, that is the density of a probability measure (distribution) is its Radon-Nikodym derivative in respect to an (implied) reference measure. 
+The choice of reference measure would be arbitrary in principle, which scales likelihood functions 
+(Sec. <a href="#sec:likelihood-definition" reference="sec:likelihood-definition" reference-type="ref">Likelihood</a>) by a constant factor that depends on choice of reference. In this standard, a specific reference measures is implied for each probability distribution, typically the Lebesgue measure for continuous distributions and the counting measure for discrete distributions. The standard aims to to match the PDF (resp.&nbsp;PMF) most commonly used in literature for each specific probability distribution and the mathematical form of the PDF is documented explicitly for each distribution in the standard. So within HS<sup>3</sup>, probability densities and likelihood functions are unambiguous. 
+Here we use <span class="arithmatex">\(\text{PDF}(m(\theta), x)\)</span> to denote the density value of the probability distribution/measure <span class="arithmatex">\(m\)</span>, parameterized by <span class="arithmatex">\(\theta\)</span>, at the point/variate <span class="arithmatex">\(x\)</span>, in respect to the implied reference for <span class="arithmatex">\(m\)</span>. </p>
+<h3 id="sec:data-generation">Observed and simulated data<a class="headerlink" href="#sec:data-generation" title="Permanent link">&para;</a></h3>
+<p>The term data refers here to any collection of values that represents the outcome of an experiment. Data takes the same form as variates of distributions (see 
+<a href="#sec:distributions" reference="sec:distributions" reference-type="ref">Distributions</a>, i. e.&nbsp;named tuple of real values or vectors. To compare given data with a given model, the names and shapes of the data entries must match the variates of the probability distributions <span class="arithmatex">\(m(\theta)\)</span> that the model returns for a specific choice of parameters <span class="arithmatex">\(\theta\)</span>. 
+This means that given a model <span class="arithmatex">\(m\)</span> and concrete parameter values <span class="arithmatex">\(\theta\)</span>, drawing a set of random values from the probability distribution <span class="arithmatex">\(m(\theta)\)</span> produces a valid set of simulated observations. Implementations can use this to provide mock-data generation capabilities. </p>
+<h3 id="sec:likelihood-definition">Likelihood functions<a class="headerlink" href="#sec:likelihood-definition" title="Permanent link">&para;</a></h3>
+<p>The concrete probability distribution <span class="arithmatex">\(m(\theta)\)</span> that a model <span class="arithmatex">\(m\)</span> returns for specific parameter values <span class="arithmatex">\(\theta\)</span> can be compared to observed data <span class="arithmatex">\(x\)</span>. This gives rise to a likelihood <span class="arithmatex">\(\mathcal{L}_{m,x}(\theta) = \text{PDF}(m(\theta), x)\)</span> that is a real-valued function on the parameter space. Multiple distributions/models that describe different modes of observation can be combined with multiple sets of data that cover those modes of observation into a single likelihood (Sec. 
+<a href="#sec:likelihoods" reference="sec:likelihoods" reference-type="ref">[sec:likelihoods]</a>). In addition to using observed data, implementations may provide the option to use random data generated from 
+the model (see <a href="#sec:data-generation" reference="sec:data-generation" reference-type="ref">1.2.3</a>) to check for Monte-Carlo closure. </p>
+<h3 id="sec:frequentist-inference">Frequentist parameter inference<a class="headerlink" href="#sec:frequentist-inference" title="Permanent link">&para;</a></h3>
+<p>The standard method of frequentist inference is the maximum (or, respectively, profile) likelihood method. In the vast majority of cases, the test statistic used here is the likelihood ratio, that is, the ratio of two values of the likelihood corresponding to two different points in parameter space: one that maximizes the likelihood unconditionally, one one that maximizes the likelihood under some condition such as the values of the parameters of interest expected in the absence of a deviation from the null hypothesis. The corresponding building blocks for such an analysis, such as the list of parameters of interest and the likelihood function to be used, are specified in the analysis section of an HS<sup>3</sup> configuration (Sec. <a href="#sec:analyses" reference="sec:analyses" reference-type="ref">Analyses</a>). </p>
+<h3 id="sec:bayesian-inference">Bayesian parameter inference<a class="headerlink" href="#sec:bayesian-inference" title="Permanent link">&para;</a></h3>
+<p>The standard also encompasses the specification of Baysian posterior distributions over parameters by combining (Sec. 
+<a href="#sec:analyses" reference="sec:analyses" reference-type="ref">Analyses</a>) likelihoods with probabilty distributions that acts the priors. Here concrete distributions are used to describe the prior probability of parameters in addition to parameterized distributions that are used to describe of the probability of observing specific data. </p>
+<h2 id="how-to-read-this-document">How to read this document<a class="headerlink" href="#how-to-read-this-document" title="Permanent link">&para;</a></h2>
+<p>In the context of this document, any <code>JSON</code> object is referred to as a struct. A key-value-pair inside such a struct is referred to as a component. If not explicitly stated otherwise, all components mentioned are mandatory. 
+The components located inside the top-level struct are referred to as top-level components. 
+The keywords <span class="smallcaps">optional</span> and <span class="smallcaps">required</span>, as well as <span class="smallcaps">should</span> and <span class="smallcaps">may</span> are used in accordance with IETF requirement levels <sup id="fnref:rfc2119"><a class="footnote-ref" href="#fn:rfc2119">7</a></sup>. </p>
+<h2 id="terms-and-types">Terms and Types<a class="headerlink" href="#terms-and-types" title="Permanent link">&para;</a></h2>
+<p>This is a list of used types and terms in this document. </p>
+<ul>
+<li><code>struct</code>: represented with { }, containing a <em>key:value</em> mapping,     keys are of type <code>string</code>. </li>
+<li><code>component</code>: key-value pair within a struct </li>
+<li><code>array</code> array of items (either <code>string</code>s or <code>number</code>s) without keys. Represented with <code>[...]</code>. </li>
+<li><code>string</code>: references to objects, names and arbitrary information.     Represented with </li>
+<li><code>number</code>: either floating or integer type values </li>
+<li><code>boolean</code>: boolean values; they can be encoded as <code>true</code> and <code>false</code> </li>
+</ul>
+<p>All <code>struct</code>s defining functions, distributions, parameters, variables, domains, likelihoods, data or parameter points will be referred to as <code>object</code>s. All <code>object</code>s <span class="smallcaps">must</span> always have a component <code>name</code> that <span class="smallcaps">must</span> be unique among all <code>object</code>s. </p>
+<p>Within most top-level <code>component</code>s, any one <code>string</code> given as a value to any component <span class="smallcaps">should</span> refer to the <code>name</code> of another <code>object</code>, unless explicitly stated otherwise. Top-level <code>component</code>s in which this is not the case are explicitly marked as such. </p>
+<h2 id="file-format">File format<a class="headerlink" href="#file-format" title="Permanent link">&para;</a></h2>
+<p>HS3 documents are encoded in the JSON format as defined in ISO/IEC 21778:2017 <sup id="fnref:json"><a class="footnote-ref" href="#fn:json">8</a></sup>. Implementations <span class="smallcaps">may</span> support other serialization formats that support a non-ambiguous mapping to JSON, such as TOML or YAML, in which case they <span class="smallcaps">should</span> use a different file extension. </p>
+<h2 id="validators">Validators<a class="headerlink" href="#validators" title="Permanent link">&para;</a></h2>
+<p>Future versions of this standard will recommend official validator implementations and schemata. Currently, these have not been finalized. </p>
+<h2 id="how-to-get-in-touch">How to get in touch<a class="headerlink" href="#how-to-get-in-touch" title="Permanent link">&para;</a></h2>
+<p>Visit the GitHub page <a href="https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard">https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard</a> </p>
+<h1 id="sec:toplevel">Top-level components<a class="headerlink" href="#sec:toplevel" title="Permanent link">&para;</a></h1>
+<p>In the followingc the top-level <code>component</code>s of HS<span class="arithmatex">\(^3\)</span> and their parameters/arguments are described. Each component is completely <span class="smallcaps">optional</span>, but certain components <span class="smallcaps">may</span> depend on other components, which <span class="smallcaps">should</span> be provided in that case. The only exception is the component <code>metadata</code> containing the version of HS<span class="arithmatex">\(^3\)</span>, which is always <span class="smallcaps">required</span>. The supported top-level components are </p>
+<ul>
+<li><a href="#sec:distributions"><code>distributions</code></a>: (<span class="smallcaps">optional</span>) array of <code>object</code>s defining distributions </li>
+<li><a href="#sec:functions"><code>functions</code></a>: (<span class="smallcaps">optional</span>) array of <code>object</code>s defining mathematical functions </li>
+<li><a href="#sec:data"><code>data</code></a>: (<span class="smallcaps">optional</span>) array of <code>objects</code> defining observed or simulated data </li>
+<li><a href="#sec:likelihoods"><code>likelihoods</code></a>: (<span class="smallcaps">optional</span>) array of <code>object</code>s defining combinations of distributions and data </li>
+<li><a href="#sec:domains"><code>domains</code></a>: (<span class="smallcaps">optional</span>) array of <code>object</code>s defining domains, describing ranges of parameters </li>
+<li><a href="#sec:parameterpoints"><code>parameter_points</code></a>: (<span class="smallcaps">optional</span>) array of <code>object</code>s defining parameter points. These <span class="smallcaps">may</span> be used as starting points for minimizations or to document best-fit-values or nominal truth values of datasets </li>
+<li><a href="#sec:analyses"><code>analyses</code></a>: (<span class="smallcaps">optional</span>) array of <code>object</code>s defining suggested analyses to be run on the models in this file </li>
+<li><a href="#sec:metadata"><code>metadata</code></a>: <span class="smallcaps">required</span> struct containing meta information; HS<span class="arithmatex">\(^3\)</span> version number (<span class="smallcaps">required</span>), authors, paper references, package versions, data/analysis descriptions (<span class="smallcaps">optional</span>) </li>
+<li><a href="#sec:misc"><code>misc</code></a>: (<span class="smallcaps">optional</span>) struct containing miscellaneous information, e.g. optimizer settings, plotting colors, etc. </li>
+</ul>
+<p>In the following each of these are described in more detail with respect to their own structure. </p>
+<h2 id="sec:distributions">Distributions<a class="headerlink" href="#sec:distributions" title="Permanent link">&para;</a></h2>
+<p>The top-level component <code>distributions</code> contains an array of distributions in struct format. Distributions <span class="smallcaps">must</span> be normalized, thus, the letter <span class="arithmatex">\(\ensuremath{\mathcal{M}}\)</span> in the following descriptions will always relate to the normalization of the distribution. The value of <span class="arithmatex">\(\ensuremath{\mathcal{M}}\)</span> is conditional on the current domain. It <span class="smallcaps">must</span> be chosen such that the integral of the distribution over the current domain equals one. The implementations might chose to perform this integral using analytical or numerical means. 
+Each distribution <span class="smallcaps">must</span> have the components <code>type</code>, denoting the kind of distribution described, and a component <code>name</code>, which acts as a unique identifier of this distribution among all other named objects. Distributions in general have the following keys: 
+-   <code>name</code>: custom unique string (<span class="smallcaps">required</span>), e.     g.&nbsp;<code>my_distribution_of_x</code> 
+-   <code>type</code>: string (<span class="smallcaps">required</span>) that determines the kind of     distribution, e. g.&nbsp;<code>gaussian_dist</code> 
+-   <code>...</code>: each distribution <span class="smallcaps">may</span> have components for the     various individual parameters. For example, distributions of type     <code>gaussian_dist</code> have the specific components <code>mean</code>, <code>sigma</code> and     <code>x</code>. In general, these components <span class="smallcaps">may</span> be strings as     references to other <code>objects</code>, but <span class="smallcaps">may</span> also directly     yield numeric or boolean values. Depending on the parameter and the     type of distribution, they appear either in single item or array     format. </p>
+<div class="highlight"><span class="filename">Example: Distributions</span><pre><span></span><code><span class="nt">&quot;distributions&quot;</span><span class="p">:[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;gauss1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;gaussian_dist&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;mean&quot;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;sigma&quot;</span><span class="p">:</span><span class="s2">&quot;param_sigma&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="s2">&quot;param_x&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;exp1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;exponential_dist&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;c&quot;</span><span class="p">:</span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="s2">&quot;data_x&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span>
+<span class="w">    </span><span class="err">...</span><span class="w"> </span>
+<span class="p">]</span><span class="w"> </span>
+</code></pre></div>
+<p>Distributions can be treated either as <code>extended</code> or as non-<code>extended</code> <sup id="fnref:barlow-extended-ml"><a class="footnote-ref" href="#fn:barlow-extended-ml">9</a></sup>. Some distributions are always extended, others can never be extended, yet others can be used in extended and non-extended scenarios and have a switch selecting between the two. An non-extended distribution is always normalized to the unity. An extended distribution, on the other hand, can yield values larger than unity, where the yield is interpreted as the number of predicted events. That is to say, the distribution is augmented by a factor that is a Poisson constraint term for the total number of events. 
+In the following, all distributions supported in HS<sup>3</sup> v0.2.9 are listed in detail. Future versions will expand upon this list. </p>
+<h3 id="univariate-fundamental-distributions">Univariate fundamental distributions<a class="headerlink" href="#univariate-fundamental-distributions" title="Permanent link">&para;</a></h3>
+<p>This section contains univariate fundamental distributions in the sense that they cannot refer to any other distribution -- only to functions, parameters and exactly one variable. 
+The of the Argus background distribution is defined as </p>
+<h4 id="argus-distribution">Argus distribution<a class="headerlink" href="#argus-distribution" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned} \text{ArgusPdf}(m, m_0, c, p) = \frac{1}{\ensuremath{\mathcal{M}}} \cdot m \cdot \left[ 1 - \left( \frac{m}{m_0} \right)^2 \right]^p \cdot \exp\left[ c \cdot \left(1 - \left(\frac{m}{m_0}\right)^2 \right) \right] \end{aligned} 
+\]</div>
+<p>and describes the ARGUS background shape. </p>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>argus_dist</code> </li>
+<li><code>mass</code>: name of the variable <span class="arithmatex">\(m\)</span> used as mass </li>
+<li><code>resonance</code>: value or name of the parameter used as resonance <span class="arithmatex">\(m_0\)</span> </li>
+<li><code>slope</code>: value or name of the parameter used as slope <span class="arithmatex">\(c\)</span> </li>
+<li><code>power</code>: value or name of the parameter used as exponent <span class="arithmatex">\(p\)</span>. </li>
+</ul>
+<p>The of a continued Poisson distribution of the variable <span class="arithmatex">\(x\)</span> is defined as </p>
+<h4 id="continued-poisson-distribution">Continued Poisson distribution<a class="headerlink" href="#continued-poisson-distribution" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned} \text{ContinuedPoissonPdf}(x, \lambda) = \frac{1}{\ensuremath{\mathcal{M}}} \exp\left(x \cdot \ln \lambda - \lambda - \ln \Gamma(x+1)\right), \end{aligned} 
+\]</div>
+<p>where <span class="arithmatex">\(\Gamma\)</span> denotes the Euler Gamma function. 
+This function is similar the the Poisson distribution (see 
+<a href="#dist:poisson" reference="dist:poisson" reference-type="ref">Poisson distribution</a>), but can accept non-integer values for <span class="arithmatex">\(x\)</span>. Notably, the differences between the two might be significant for small values of <span class="arithmatex">\(x\)</span> (below x). Nevertheless, the distribution is useful to deal with datasets with non-integer event counts, such as asimov datasets <sup id="fnref:asymptotics"><a class="footnote-ref" href="#fn:asymptotics">10</a></sup>. </p>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>poisson_dist</code> </li>
+<li><code>x</code>: name of the variable <span class="arithmatex">\(x\)</span> (usually referred to as <span class="arithmatex">\(k\)</span> for the     standard integer case) </li>
+<li><code>mean</code>: value or name of the parameter used as mean <span class="arithmatex">\(\lambda\)</span>. 
+The of a continuous uniform distribution is defined as: </li>
+</ul>
+<h4 id="uniform-distribution">Uniform distribution<a class="headerlink" href="#uniform-distribution" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned} \text{UniformPdf}(x) = \frac{1}{\ensuremath{\mathcal{M}}} \end{aligned} 
+\]</div>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>uniform_dist</code> </li>
+<li><code>x</code>: name of the variable <span class="arithmatex">\(x\)</span> 
+The generalized Asymmetrical Double-Sided Crystall Ball line shape, composed of a Gaussian distribution at the core, connected with two powerlaw distributions describing the lower and upper tails, given by </li>
+</ul>
+<h4 id="crystalball-distribution">CrystalBall distribution<a class="headerlink" href="#crystalball-distribution" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned} \text{CrystalBallPdf}(m;m_0,\sigma,\alpha_L,n_L,\alpha_R,n_R) = \frac{1}{\ensuremath{\mathcal{M}}} \begin{cases} A_L \cdot (B_L - \frac{m - m_0}{\sigma_L})^{-n_L}, &amp; \mbox{for }\frac{m - m_0}{\sigma_L} &lt; -\alpha_L \\ \exp \left( - \frac{1}{2} \cdot \left[ \frac{m - m_0}{\sigma_L} \right]^2 \right), &amp; \mbox{for }\frac{m - m_0}{\sigma_L} \leq 0 \\ \exp \left( - \frac{1}{2} \cdot \left[ \frac{m - m_0}{\sigma_R} \right]^2 \right), &amp; \mbox{for }\frac{m - m_0}{\sigma_R} \leq \alpha_R \\ A_R \cdot (B_R + \frac{m - m_0}{\sigma_R})^{-n_R}, &amp; \mbox{otherwise}, \\ \end{cases} \end{aligned} 
+\]</div>
+<p>where </p>
+<div class="arithmatex">\[
+\begin{aligned} A_i &amp;= \left(\frac{n_i}{\left| \alpha_i \right|}\right)^{n_i} \cdot \exp\left(- \frac {\left| \alpha_i \right|^2}{2}\right) \\ B_i &amp;= \frac{n_i}{\left| \alpha_i \right|}  - \left| \alpha_i \right| \\ \end{aligned} 
+\]</div>
+<p>The keys are </p>
+<ul>
+<li><code>name</code>: custom string </li>
+<li><code>type</code>: <code>crystalball_dist</code> </li>
+<li><code>m</code>: name of the variable <span class="arithmatex">\(m\)</span> </li>
+<li><code>m0</code>: name or value of the central value <span class="arithmatex">\(m_0\)</span> </li>
+<li><code>alpha</code>: value or names of <span class="arithmatex">\(\alpha_L\)</span> and <span class="arithmatex">\(\alpha_R\)</span> from above.     <span class="smallcaps">must not</span> be used in conjuction with <code>alpha_L</code> or     <code>alpha_R</code>. </li>
+<li><code>alpha_L</code>: value or names of <span class="arithmatex">\(\alpha_L\)</span> from above. <span class="smallcaps">must     not</span> be used in conjuction with <code>alpha</code>. </li>
+<li><code>alpha_R</code>: value or names of <span class="arithmatex">\(\alpha_R\)</span> from above. <span class="smallcaps">must     not</span> be used in conjuction with <code>alpha</code>. </li>
+<li><code>n</code>: value or names of <span class="arithmatex">\(n_L\)</span> and <span class="arithmatex">\(n_R\)</span> from above. <span class="smallcaps">must     not</span> be used in conjuction with <code>n_L</code> or <code>n_R</code>. </li>
+<li><code>n_L</code>: value or names of <span class="arithmatex">\(n_L\)</span> from above. <span class="smallcaps">must not</span> be     used in conjuction with <code>n</code>. </li>
+<li><code>n_R</code>: value or names of <span class="arithmatex">\(n_R\)</span> from above. <span class="smallcaps">must not</span> be     used in conjuction with <code>n</code>. </li>
+<li><code>sigma</code>: value or names of <span class="arithmatex">\(\sigma_L\)</span> and <span class="arithmatex">\(\sigma_R\)</span> from above.     <span class="smallcaps">must not</span> be used in conjuction with <code>sigma_L</code> or     <code>sigma_R</code>. </li>
+<li><code>sigma_L</code>: value or names of <span class="arithmatex">\(\sigma_L\)</span> from above. <span class="smallcaps">must     not</span> be used in conjuction with <code>sigma</code>. </li>
+<li><code>sigma_R</code>: value or names of <span class="arithmatex">\(\sigma_R\)</span> from above. <span class="smallcaps">must     not</span> be used in conjuction with <code>sigma</code>. </li>
+</ul>
+<h4 id="exponential-distribution">Exponential distribution<a class="headerlink" href="#exponential-distribution" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned} \text{ExponentialPdf}(x, c) = \frac{1}{\ensuremath{\mathcal{M}}} \cdot \exp(-c\cdot x) \end{aligned} 
+\]</div>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>exponential_dist</code> </li>
+<li><code>x</code>: name of the variable <span class="arithmatex">\(x\)</span> </li>
+<li><code>c</code>: value or name of the parameter used as coefficient <span class="arithmatex">\(c\)</span>. 
+The of a Gaussian/Normal distribution is defined as </li>
+</ul>
+<h4 id="gaussian-normal-distribution">Gaussian Normal distribution<a class="headerlink" href="#gaussian-normal-distribution" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned} \text{GaussianPdf}(x, \mu, \sigma) = \frac{1}{\ensuremath{\mathcal{M}}} \exp\left(\frac{(x-\mu)^2}{\sigma^2}\right) \end{aligned} 
+\]</div>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>gaussian_dist</code> <em>or</em> <code>normal_dist</code> </li>
+<li><code>x</code>: name of the variable <span class="arithmatex">\(x\)</span> </li>
+<li><code>mean</code>: value or name of the parameter used as mean value <span class="arithmatex">\(\mu\)</span> </li>
+<li><code>sigma</code>: value or name of the parameter encoding the standard     deviation <span class="arithmatex">\(\sigma\)</span>. 
+The of the log-normal distribution is defined as </li>
+</ul>
+<h4 id="log-normal-distribution">Log-Normal distribution<a class="headerlink" href="#log-normal-distribution" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned} \text{LogNormalPdf}(x, \mu, \sigma) &amp;= \frac{1}{\ensuremath{\mathcal{M}}} \frac{1}{ x } \exp\left( -\frac{(\ln(x)-\mu)^2}{2\sigma^2}\right) \end{aligned} 
+\]</div>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>lognormal_dist</code> </li>
+<li><code>x</code>: name of the variable <span class="arithmatex">\(x\)</span> </li>
+<li><code>mu</code>: value or name of the parameter used as <span class="arithmatex">\(\mu\)</span> </li>
+<li><code>sigma</code>: value or name of the parameter <span class="arithmatex">\(\sigma\)</span> describing the     shape </li>
+</ul>
+<h4 id="dist:poisson" label="dist:poisson">Poisson distribution<a class="headerlink" href="#dist:poisson" title="Permanent link">&para;</a></h4>
+<p>The Poisson distribution of the variable <span class="arithmatex">\(x\)</span> is defined as </p>
+<div class="arithmatex">\[
+\begin{aligned} \text{PoissonPdf}(x, \lambda) = \frac{1}{\ensuremath{\mathcal{M}}} \frac{\lambda^x}{x!}  \text{e}^{-\lambda}. \end{aligned} 
+\]</div>
+<p>where <span class="arithmatex">\(x\)</span> is required to be an integer. 
+In this case, the behavior for non-integer values of <span class="arithmatex">\(x\)</span> is undefined. 
+-   <code>name</code>: custom unique string 
+-   <code>type</code>: <code>poisson_dist</code> 
+-   <code>x</code>: name of the variable <span class="arithmatex">\(x\)</span> (usually referred to as <span class="arithmatex">\(k\)</span> for the     standard integer case) 
+-   <code>mean</code>: value or name of the parameter used as mean <span class="arithmatex">\(\lambda\)</span>. 
+The of a polynomial distribution is defined as </p>
+<h4 id="polynomial-distribution">Polynomial distribution<a class="headerlink" href="#polynomial-distribution" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned} \text{PolynomialPdf}(x, a_0, a_1, a_2, ...) = \frac{1}{\ensuremath{\mathcal{M}}} \sum_{i=0}^n a_i x^i = a_0 + a_1 x + a_2 x^2 + ... \end{aligned} 
+\]</div>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>polynomial_dist</code> </li>
+<li><code>x</code>: name of the variable <span class="arithmatex">\(x\)</span> </li>
+<li><code>coefficients</code>: array of coefficients <span class="arithmatex">\(a_i\)</span>. The length of this     array implies the degree of the polynomial. </li>
+</ul>
+<h3 id="multivariate-fundamental-distributions">Multivariate fundamental distributions<a class="headerlink" href="#multivariate-fundamental-distributions" title="Permanent link">&para;</a></h3>
+<p>This section contains multivariate fundamental distributions. They may refer to functions, parameters and more than one variable. 
+This distributions represents a product of Poisson distributions defining the statistical uncertainties of the histogram templates defined in a <code>histfactory_func</code>. </p>
+<h4 id="barlow-besston-lite-constraint-distribution">Barlow-Besston-Lite Constraint distribution<a class="headerlink" href="#barlow-besston-lite-constraint-distribution" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned} \text{BarlowBeestonLitePoissonConstraintPdf}(x) &amp;= \frac{1}{\ensuremath{\mathcal{M}}} \prod_i^n \text{PoissonPdf}(x_i\cdot \tau_i,\tau_i) \end{aligned} 
+\]</div>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>barlow_beeston_lite_poisson_constraint_dist</code> </li>
+<li><code>x</code>: name of the variable <span class="arithmatex">\(x\)</span> </li>
+<li><code>expected</code>: array of central values <span class="arithmatex">\(\tau_i\)</span> 
+The of the multivariate normal distribution is defined as </li>
+</ul>
+<h4 id="multivariate-normal-distribution">Multivariate normal distribution<a class="headerlink" href="#multivariate-normal-distribution" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned} \text{MvNormalPdf}(\mathbf{x}, \boldsymbol\mu, \boldsymbol\Sigma) &amp;= \frac{1}{\ensuremath{\mathcal{M}}} \exp \left( -\frac{1}{2} (\mathbf{x} - \boldsymbol\mu)^{\!\mathsf{T}} \boldsymbol\Sigma^{-1}(\mathbf{x} - \boldsymbol\mu) \right), \end{aligned} 
+\]</div>
+<p>with <span class="arithmatex">\(\boldsymbol\Sigma \in \mathbb{R}^{k\times k}\)</span> being positive-definite. </p>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>multivariate_normal_dist</code> </li>
+<li><code>x</code>: array of names of the variables <span class="arithmatex">\(\mathbf{x}\)</span>. This also     includes mixed arrays of values and names. </li>
+<li><code>mean</code>: array of length <span class="arithmatex">\(k\)</span> of values or names of the parameters     used as mean values <span class="arithmatex">\(\boldsymbol\mu\)</span> </li>
+<li><code>covariances</code>: an array comprised of <span class="arithmatex">\(k\)</span> sub-arrays, each of which     is also of length <span class="arithmatex">\(k\)</span>, designed to store values or names of the     entries of the covariance matrix <span class="arithmatex">\(\boldsymbol\Sigma\)</span>. In general,     the covariance matrix <span class="arithmatex">\(\boldsymbol\Sigma\)</span> <span class="smallcaps">must</span> be     symmetric and positive semi-definite. </li>
+</ul>
+<p><em>Note: Users should prefer the specific distributions defined in this standard over generic distributions where possible, as implementations of these will typically be more optimized. Generic distributions should only be used if no equivalent specific distribution is defined.</em> </p>
+<p>A generic distribution is defined by an expression that respresents the PDF of the distribution in respect to the Lebesque measure. The expression must be a valid HS<sup>3</sup>-expression string (see Section 
+<a href="#sec:generic_expression" reference="sec:generic_expression" reference-type="ref">Generic Expressions</a>). </p>
+<ul>
+<li><code>name</code>: custom string </li>
+<li><code>type</code>: <code>generic_dist</code> </li>
+<li><code>expression</code>: a string with a generic mathematical expression.     Simple mathematical syntax common to most programming languages     should be used here, such as <code>x-2*y+z</code>. The arguments <code>x</code>, <code>y</code> and     <code>z</code> in this example <span class="smallcaps">must</span> be parameters, functions or     variables. 
+The distribution is normalized by the implementation, a normalization term <span class="smallcaps">should not</span> be included in the expression. If the expression results in a negative value, the behavior is undefined. </li>
+</ul>
+<h4 id="histfactory-distribution">HistFactory distribution<a class="headerlink" href="#histfactory-distribution" title="Permanent link">&para;</a></h4>
+<p>HistFactory <sup id="fnref:hf"><a class="footnote-ref" href="#fn:hf">11</a></sup> is a language to describe statistical models consisting only of "histograms" (which is used interchangeably with "step-functions" in this context). Each HistFactory distribution describes one "channel" or "region" of a binned measurement, containing a stack of "samples", i. e.&nbsp;binned distributions sharing the same binning (step-functions describing the signal or background of a measurement). Such a HistFactory model is shown in Figure <a href="#fig:hf-example" reference="fig:hf-example" reference-type="ref">1</a> (originally from  <sup id="fnref:atlashzz"><a class="footnote-ref" href="#fn:atlashzz">12</a></sup>). Each of the contributions may be subject to <code>modifiers</code>. </p>
+<p><img alt="A binned statistical model describing a High Energy Physics measurement, in this case of the \(H\to4\ell\) process by the ATLAS collaboration. Three different sample (blue, red, violet) are considered." id="fig:hf-example" src="/images/hf-example.pdf" width=".6\%" /> </p>
+<p>The prediction for a binned region is given as </p>
+<div class="arithmatex">\[
+\begin{aligned} \lambda(x)=\sum_{s\in\text{samples}} \left[ \left( d_s(x) + \sum_{\delta\in M_{\delta}} \delta(x,\theta_\delta) \right) \prod_{\kappa\in M_\kappa} \kappa(x,\theta_\kappa)   \right] \end{aligned} 
+\]</div>
+<p>Here <span class="arithmatex">\(d_s(x)\)</span> is the prediction associated with the sample <span class="arithmatex">\(s\)</span>, a step function </p>
+<div class="arithmatex">\[
+\begin{aligned} d_s(x) = \chi^{y_s}_{b}(x) \end{aligned} 
+\]</div>
+<p>In this section, <span class="arithmatex">\(\chi^{y_s}_{b}(x)\)</span> denotes a generic step function in the binning <span class="arithmatex">\(b\)</span> such that <span class="arithmatex">\(\chi_{b}(x) = y_{s,i}\)</span>, some constant, if <span class="arithmatex">\(x\in[b_i,b_{i+1})\)</span>. The <span class="arithmatex">\(y_{s,i}\)</span> in this case are the bin contents (yields) of the histograms. 
+The <span class="arithmatex">\(M_\kappa\)</span> are the multiplicative modifiers, the <span class="arithmatex">\(M_\delta\)</span> are the additive modifiers. Each of the modifiers is either multiplicative (<span class="arithmatex">\(\kappa\)</span>) or additive (<span class="arithmatex">\(\delta\)</span>). All samples and modifiers share the same binning <span class="arithmatex">\(b\)</span>. 
+The modifiers depend on a set of nuisance parameters <span class="arithmatex">\(\theta\)</span>, where each modifier can only depend on one <span class="arithmatex">\(\theta_i\)</span>, but the <span class="arithmatex">\(\theta_i\)</span> can take the form of vectors and the same <span class="arithmatex">\(\theta_i\)</span> can be shared by several modifiers. By convention, these are denoted <span class="arithmatex">\(\alpha\)</span> if they affect all bins in a correlated way, and <span class="arithmatex">\(\gamma\)</span> if they affect only one bin at a time. The types of modifiers are </p>
+<ul>
+<li>A <em>uncorrelated shape systematic</em> or <code>shapefactor</code> modifier is a     multiplicative modifier that scales each single bin by the value of     some independent parameter <span class="arithmatex">\(\gamma\)</span>. Here, <span class="arithmatex">\(\theta_i=\vec{\gamma}\)</span>,     where the length of <span class="arithmatex">\(\vec{\gamma}\)</span> is equal to the number of bins in     this region. <em>This type of modifier is sometimes called <code>shapesys</code>,     with some nuance in the meaning. However, both are synonymous in the     context of this standard.</em> </li>
+<li>A <em>correlated shape systematic</em> or <code>histosys</code> modifier is an     additive modifier that adds or subtracts a constant step function     <span class="arithmatex">\(\chi^f\)</span>, scaled with a single factor <span class="arithmatex">\(\alpha\)</span>. The modifier     contains a <code>data</code> section, which contains the subsections     <span class="arithmatex">\(\texttt{hi}\)</span> and <span class="arithmatex">\(\texttt{lo}\)</span> that help to define the step     function <span class="arithmatex">\(\chi^f\)</span>. They contain <code>contents</code>, which define the     bin-wise additions or subtractions for <span class="arithmatex">\(\alpha=1\)</span>. Here,     <span class="arithmatex">\(\theta_i=\alpha\)</span>. </li>
+<li>A <em>normalization systematic</em> or <code>normsys</code> modifier is a     multiplicative modifier that scales the entire sample with the same     constant factor <span class="arithmatex">\(f\)</span> that is a function of <span class="arithmatex">\(\alpha\)</span>. The modifier     contains a <code>data</code> section, which contains the values <span class="arithmatex">\(\texttt{hi}\)</span>     and <span class="arithmatex">\(\texttt{lo}\)</span> that help to define <span class="arithmatex">\(f\)</span>. There are different     functional forms that can be chosen for <span class="arithmatex">\(f\)</span>. However, by convention     <span class="arithmatex">\(f(\alpha=0)=1\)</span>, <span class="arithmatex">\(f(\alpha=+1)=\)</span>"<code>hi</code>" and     <span class="arithmatex">\(f(\alpha=-1)=\)</span>"<code>lo</code>". In this case, <span class="arithmatex">\(\theta_i=\alpha\)</span>. </li>
+<li>A <em>normalization factor</em> or <code>normfactor</code> modifier is a     multiplicative modifier that scales the entire sample in this region     with the value of the parameter <span class="arithmatex">\(\mu\)</span> itself. In this case,     <span class="arithmatex">\(\theta_i=\mu\)</span>. </li>
+<li>The <code>staterror</code> modifier is a shorthand for encoding uncorrelated     statistical uncertainties on the values of the step-functions, using     a variant<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> of the Barlow-Beeston Method <sup id="fnref:barlowbeeston"><a class="footnote-ref" href="#fn:barlowbeeston">13</a></sup>. Here,     the relative uncertainty on the sum of all samples in this region     containing the <code>staterror</code> modifier is computed bin-by-bin. Then, a     constrained <em>uncorrelated shape systematic</em> (<code>shapesys</code>) is created,     encoding these relative uncertainties in the corresponding <code>Poisson</code>     (or <code>Gaussian</code>) constraint term. </li>
+</ul>
+<p>The different modifies and their descriptions are also summarized in the following table: </p>
+<table>
+<thead>
+<tr>
+<th><strong>Type of Modifier</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Definition</strong></th>
+<th><strong>Free Parameters</strong></th>
+<th><strong>Number of Free Parameters</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>histosys</code></td>
+<td>Correlated Shape systematic</td>
+<td><span class="arithmatex">\(\delta(x,\alpha) = \alpha * \chi_b^f\)</span></td>
+<td><span class="arithmatex">\(\alpha\)</span></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>normsys</code></td>
+<td>Normalization systematic</td>
+<td><span class="arithmatex">\(\kappa(x,\alpha) = f(\alpha)\)</span></td>
+<td><span class="arithmatex">\(\alpha\)</span></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>normfactor</code></td>
+<td>Normalization factor</td>
+<td><span class="arithmatex">\(\kappa(x,\mu) = \mu\)</span></td>
+<td><span class="arithmatex">\(\mu\)</span></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>shapefactor</code>, <code>staterror</code></td>
+<td>Shape factor</td>
+<td><span class="arithmatex">\(\kappa(x,\vec{\gamma}) = \chi_b^{\gamma}\)</span></td>
+<td><span class="arithmatex">\(\gamma_0\)</span>, ..., <span class="arithmatex">\(\gamma_n\)</span></td>
+<td>#bins</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>staterror</code> modifier is a special subtype of <code>shapefactor</code>, where the mean of the constraint is given as the sum of the predictions of all the samples carrying a <code>staterror</code> modifier in this bin. 
+The way modifiers affect the yield in the corresponding bin is subject to an interpolation function. The <code>overallsys</code> and <code>histosys</code> modifiers thus allow for an additional key <code>interpolation</code>, which identifies one of the following functions: </p>
+<ul>
+<li><code>lin</code>: <span class="arithmatex">\(\begin{cases}     y_{\textit{nominal}} + x \cdot (y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x\geq0\\     y_{\textit{nominal}} + x \cdot (y_{\textit{nominal}} - y_{\textit{low}}) \text{ if } x&lt;0     \end{cases}\)</span> </li>
+<li><code>log</code>: <span class="arithmatex">\(\begin{cases}     y_{\textit{nominal}} \cdot \left(\frac{y_{\textit{high}}}{y_{\textit{nominal}}}\right)^x \text{ if } x\geq0\\     y_{\textit{nominal}} \cdot \left(\frac{y_{\textit{low}}}{y_{\textit{nominal}}}\right)^{-x}\text{ if } x&lt;0     \end{cases}\)</span> </li>
+<li><code>parabolic</code>: <span class="arithmatex">\(\begin{cases}     y_{\textit{nominal}} + (2s+d)\cdot(x-1)+(y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x&gt;1\\     y_{\textit{nominal}} - (2s-d)\cdot(x+1)+(y_{\textit{low}} - y_{\textit{nominal})}\text{ if } x&lt;-1\\     s \cdot x^2 + d\cdot x  \text{ otherwise}     \end{cases}\)</span>\     with     <span class="arithmatex">\(s=\frac{1}{2}(y_{\textit{high}} + y_{\textit{low}}) - y_{\textit{nominal}}\)</span>     and <span class="arithmatex">\(d=\frac{1}{2}(y_{\textit{high}} - y_{\textit{low}})\)</span> </li>
+<li><code>poly6</code>: <span class="arithmatex">\(\begin{cases}     y_{\textit{nominal}} + x \cdot (y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x&gt;1\\     y_{\textit{nominal}} + x \cdot (y_{\textit{nominal}} - y_{\textit{low}}) \text{ if } x&lt;-1\\     y_{\textit{nominal}} + x \cdot (S + x \cdot A \cdot (15 + x^2 \cdot (3x^2-10))) \text{ otherwise}     \end{cases}\)</span>\     with <span class="arithmatex">\(S = \frac{1}{2}(y_{\textit{high}} - y_{\textit{low}})\)</span> and     <span class="arithmatex">\(A=\frac{1}{16}(y_{\textit{high}} + y_{\textit{low}} - 2\cdot y_{\textit{nominal}})\)</span> </li>
+</ul>
+<p>Modifiers can be constrained. This is indicated by the component <code>constraint</code>, which identifies the type of the constraint term. In essence, the likelihood picks up a penalty term for changing the corresponding parameter too far away from its nominal value. The nominal value is, by convention, defined by the type of constraint, and is 0 for all modifiers of type <code>sys</code> (<code>histosys</code>, <code>normsys</code>) and is 1 for all modifiers of type <code>factor</code> (<code>normfactor</code>, <code>shapefactor</code>). The strength of the constraint is always such that the standard deviation of constraint distribution is <span class="arithmatex">\(1\)</span>. </p>
+<p>The supported constraint distributions, also called constraint types, are <code>Gauss</code> for a gaussian with unit width (a gaussian distribution with a variance of <span class="arithmatex">\(1\)</span>), <code>Poisson</code> for a unit Poissonian (e.g. a continous Poissonian with a central value 1), or <code>LogNormal</code> for a unit LogNormal,. If a constraint is given, a corresponding distribution will be considered in addition to the <code>aux_likelihood</code> section of the likelihood, constraining the parameter to its nominal value. </p>
+<p>An exception to this is provided by the <code>staterror</code> modifier as described above, and the <code>shapesys</code> for which a Poissonian constraint is defined with the central values defined as the squares of the values defined in <code>vals</code>. </p>
+<p>The components of a HistFactory distribution are: </p>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>histfactory_yield</code> </li>
+<li><code>axes</code>: array of structs representing the axes. If given each struct     needs to have the component <code>name</code>. Further,     (<span class="smallcaps">optional</span>) components are <code>max</code>, <code>min</code> and <code>nbins</code>,     or, alternatively, <code>edges</code>. The definition of the axes follows the     format for binned data (see Section 
+    <a href="#sec:binned-data" reference="sec:binned-data" reference-type="ref">Binned Data</a>). </li>
+<li><code>samples</code>: array of structs containing the samples of this channel.     For details see below. 
+Struct of one sample: </li>
+<li><code>name</code>: (<span class="smallcaps">optional</span>) custom string, unique within this     function </li>
+<li><code>data</code>: struct containing the components <code>contents</code> and <code>errors</code>,     depicting the data contents and their errors. Both components are     arrays of the same length. </li>
+<li><code>modifiers</code>: array of structs with each struct containing a     component <code>type</code> of the modifier, as well as a component <code>parameter</code>     (defining a string) or a component <code>parameters</code> (defining an array     of strings) relating to the name or names of parameters controlling     this modifier. Further (<span class="smallcaps">optional</span>) components are     <code>data</code> and <code>constraint</code>, both depending on the type of modifier. For     details on these components, see the description above. 
+Two modifiers are correlated exactly if they share the same parameters as indicated by <code>parameter</code> or <code>parameters</code>. In such a case, it is mandatory that they share the same constraint term. If this is not the case, the behavior is undefined. </li>
+</ul>
+<div class="highlight"><span class="filename">HistFactory</span><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myAnalysisChannel&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;histfactory_dist&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;axes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myRegion&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;nbins&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;myChannel1&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;samples&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">           </span><span class="p">{</span><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mySignal&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;contents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;errors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="nt">&quot;modifiers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                 </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lumi&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;normfactor&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                 </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mu_signal_strength&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;normfactor&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                 </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;constraint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Gauss&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;hi&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;lo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_normalization_systematic_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;normsys&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                 </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;constraint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Poisson&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;gamma_stat_1&quot;</span><span class="p">,</span><span class="s2">&quot;gamma_stat_2&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;staterror&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                 </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;constraint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Gauss&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;hi&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;contents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">-2.5</span><span class="p">,</span><span class="w"> </span><span class="mf">-3.1</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;lo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;contents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">2.2</span><span class="p">,</span><span class="w"> </span><span class="mf">3.7</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_correlated_shape_systematic_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;histosys&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                 </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;constraint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Poisson&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;vals&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.2</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_uncorrelated_shape_systematic_2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shapesys&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                   </span><span class="p">]</span>
+<span class="w">           </span><span class="p">},</span>
+<span class="w">               </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myBackground&quot;</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span>
+<span class="w">         </span><span class="p">]</span>
+<span class="p">}</span><span class="w"> </span>
+</code></pre></div>
+<h4 id="relativistic-breit-wigner-distribution">Relativistic Breit-Wigner distribution<a class="headerlink" href="#relativistic-breit-wigner-distribution" title="Permanent link">&para;</a></h4>
+<p>The describes the lineshape of a resonance studies in the mass spectrum of two particle system. It is assumed that the resonance can decay into a list of channels. 
+The first channel in the list indicates the system for which mass distribution is modelled. </p>
+<div class="arithmatex">\[
+\begin{aligned}  \label{eq:relativistic_breit_wigner_dist} \text{BreitWignerPDF}(m, m_\text{BW}) &amp;= \frac{1}{\ensuremath{\mathcal{M}}}\frac{m \Gamma_1(m)}{\left|m_\text{BW}^2-m^2 - i m_\text{BW} \Gamma(m)\right|^2} ,\\ \nonumber \Gamma(m) &amp;= \sum_i \Gamma_i(m) ,\\ \nonumber \end{aligned} 
+\]</div>
+<p>When modelling the mass spectrum, the term <span class="arithmatex">\(m\)</span> in the numerator of 
+Eq. <a href="#eq:relativistic_breit_wigner_dist" reference="eq:relativistic_breit_wigner_dist" reference-type="eqref">(Breit-Wigner)</a> accounts for a jacobian of transformation from <span class="arithmatex">\(m^2\)</span> to <span class="arithmatex">\(m\)</span>. The width term <span class="arithmatex">\(\Gamma_1(m)\)</span> adds for the phase space factor for the channel of interest </p>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>relativistic_breit_wigner_dist</code> </li>
+<li><code>mass</code>: name of the mass variable <span class="arithmatex">\(m_\text{BW}\)</span> </li>
+<li><code>channels</code>: list of <code>structs</code> encoding the channels </li>
+</ul>
+<p>Each of the channels is defined by the partial width <span class="arithmatex">\(\Gamma_i(m)\)</span>, given as </p>
+<div class="arithmatex">\[
+\begin{aligned} \Gamma_i(m) &amp;= \Gamma_{\text{BW},i}  n_{li}^2(m)\rho_i(m) ,\\ \nonumber \rho_i(m) &amp;= 2q_i(m)/m ,\\ \nonumber q_i(m) &amp;= \sqrt{(m^2-(m_{1i}+m_{2i})^2)(m^2-(m_{1i}-m_{2i})^2)} / (2m) ,\\ \nonumber n_{li}(m) &amp;= z_i^{li}(m)   h_{li}(z_i(m)) ,\\ \nonumber z_i(m) &amp;= q_i(m)R_i  \end{aligned} 
+\]</div>
+<p>The <span class="arithmatex">\(h_l(z)\)</span> is the standard Blatt-Weisskopf form-factors, <span class="arithmatex">\(h_0^2(z) = 1/(1+z^2)\)</span>, <span class="arithmatex">\(h_1^2(z) = 1/(9+3z^2+z^4)\)</span>, and so on (Eqs.(50.30-50.35) in Ref.&nbsp;<sup id="fnref:pdg2023"><a class="footnote-ref" href="#fn:pdg2023">14</a></sup>).\ The <code>struct</code>s defining the channels should contain the following keys: </p>
+<ul>
+<li><code>name</code>: name of the final state (<span class="smallcaps">optional</span>) </li>
+<li><code>Gamma</code>: partial width <span class="arithmatex">\(\Gamma_{\text{BW}}\)</span> of the resonance </li>
+<li><code>m1</code>: mass <span class="arithmatex">\(m_1\)</span> of the first particle the resonance decays into     (default value <span class="arithmatex">\(0\)</span>) </li>
+<li><code>m2</code>: mass <span class="arithmatex">\(m_2\)</span> of the second particle the resonance decays into     (default value <span class="arithmatex">\(0\)</span>) </li>
+<li><code>l</code>: orbital angular momentum <span class="arithmatex">\(l\)</span> (default value <span class="arithmatex">\(0\)</span>) </li>
+<li><code>R</code>: form-factor size parameter <span class="arithmatex">\(R\)</span> (default value <span class="arithmatex">\(3\)</span> GeV) 
+For non-zero angular momentum, <span class="arithmatex">\(\Gamma_i(m_\text{BW})\)</span> gives an approximation to the partial width of the resonance, not <span class="arithmatex">\(\Gamma_{\text{BW},i}\)</span>. 
+A commonly used approximation of the relativistic Breit-Wigner function with the constant width is a special case of the 
+Eq. <a href="#eq:relativistic_breit_wigner_dist" reference="eq:relativistic_breit_wigner_dist" reference-type="eqref">(Breit-Wigner)</a>, where the <code>[channels]</code> argument contains a single channel with <span class="arithmatex">\(m_1=0\)</span>, <span class="arithmatex">\(m_2=0\)</span>, and <span class="arithmatex">\(l=0\)</span>. </li>
+</ul>
+<h3 id="composite-distributions">Composite distributions<a class="headerlink" href="#composite-distributions" title="Permanent link">&para;</a></h3>
+<p>This section contains composite distributions in the sense that they refer to other distribution which they combine or modify in some way. 
+The of the mixture distribution, sometimes called additions of distributions, is a (weighted) sum of distributions <span class="arithmatex">\(f_i(\vec{x})\)</span>, depending on the same variable(s) <span class="arithmatex">\(\vec{x}\)</span>: </p>
+<h4 id="mixture-distribution">Mixture distribution<a class="headerlink" href="#mixture-distribution" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned} \text{MixturePdf}(x) = \frac{1}{\ensuremath{\mathcal{M}}}\sum_{i=1}^{n} c_i \cdot f_i(\vec{x}) , \end{aligned} 
+\]</div>
+<p>where the <span class="arithmatex">\(c_i\)</span> are coefficients and <span class="arithmatex">\(\vec{x}\)</span> is the vector of variables. </p>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>mixture_dist</code> </li>
+<li><code>name</code>: name of the variable <span class="arithmatex">\(x\)</span> (<span class="smallcaps">optional</span>, since the     variable is fully defined by the summands) </li>
+<li><code>summands</code>: array of names referencing distributions </li>
+<li><code>coefficients</code>: array of names of coefficients <span class="arithmatex">\(c_i\)</span> or numbers to     be added </li>
+<li><code>extended</code>: boolean denoting whether this is an extended     distribution (<span class="smallcaps">optional</span>, as it can be inferred from the     lengths of the lists for <code>summands</code> and <code>coefficients</code>) 
+This distribution can be treated as extended or as non-extended. </li>
+<li>If the number of coefficients equals the number of distributions and     'extended' is 'false', then the sum of the coefficient must be     (approximately) one. </li>
+<li>If the number of coefficients equals the number of distributions and     'extended' is 'true', then the sum of the coefficients will be used     as the Poisson rate parameter and the mixture distribution itself     will use the coefficients normalized by their sum. </li>
+<li>If the number of coefficients is one less than the number of     distributions, then 'extended' must be 'false' and <span class="arithmatex">\(c_n\)</span> is computed     from the other coefficients as </li>
+</ul>
+<div class="arithmatex">\[
+\begin{aligned}     c_n &amp;= 1 - \sum_{i=1}^{n-1}c_i .     \end{aligned} 
+\]</div>
+<h4 id="sec:product-distribution" label="sec:product-distribution">Product distribution<a class="headerlink" href="#sec:product-distribution" title="Permanent link">&para;</a></h4>
+<p>The of the product of s of independent distributions <span class="arithmatex">\(f_i\)</span> is defined as </p>
+<div class="arithmatex">\[
+\begin{aligned} \text{ProductPdf}(x) &amp;= \frac{1}{\ensuremath{\mathcal{M}}}\prod_i^n f(x). \end{aligned} 
+\]</div>
+<ul>
+<li><code>name</code>: custom string </li>
+<li><code>type</code>: <code>product_dist</code> </li>
+<li><code>x</code>: name of the variable <span class="arithmatex">\(x\)</span> (<span class="smallcaps">optional</span>, since the     variable is fully defined by the factors) </li>
+<li><code>factors</code>: array of names referencing distributions 
+A distribution that is specified via a non-normalized density function <span class="arithmatex">\(f(x)\)</span>. Formally, it corresponds to the probability measure that has the density <span class="arithmatex">\(f(x)\)</span> in respect to the Lebesgue measure. 
+The density function is normalized automatically by <span class="arithmatex">\(\ensuremath{\mathcal{M}}= \int f(x) dx\)</span>, so the PDF of the distribution is </li>
+</ul>
+<h4 id="density-function-distribution">Density Function distribution<a class="headerlink" href="#density-function-distribution" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned} \text{DensityFunctionPdf}(f, x) &amp;= \frac{f(x)}{\ensuremath{\mathcal{M}}} \end{aligned} 
+\]</div>
+<p>The distribution can be specified either via the non-normalized density function <span class="arithmatex">\(f(x)\)</span> or via the non-normalized log-density function <span class="arithmatex">\(\log(f(x))\)</span>: </p>
+<ul>
+<li><code>density_function\_dist</code>$: Specified via the PDF <span class="arithmatex">\(f(x)\)</span> </li>
+<li><code>name</code>: custom string </li>
+<li><code>type</code>: <code>density_function_dist</code> </li>
+<li><code>function</code>: The density function <span class="arithmatex">\(f\)</span> </li>
+<li><code>log_density_function\_dist</code>: Specified via the PDF     <span class="arithmatex">\(f(x)\)</span> </li>
+<li><code>name</code>: custom string </li>
+<li><code>type</code>: <code>log_density_function_dist</code> </li>
+<li><code>function</code>: The density function <span class="arithmatex">\(f\)</span> </li>
+</ul>
+<h4 id="dist:poisson-point-process" label="dist:poisson-point-process">Poisson point process<a class="headerlink" href="#dist:poisson-point-process" title="Permanent link">&para;</a></h4>
+<p>A Poisson point process distribution is understood here as the distribution of the outcomes of a (typically inhomogeneous) Poisson point process. In particle physics, such a distribution is often called an extended distribution <sup id="fnref2:barlow-extended-ml"><a class="footnote-ref" href="#fn:barlow-extended-ml">9</a></sup>. 
+In HS<sup>3</sup>, a Poisson point process distribution is specified using a global-rate parameter <span class="arithmatex">\(\lambda\)</span> and an underlying distribution <span class="arithmatex">\(m\)</span>, either explicitly or implicitly (see below). 
+Random values are drawn from the Poisson point process distribution by drawing a random number <span class="arithmatex">\(n\)</span> from a Poisson distribution of the global-rate <span class="arithmatex">\(\lambda\)</span>, and then drawing <span class="arithmatex">\(n\)</span> random values from the underlying distribution <span class="arithmatex">\(m\)</span>. The resulting random values are vectors <span class="arithmatex">\(x\)</span> of length <span class="arithmatex">\(n\)</span>, so their length varies. 
+The PDF the Poisson point process distribution at an outcome <span class="arithmatex">\(x\)</span> (a vector of length <span class="arithmatex">\(n\)</span>) is </p>
+<div class="arithmatex">\[
+\begin{aligned} \text{PoissonPointProcessPdf}(\lambda, m, x) &amp;= \text{PoissonPdf}(n, \lambda) \cdot \prod_i^n \text{PDF}(m, x_i). \end{aligned} 
+\]</div>
+<p>In particle physics, the function <span class="arithmatex">\(\text{PoissonPointProcessPdf}(\lambda, m(\theta), x)\)</span>, for a fixed observation <span class="arithmatex">\(x\)</span> and varying parameters <span class="arithmatex">\(\lambda\)</span> and <span class="arithmatex">\(\theta\)</span>, is often called an extended likelihood. 
+A a poisson point process distribution can be specified in HS<sup>3</sup> in two ways: </p>
+<ul>
+<li>`rate_extended_dist$: The global-rate parameter <span class="arithmatex">\(\lambda\)</span>     and underlying distribution <span class="arithmatex">\(m\)</span> are specified explicitly: </li>
+<li><code>name</code>: custom string </li>
+<li><code>type</code>: <code>rate_extended_dist</code> </li>
+<li><code>rate</code>: The global rate <span class="arithmatex">\(\lambda\)</span> </li>
+<li><code>dist</code>: The underlying distribution <span class="arithmatex">\(m\)</span> </li>
+</ul>
+<p>The name of the variable <span class="arithmatex">\(x\)</span> is taken from the underlying     distribution. The underlying distribution <span class="smallcaps">must</span> not be     referred to from other components of the statistical model. </p>
+<ul>
+<li><code>rate_density_dist</code>: Specified via a non-normalized     rate-density function <span class="arithmatex">\(f\)</span>. Both the global-rate parameter and the     underlying distribution are implicit: <span class="arithmatex">\(\lambda = \int f(y) d y\)</span> and     <span class="arithmatex">\(m = \text{density_function_dist}(f)\)</span>. More formally, the distribution corresponds to the inhomogeneous     Poisson point process that is defined by a non-normalized rate     measure which has density <span class="arithmatex">\(f\)</span> in respect to the Lebesque measure. </li>
+<li><code>name</code>: custom string </li>
+<li><code>type</code>: <code>rate_density_dist</code> </li>
+<li><code>x</code>: name of the variable <span class="arithmatex">\(x\)</span> </li>
+<li><code>density</code>: The rate-density function <span class="arithmatex">\(f\)</span> </li>
+</ul>
+<h4 id="dist:bin-counts" label="dist:bin-counts">Bin count distribution<a class="headerlink" href="#dist:bin-counts" title="Permanent link">&para;</a></h4>
+<p>This is a binned version of the Poisson point process distribution 
+(<a href="#dist:poisson-point-process" reference="dist:poisson-point-process" reference-type="ref">Poisson point process</a>). Is is the distribution of the bin counts that result from histogramming the outcomes of a Poisson point process distribution using a given binning scheme (see 
+<a href="#sec:binned-data" reference="sec:binned-data" reference-type="ref">Binned Data</a>). 
+Like the Poisson point process distribution, a Bin-counts distribution can either be specified via a global-rate parameter <span class="arithmatex">\(\lambda\)</span> and an underlying distribution <span class="arithmatex">\(m\)</span>, or via a rate-density function <span class="arithmatex">\(f\)</span> (in which case <span class="arithmatex">\(\lambda\)</span> and <span class="arithmatex">\(m\)</span> are implicit). In addition, the binning scheme also has to be specified in either case, unless it can be inferred (see below). 
+For <span class="arithmatex">\(k\)</span> bins, this type of distribution corresponds to a product of <span class="arithmatex">\(k\)</span> Poisson distributions with rates </p>
+<div class="arithmatex">\[
+\begin{aligned} \nu_i &amp;= \lambda \cdot \int_{\text{bin}_i} \text{PDF}(y, m) dy \quad \text{equivalent to}\\ \nu_i &amp;= \int_{\text{bin}_i} f(y) dy \end{aligned} 
+\]</div>
+<p>The PDF the Bin-counts distribution at an outcome <span class="arithmatex">\(x\)</span> (a vector of length <span class="arithmatex">\(k\)</span>, same as the number of bins) is </p>
+<div class="arithmatex">\[
+\begin{aligned} \text{BinCountsPdf}(x) &amp;= \prod_i^k \text{PoissonPdf}(x_i, \nu_i) \end{aligned} 
+\]</div>
+<ul>
+<li><code>bincounts_extended_dist</code>: The global-rate parameter     <span class="arithmatex">\(\lambda\)</span> and underlying distribution <span class="arithmatex">\(m\)</span> are specified explicitly: </li>
+<li><code>name</code>: custom string </li>
+<li><code>type</code>: <code>bincounts_extended_dist</code> </li>
+<li><code>rate</code>: The global rate <span class="arithmatex">\(\lambda\)</span> </li>
+<li><code>dist</code>: The underlying distribution <span class="arithmatex">\(m\)</span> </li>
+<li><code>axes</code>: a definition of the binning to be used, following the         defintions in 
+    <a href="#sec:binned-data" reference="sec:binned-data" reference-type="ref">Binned data]</a>. <span class="smallcaps">optional</span> if <code>dist</code>         is a binned distribution, in which case the same binning is used         by default. </li>
+</ul>
+<p>The name of the variable <span class="arithmatex">\(x\)</span> is taken from the underlying     distribution. The underlying distribution <span class="smallcaps">must</span> not be     referred to from other components of the statistical model. 
+<code>bincounts_density_dist</code>: Specified via a non-normalized     rate-density function <span class="arithmatex">\(f\)</span>. Both the global-rate parameter and the     underlying distribution are implicit: <span class="arithmatex">\(\lambda = \int f(y) dy\)</span> and     <span class="arithmatex">\(m = \text{density_function_dist}(f)\)</span>. </p>
+<p>More formally, the distribution corresponds to the inhomogeneous     Poisson point process that is defined by a non-normalized rate     measure which has density <span class="arithmatex">\(f\)</span> in respect to the Lebesque measure. </p>
+<ul>
+<li><code>name</code>: custom string </li>
+<li><code>type</code>: <code>bincounts_density_dist</code> </li>
+<li><code>x</code>: name of the variable <span class="arithmatex">\(x\)</span> </li>
+<li><code>density</code>: The rate-density function <span class="arithmatex">\(f\)</span> </li>
+<li><code>axes</code>: a definition of the binning to be used, following the         defintions in 
+        <a href="#sec:binned-data" reference="sec:binned-data" reference-type="ref">Binned Data</a>. </li>
+</ul>
+<h2 id="sec:functions">Functions<a class="headerlink" href="#sec:functions" title="Permanent link">&para;</a></h2>
+<p>The top-level component <code>functions</code> describes an array of mathematical functions in struct format to be used as helper objects. Similar to distributions each entry is <span class="smallcaps">required</span> to have the components <code>type</code> and <code>name</code>. Other components are dependent on the kind of functions. The field <code>name</code> is <span class="smallcaps">required</span> and may be any custom unique string. Functions in general have the following components: </p>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: string that determines the kind of function, e.g. <code>sum</code> </li>
+<li><code>...</code>: each function has individual parameter keys for the various     individual parameters. For example, functions of type <code>sum</code> have the     parameter key <code>summands</code>. In general, these keys can describe     strings as references to other objects or numbers. Depending on the     parameter and the type of function, they appear either in single     item or array format. </li>
+</ul>
+<div class="highlight"><span class="filename">Example: Functions</span><pre><span></span><code><span class="nt">&quot;functions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sum1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sum&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;summands&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">1.8</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;param_xy&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">},</span><span class="w"> </span>
+<span class="w">    </span><span class="err">...</span><span class="w"> </span>
+<span class="w">    </span><span class="p">]</span>
+</code></pre></div>
+<p>In the following the implemented functions are described in detail. </p>
+<h3 id="product">Product<a class="headerlink" href="#product" title="Permanent link">&para;</a></h3>
+<p>A product of values or functions <span class="arithmatex">\(a_i\)</span>. </p>
+<div class="arithmatex">\[
+\begin{aligned} \text{Prod} &amp;= \prod_i^n a_i \end{aligned} 
+\]</div>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>product</code> </li>
+<li><code>factors</code>: array of names of the elements of the product or numbers. </li>
+</ul>
+<h3 id="sum">Sum<a class="headerlink" href="#sum" title="Permanent link">&para;</a></h3>
+<p>A sum of values or functions <span class="arithmatex">\(a_i\)</span>. </p>
+<div class="arithmatex">\[
+\begin{aligned} \text{Sum} &amp;= \sum_i^n a_i \end{aligned} 
+\]</div>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>sum</code> </li>
+<li><code>summands</code>: array of names of the elements of the sum or numbers. </li>
+</ul>
+<h3 id="generic-function">Generic Function<a class="headerlink" href="#generic-function" title="Permanent link">&para;</a></h3>
+<p><em>Note: Users should prefer the specific functions defined in this standard over generic functions where possible, as implementations of these will typically be more optimized. Generic functions should only be used if no equivalent specific distribution is defined.</em> 
+A generic function is defined by an expression. The expression must be a valid HS<sup>3</sup>-expression string (see Section 
+<a href="#sec:generic_expression" reference="sec:generic_expression" reference-type="ref">Generic Expressions</a>). </p>
+<ul>
+<li><code>name</code>: custom unique string </li>
+<li><code>type</code>: <code>generic_function</code> </li>
+<li><code>expression</code>: a string with a generic mathematical expression.     Simple mathematical syntax common to programming languages should be     used here, such as <code>x-2*y+z</code>. For any non-elementary operations, the     behavior is undefined. </li>
+</ul>
+<h2 id="sec:data">Data<a class="headerlink" href="#sec:data" title="Permanent link">&para;</a></h2>
+<p>The top-level component <code>data</code> contains an array of data sets in struct format. Each data set needs to contain the components <code>type</code> and <code>name</code>. Other components are dependent on the type of data set as demonstrated below: </p>
+<ul>
+<li><code>name</code>: custom string </li>
+<li><code>type</code>: string that determines the format of the observations </li>
+<li><code>...</code>: each type of observations has different parameter keys. Some     of these are <span class="smallcaps">optional</span> and marked accordingly in the     more detailed description below 
+A detailed description of the different types with examples can be found below. 
+While data, in most settings, has no uncertainty attached to it, this standard <em>does</em> allow to provide data with uncertainty, as there are some settings in which uncorrelated or correlated errors need to be taken into account. These include cases such as </li>
+<li>generated data obtained from importance sampling, including a     (potentially Gaussian) uncertainty from the frequency weights </li>
+<li>unfolded data, resulting from arbitrarily complex transformation     functions involving statistical models folding some degree of     uncertainty into the data points themselves 
+While it should always be preferred to publish "raw" data, allowing to include pre-processed data with corresponding uncertainties expands the possible applications considerably. </li>
+</ul>
+<h3 id="point-data">Point Data<a class="headerlink" href="#point-data" title="Permanent link">&para;</a></h3>
+<p>Point data describes a measurement of a single number, with a possible uncertainty (error). </p>
+<ul>
+<li><code>name</code>: custom string </li>
+<li><code>type</code>: <code>point</code> </li>
+<li><code>value</code>: value of this data point </li>
+<li><code>uncertainty</code>: (<span class="smallcaps">optional</span>) uncertainty of this data     point </li>
+</ul>
+<div class="highlight"><span class="filename">Example: Point Data</span><pre><span></span><code><span class="nt">&quot;data&quot;</span><span class="p">:[</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;data1&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;point&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mf">0.</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;uncertainty&quot;</span><span class="p">:</span><span class="mf">1.</span><span class="w"> </span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span>
+<span class="p">]</span>
+</code></pre></div>
+<h3 id="unbinned-data">Unbinned Data<a class="headerlink" href="#unbinned-data" title="Permanent link">&para;</a></h3>
+<p>Unbinned data describes a measurement of multiple data points in a possibly multi-dimensional space of variables. These data points can be weighted. </p>
+<ul>
+<li><code>name</code>: custom string </li>
+<li><code>type</code>: <code>unbinned</code> </li>
+<li><code>entries</code>: array of arrays containing the coordinates/entries of the     data </li>
+<li><code>axes</code>: array of structs representing the axes. Each struct     <span class="smallcaps">must</span> have the components <code>name</code> as well as <code>max</code> and     <code>min</code>. </li>
+<li><code>weights</code>: (<span class="smallcaps">optional</span>) array of values containing the     weights of the individual data points, to be used for <span class="arithmatex">\(\chi^2\)</span>     comparisons and fits. If this component is not given, weight 1 is     assumed for all data points. If given, the array needs to be of the     same length as <code>entries</code>. </li>
+<li><code>entries_uncertainties</code>: (<span class="smallcaps">optional</span>) array of arrays     containing the errors/uncertainties of each entry. If given, the     array needs to be of the same shape as <code>entries</code>. 
+<div class="highlight"><span class="filename">Example: Unbinned Data</span><pre><span></span><code><span class="nt">&quot;data&quot;</span><span class="p">:[</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;data1&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;unbinned&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;weights&quot;</span><span class="p">:[</span><span class="w"> </span><span class="mf">9.0</span><span class="p">,</span><span class="w"> </span><span class="mf">18.4</span><span class="w"> </span><span class="p">],</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;entries&quot;</span><span class="p">:[</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">9</span><span class="p">]</span><span class="w"> </span><span class="p">],</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;entries_uncertainties&quot;</span><span class="p">:[</span><span class="w"> </span><span class="p">[</span><span class="mf">0.3</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0.6</span><span class="p">]</span><span class="w"> </span><span class="p">],</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;axes&quot;</span><span class="p">:[</span><span class="w"> </span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;variable1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="mi">3</span><span class="w"> </span><span class="p">},</span><span class="w"> </span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;variable2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="mi">-10</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="mi">10</span><span class="w"> </span><span class="p">},</span><span class="w"> </span>
+<span class="w">            </span><span class="err">...</span><span class="w"> </span>
+<span class="w">        </span><span class="p">]</span><span class="w"> </span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span>
+<span class="w">    </span><span class="err">...</span><span class="w"> </span>
+<span class="p">]</span>
+</code></pre></div></li>
+</ul>
+<h3 id="sec:binned-data">Binned Data<a class="headerlink" href="#sec:binned-data" title="Permanent link">&para;</a></h3>
+<p>Binned data describes a histogram of data points with bin contents in a possibly multi-dimensional space of variables. Whether entries that fall precisely on the bin boundaries are sorted into the smaller or larger bin is under the discretion of the creator of the model and thus not defined. </p>
+<ul>
+<li><code>name</code>: custom string </li>
+<li><code>type</code>: <code>binned</code> </li>
+<li><code>contents</code>: array of values representing the contents of the binned     data set </li>
+<li><code>axes</code>: array of structs representing the axes. Each struct     <span class="smallcaps">must</span> have the component <code>name</code>. Further, it must     specify the binning through one of these two options: <ol>
+<li>regular binnings are specified through the components <code>max</code>,         <code>min</code> and <code>nbins</code> </li>
+<li>potentially irregular binnings are specified through the         component <code>edges</code>, which contains an array of length <span class="arithmatex">\(n+1\)</span>,         where the first and last entries denote the minimum and and         maximum of the variable, and all entries between denote the         intermediate bin boundaries. </li>
+</ol>
+</li>
+<li><code>uncertainty</code>: (<span class="smallcaps">optional</span>) struct representing the     uncertainty of the contents. It consists of up to three components: <ul>
+<li><code>type</code>: denoting the kind of uncertainty, for now only Gaussian         distributed uncertainties denoted as <code>gaussian_uncertainty</code> are         supported </li>
+<li><code>sigma</code>: array of the standard deviation of the entries in         <code>contents</code>. Needs to be of the same length as <code>contents</code> </li>
+<li><code>correlation</code>: (<span class="smallcaps">optional</span>) array of arrays denoting         the correlation between the contents in matrix format. Must be         of dimension length of <code>contents</code> <span class="arithmatex">\(\times\)</span> length of <code>contents</code>.         It can also be set to 0 to indicate no correlation. </li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><span class="filename">Example: Binned Data</span><pre><span></span><code><span class="nt">&quot;data&quot;</span><span class="p">:[</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;data2&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;binned&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;contents&quot;</span><span class="p">:[</span><span class="w"> </span><span class="mf">9.0</span><span class="p">,</span><span class="w"> </span><span class="mf">18.4</span><span class="w"> </span><span class="p">],</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;axes&quot;</span><span class="p">:[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;variable1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;nbins&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="mi">3</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w"> </span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;asimov_data2&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;binned&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;contents&quot;</span><span class="p">:[</span><span class="w"> </span><span class="mf">9.0</span><span class="p">,</span><span class="w"> </span><span class="mf">18.4</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="mf">0.</span><span class="w"> </span><span class="p">],</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;axes&quot;</span><span class="p">:[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;variable1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;nbins&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="mi">3</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;variable2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;edges&quot;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w"> </span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span>
+<span class="w">    </span><span class="err">...</span><span class="w"> </span>
+<span class="w">    </span><span class="p">]</span>
+</code></pre></div>
+<p>This type can also be used to store pre-processed data utilizing the <code>uncertainty</code> component </p>
+<div class="highlight"><span class="filename">Example: Pre-processed binned Data</span><pre><span></span><code><span class="nt">&quot;data&quot;</span><span class="p">:[</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;data4&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;binned&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;contents&quot;</span><span class="p">:[</span><span class="w"> </span><span class="mf">9.0</span><span class="p">,</span><span class="w"> </span><span class="mf">18.4</span><span class="w"> </span><span class="p">],</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;uncertainty&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gaussian_uncertainty&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="nt">&quot;correlation&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="nt">&quot;sigma&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;axes&quot;</span><span class="p">:[</span><span class="w"> </span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;variable1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;nbins&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="mi">3</span><span class="w"> </span><span class="p">},</span><span class="w"> </span>
+<span class="w">            </span><span class="err">...</span><span class="w"> </span>
+<span class="w">        </span><span class="p">]</span><span class="w"> </span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span>
+<span class="w">    </span><span class="err">...</span><span class="w"> </span>
+<span class="w">    </span><span class="p">]</span><span class="w"> </span>
+</code></pre></div>
+<h2 id="sec:likelihoods">Likelihoods<a class="headerlink" href="#sec:likelihoods" title="Permanent link">&para;</a></h2>
+<p>The top-level component <code>likelihoods</code> contains an array of likelihoods in struct format specifying mappings of distributions and observations. The corresponding distributions and observations are inserted as keys in string format referencing to distributions and observations defined in the respective top-level components, or as numbers for fixed data values. 
+The combination of parameterized distributions <span class="arithmatex">\(m_i(\theta_i)\)</span> with observations <span class="arithmatex">\(x_i\)</span> generates a likelihood function </p>
+<div class="arithmatex">\[
+\begin{aligned} \ensuremath{\mathscr{L}}(\theta_1, \theta_2, \ldots) &amp;=  \prod_i \text{PDF}(m_i(\theta_i), x_i) \end{aligned} 
+\]</div>
+<p>The components of a likelihood struct are: </p>
+<ul>
+<li><code>name</code>: custom string </li>
+<li><code>distributions</code>: array of strings referencing the considered     distributions </li>
+<li><code>data</code>: array of strings referencing the used data, must be of the     same length as the array of <code>distributions</code>. Alternatively, the     data-values for single-dimensional distributions can be given     in-line. For example, this can be used for constraint terms     representing auxiliary measurements. </li>
+<li><code>aux_distributions</code>: (<span class="smallcaps">optional</span>) array of strings     referencing the considered auxiliary distributions defined in the     top-level component <code>distributions</code>. They can be used to encode     regularizers or penalty terms to aid the minimization. These     observed data for these distributions is implicit and not part of     <code>data</code>. </li>
+</ul>
+<div class="highlight"><span class="filename">Example: Likelihoods</span><pre><span></span><code><span class="nt">&quot;likelihoods&quot;</span><span class="p">:[</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;likelihood1&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;distributions&quot;</span><span class="p">:[</span><span class="w"> </span><span class="s2">&quot;dist1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dist2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;single_dimensional_dist_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">],</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w">         </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;data1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;data2&quot;</span><span class="p">,</span><span class="w">                           </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">],</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;aux_distributions&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;regularization_term&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">},</span><span class="w"> </span>
+<span class="w">        </span><span class="err">...</span><span class="w"> </span>
+<span class="w">    </span><span class="p">]</span><span class="w"> </span>
+</code></pre></div>
+<h2 id="sec:domains">Domains<a class="headerlink" href="#sec:domains" title="Permanent link">&para;</a></h2>
+<p>The top-level component <code>domains</code> contains an array of domains giving information on the ranges of parameters and variables in struct format. Within a specified domain, the corresponding model is expected to yield valid values. Each domain must contain a <code>name</code> and a <code>type</code> although right now only the <code>product_domain</code> type is supported, even though others like e. g.&nbsp;a simplex domain might be added later. A domain consists of the following components: </p>
+<ul>
+<li><code>name</code>: custom string </li>
+<li><code>type</code>: <code>product_domain</code> </li>
+<li><code>axes</code>: array of parameters and variables in this domain (see below) 
+The component <code>axes</code> itself is an array of ranges each containing the components <code>min</code>, <code>max</code> and <code>name</code>. </li>
+<li><code>name</code>: custom string </li>
+<li><code>max</code>: upper bound of range </li>
+<li><code>min</code>: lower bound of range </li>
+</ul>
+<div class="highlight"><span class="filename">Example: Domains</span><pre><span></span><code><span class="nt">&quot;domains&quot;</span><span class="p">:[</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;domain1&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;product_domain&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;axes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;par_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;max&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;min&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="p">},</span><span class="w"> </span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;par_2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;max&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">4.78</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;min&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="p">},</span><span class="w"> </span>
+<span class="w">            </span><span class="err">...</span><span class="w"> </span>
+<span class="w">            </span><span class="p">]</span><span class="w"> </span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span>
+<span class="w">    </span><span class="err">...</span><span class="w"> </span>
+<span class="p">]</span>
+</code></pre></div>
+<h2 id="sec:parameterpoints">Parameter points<a class="headerlink" href="#sec:parameterpoints" title="Permanent link">&para;</a></h2>
+<p>The top-level component <code>parameter_points</code> contains an array of parameter configurations. These can be starting values for minimizations, parameter settings used to generate toy data, best-fit-values obtained, or points in parameter space used for different purposes. </p>
+<ul>
+<li><code>name</code>: custom string </li>
+<li><code>parameters</code>: array of parameter structs (see below) 
+The component <code>parameters</code> is an array of components each containing: </li>
+<li><code>name</code>: custom string </li>
+<li><code>value</code>: number, value of variable </li>
+<li><code>const</code>: (<span class="smallcaps">optional</span>) boolean, whether variable is     constant or not. Default is <code>false</code>. </li>
+</ul>
+<div class="highlight"><span class="filename">Example: Parameter points</span><pre><span></span><code><span class="nt">&quot;parameter_points&quot;</span><span class="p">:[</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;starting_values&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;par_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">},</span><span class="w"> </span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;par_2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;const&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">},</span><span class="w"> </span>
+<span class="w">            </span><span class="err">...</span><span class="w"> </span>
+<span class="w">            </span><span class="p">]</span><span class="w"> </span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span>
+<span class="w">    </span><span class="err">...</span><span class="w"> </span>
+<span class="p">]</span><span class="w"> </span>
+</code></pre></div>
+<h2 id="sec:analyses">Analyses<a class="headerlink" href="#sec:analyses" title="Permanent link">&para;</a></h2>
+<p>The top-level component <code>analyses</code> contains an array of possible (automated) analyses. To that extent, likelihoods, parameters of interest and the affiliated domains are listed. Description of the components: </p>
+<ul>
+<li><code>name</code>: long custom string </li>
+<li><code>likelihood</code>: name as reference to a likelihood defined in the top-level component <code>likelihoods</code> </li>
+<li><code>parameter_of_interest</code>: (<span class="smallcaps">optional</span>) array of names as reference to parameters that are interesting for the analysis at hand </li>
+<li><code>domain</code>: name of a domain to be used for the parameters, defined in the top-level component <code>domains</code> </li>
+<li><code>init</code>: (<span class="smallcaps">optional</span>) name of an initial value to be used, defined in the top-level component <code>parameter_points</code> </li>
+<li><code>prior</code>: (<span class="smallcaps">optional</span>) name of a prior distribution, defined in the top-level component <code>distributions</code>. This is only used for Bayesian interpretations and should not be confused with auxiliary distributions listed in the likelihood section. The prior could, for example, be a product distribution of all the individual priors. If for any parameter, both a prior and a parameter domain are given, the prior should be truncated to the given parameter domain. Otherwise, implicit flat priors over the given parameter domain are assumed. </li>
+</ul>
+<p>All parameters of all distributions in the likelihood must either be listed under the domain referenced, or set to <code>const</code> in the parameter point referenced. </p>
+<div class="highlight"><span class="filename">Example: Analyses</span><pre><span></span><code><span class="nt">&quot;analyses&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;analysis1&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;likelihood&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;likelihood1&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;aux_likelihood_terms&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;distribtion_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;distribution_2&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="p">]</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;parameters_of_interest&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;param1&quot;</span><span class="p">],</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;domain&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;domain1&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;init&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;starting_values&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;prior&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;prior_dist&quot;</span><span class="w"> </span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span>
+<span class="w">    </span><span class="err">...</span><span class="w"> </span>
+<span class="p">]</span>
+</code></pre></div>
+<h2 id="sec:metadata">Metadata<a class="headerlink" href="#sec:metadata" title="Permanent link">&para;</a></h2>
+<p>The top-level component <code>metadata</code> contains meta-information related to the creation of the file. The component <code>hs3_version</code> stores the HS<span class="arithmatex">\(^3\)</span> version and is <span class="smallcaps">required</span> for now. Overview of the components: </p>
+<ul>
+<li><code>hs3_version</code>: (<span class="smallcaps">required</span>) HS<span class="arithmatex">\(^3\)</span> version number as     String for reference </li>
+<li><code>packages</code>: (<span class="smallcaps">optional</span>) array of structs defining     packages and their version number used in the creation of this file,     depicted with the components <code>name</code> and <code>version</code> respectively </li>
+<li><code>authors</code>: (<span class="smallcaps">optional</span>) array of authors, either     individual persons, or collaborations </li>
+<li><code>publications</code>: (<span class="smallcaps">optional</span>) array of document     identifiers of publications associated with this file </li>
+<li><code>description</code>: (<span class="smallcaps">optional</span>) short abstract/description     for this file </li>
+</ul>
+<div class="highlight"><span class="filename">Example: Metadata</span><pre><span></span><code><span class="nt">&quot;metadata&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;hs3_version&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;packages&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ROOT&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6.28.02&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">],</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;authors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;The ATLAS Collaboration&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;The CMS Collaboration&quot;</span><span class="p">],</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;publications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;doiABCDEFG&quot;</span><span class="p">]</span>
+<span class="p">}</span><span class="w"> </span>
+</code></pre></div>
+<h2 id="sec:misc">Miscellaneous<a class="headerlink" href="#sec:misc" title="Permanent link">&para;</a></h2>
+<p>The top-level component <code>misc</code> can contain arbitrary, user-created information in struct format. </p>
+<div class="highlight"><span class="filename">Example: Miscellaneous</span><pre><span></span><code><span class="nt">&quot;misc&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;customkey1&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;custom information 1&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;myPackage_internal&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;somekey&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;custom info only affecting myPackage&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&quot;default_color_for_all_curves&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;fuchsia&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span>
+</code></pre></div>
+<p>This top-level component is intended to store any and all additional information, including user- or backend-specific meta-information. Examples include, but are not limited to: 
+-   colors and styles for drawing distributions in this file 
+-   suggested settings for samplers or minimizers when working with the     distributions in this file 
+-   comments explaining design choices made when building the model in     this file 
+-   suggested names and paths for output files to be used by backends     working with this file </p>
+<h1 id="supplementary-material">Supplementary Material<a class="headerlink" href="#supplementary-material" title="Permanent link">&para;</a></h1>
+<p>This section contains supplementary material referenced in section 
+<a href="#sec:toplevel" reference="sec:toplevel" reference-type="ref">[sec:toplevel]</a> </p>
+<h2 id="sec:generic_expression">Generic Expressions<a class="headerlink" href="#sec:generic_expression" title="Permanent link">&para;</a></h2>
+<p>This section details the HS<sup>3</sup> <em>generic expression</em> language. 
+Expressions can be use to specify generic functions and generic distributions. 
+The implementations that support generic expression <span class="smallcaps">must</span> support: </p>
+<ul>
+<li>Literal integer (format <code>1234</code>), boolean (format <code>TRUE</code> and <code>FALSE</code>)     and floating point (format <code>123.4</code>, <code>1.234e2</code> and <code>1.234E2</code>) values. </li>
+<li>Literal values for <span class="arithmatex">\(\pi\)</span> (<code>PI</code>) and Euler's number (<code>EULER</code>). </li>
+<li>The arithmetic operators addition (<code>x + y</code>), subtraction (<code>x - y</code>),     multiplication (<code>x * y</code>), division (<code>x / y</code>) and exponentiation     (<code>x^y</code>). </li>
+<li>The comparison operators approximately-equal (<code>x == y</code>),     exactly-equal (<code>x === y</code>), not-approximately-equal (<code>x != y</code>),     not-exactly-equal (<code>x !== y</code>), less-than (<code>x &lt; y</code>), less-or-equal     (<code>x &lt;= y</code>), greater-than (<code>x &gt;= y</code>) and greater-or-equal (<code>x &gt;= y</code>). </li>
+<li>The logical operators logical-inverse (<code>!a</code>), logical-and     (<code>a &amp;&amp; b</code>), logical-or (<code>a || b</code>), less-or-equal (<code>a &lt;= b</code>),     greater-than (<code>a &gt;= b</code>) and greater-or-equal (<code>a &gt;= b</code>). </li>
+<li>Round brackets to specify the order of operations. </li>
+<li>The ternary operator <code>condition ? result_if_true : result_if_false</code> </li>
+<li>The functions <ul>
+<li><code>exp(x)</code>: Euler's number raised to the power of <code>x</code> </li>
+<li><code>log(x)</code>: Natural logarithm of <code>x</code> </li>
+<li><code>sqrt(x)</code>: The square root of <code>x</code> </li>
+<li><code>abs(x)</code>: The absolute value of <code>x</code> </li>
+<li><code>pow(x, y)</code>: <code>x</code> raised to the power of <code>y</code> </li>
+<li><code>pow(x, y)</code>: <code>x</code> raised to the power of <code>y</code> </li>
+<li><code>min(x, y)</code>: minimum of <code>x</code> and <code>y</code> </li>
+<li><code>max(x, y)</code>: maximum of <code>x</code> and <code>y</code> </li>
+<li><code>sin(x)</code>: The sine of <code>x</code> </li>
+<li><code>cos(x)</code>: The cosine of <code>x</code> </li>
+<li><code>tan(x)</code>: The tangent of <code>x</code> </li>
+<li><code>asin(x)</code>: The inverse sin of <code>x</code> </li>
+<li><code>acos(x)</code>: The inverse cosine of <code>x</code> </li>
+<li><code>atan(x)</code>: The inverse tangent of <code>x</code> </li>
+</ul>
+</li>
+</ul>
+<p>Symbols not defined here refer to variables in the HS<sup>3</sup> model. 
+The operator precedence and associativity is acorrding to the common conventions. 
+Spaces between operators and operands are optional. There must be no space between a function name and the function arguments, spaces between function arguments are optional (<code>f(a, b)</code> and <code>f(a,b)</code> are correct but <code>f (a, b)</code> is not allowed). </p>
+<p>Division <span class="smallcaps">must</span> be treated as floating-point division (i.e. <code>2/3</code> should be equivalent to <code>2.0/3.0</code>). </p>
+<p>The approximately-equal (<code>a == b</code>) and the not-approximately-equal operator (<code>a != b</code>), <span class="smallcaps">should</span> compare floating-point numbers to within a small multiple of the unit of least precision. 
+The behavior of any functions and operators not listed above is not defined, they are reserved for future versions of this standard. Implementations <span class="smallcaps">may</span> support additional functions and operators as experimental features, but their use is considered non-standard and results in non-portable and potentially non-forward-compatible HS<sup>3</sup> documents. </p>
+<h1 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h1>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>The variation consists of summarizing all contributions in the     stack to a single contribution as far as treatment of the     statistical uncertainties is concerned.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:cc0">
+<p>Creative Commons. Cc0 license. URL: <a href="https://creativecommons.org/publicdomain/zero/1.0">https://creativecommons.org/publicdomain/zero/1.0</a>.&#160;<a class="footnote-backref" href="#fnref:cc0" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:Cranmer_2022">
+<p>Kyle Cranmer, Sabine Kraml, Harrison Prosper, Philip Bechtle, Florian Bernlochner, Itay M. Bloch, Enzo Canonero, Marcin Chrzaszcz, Andrea Coccaro, Jan Conrad, Glen Cowan, Matthew Feickert, Nahuel Ferreiro, Andrew Fowlie, Lukas A. Heinrich, Alexander Held, Thomas Kuhr, Anders Kvellestad, Maeve Madigan, Farvah Nazila Mahmoudi, Knut Dundas Morå, Mark S. Neubauer, Maurizio Pierini, Juan Rojo, Sezen Sekmen, Luca Silvestrini, Veronica Sanz, Giordon H. Stark, Riccardo Torre, Robert Thorne, Wolfgang Waltenberger, Nicholas Wardle, and Jonas Wittbrodt. Publishing statistical models: getting the most out of particle physics experiments. <em>SciPost Physics</em>, January 2022. URL: <a href="http://dx.doi.org/10.21468/SciPostPhys.12.1.037">http://dx.doi.org/10.21468/SciPostPhys.12.1.037</a>, <a href="https://doi.org/10.21468/scipostphys.12.1.037">doi:10.21468/scipostphys.12.1.037</a>.&#160;<a class="footnote-backref" href="#fnref:Cranmer_2022" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:pyhf">
+<p>Lukas Heinrich, Matthew Feickert, and Giordon Stark. Pyhf. URL: <a href="https://github.com/scikit-hep/pyhf/releases/tag/v0.7.0">https://github.com/scikit-hep/pyhf/releases/tag/v0.7.0</a>, <a href="https://doi.org/10.5281/zenodo.1169739">doi:10.5281/zenodo.1169739</a>.&#160;<a class="footnote-backref" href="#fnref:pyhf" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:pyhf-joss">
+<p>Lukas Heinrich, Matthew Feickert, Giordon Stark, and Kyle Cranmer. Pyhf: pure-python implementation of histfactory statistical models. <em>Journal of Open Source Software</em>, 6(58):2823, 2021. URL: <a href="https://doi.org/10.21105/joss.02823">https://doi.org/10.21105/joss.02823</a>, <a href="https://doi.org/10.21105/joss.02823">doi:10.21105/joss.02823</a>.&#160;<a class="footnote-backref" href="#fnref:pyhf-joss" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:root">
+<p>The ROOT Team. Root-project/root. March 2022.&#160;<a class="footnote-backref" href="#fnref:root" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:rfc2119">
+<p>Scott O. Bradner. Key words for use in RFCs to Indicate Requirement Levels. RFC 2119, March 1997. URL: <a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>, <a href="https://doi.org/10.17487/RFC2119">doi:10.17487/RFC2119</a>.&#160;<a class="footnote-backref" href="#fnref:rfc2119" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:json">
+<p>The JSON data interchange syntax. ISO/IEC 21778, November 2017. URL: <a href="https://www.iso.org/standard/71616.html">https://www.iso.org/standard/71616.html</a>.&#160;<a class="footnote-backref" href="#fnref:json" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:barlow-extended-ml">
+<p>Roger Barlow. Extended maximum likelihood. <em>Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment</em>, 297(3):496&ndash;506, 1990. URL: <a href="https://www.sciencedirect.com/science/article/pii/0168900290913348">https://www.sciencedirect.com/science/article/pii/0168900290913348</a>, <a href="https://doi.org/https://doi.org/10.1016/0168-9002(90)91334-8">doi:https://doi.org/10.1016/0168-9002(90)91334-8</a>.&#160;<a class="footnote-backref" href="#fnref:barlow-extended-ml" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:barlow-extended-ml" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:asymptotics">
+<p>Glen Cowan, Kyle Cranmer, Eilam Gross, and Ofer Vitells. Asymptotic formulae for likelihood-based tests of new physics. <em>Eur. Phys. J. C</em>, 71:1554, 2011. [Erratum: Eur.Phys.J.C 73, 2501 (2013)]. <a href="https://arxiv.org/abs/1007.1727">arXiv:1007.1727</a>, <a href="https://doi.org/10.1140/epjc/s10052-011-1554-0">doi:10.1140/epjc/s10052-011-1554-0</a>.&#160;<a class="footnote-backref" href="#fnref:asymptotics" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:hf">
+<p>Kyle Cranmer, George Lewis, Lorenzo Moneta, Akira Shibata, and Wouter Verkerke. HistFactory: A tool for creating statistical models for use with RooFit and RooStats. Technical Report, New York U., New York, January 2012. URL: <a href="https://cds.cern.ch/record/1456844">https://cds.cern.ch/record/1456844</a>.&#160;<a class="footnote-backref" href="#fnref:hf" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:atlashzz">
+<p>ATLAS Collaboration. Measurement of inclusive and differential cross sections in the $H \rightarrow ZZ^* \rightarrow 4\ell $ decay channel in <span class="arithmatex">\(pp\)</span> collisions at <span class="arithmatex">\(\\sqrt s=13\)</span> TeV with the ATLAS detector. <em>JHEP</em>, 10:132, 2017. <a href="https://arxiv.org/abs/1708.02810">arXiv:1708.02810</a>, <a href="https://doi.org/10.1007/JHEP10(2017)132">doi:10.1007/JHEP10(2017)132</a>.&#160;<a class="footnote-backref" href="#fnref:atlashzz" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:barlowbeeston">
+<p>Roger Barlow and Christine Beeston. Fitting using finite monte carlo samples. <em>Computer Physics Communications</em>, 77(2):219&ndash;228, 1993. URL: <a href="https://www.sciencedirect.com/science/article/pii/001046559390005W">https://www.sciencedirect.com/science/article/pii/001046559390005W</a>, <a href="https://doi.org/https://doi.org/10.1016/0010-4655(93)90005-W">doi:https://doi.org/10.1016/0010-4655(93)90005-W</a>.&#160;<a class="footnote-backref" href="#fnref:barlowbeeston" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+</li>
+<li id="fn:pdg2023">
+<p>R. L. Workman and Others. Review of Particle Physics. <em>PTEP</em>, 2022:083C01, 2022. <a href="https://doi.org/10.1093/ptep/ptac097">doi:10.1093/ptep/ptac097</a>.&#160;<a class="footnote-backref" href="#fnref:pdg2023" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "content.code.copy", "content.code.annotate", "content.tabs.link", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>
