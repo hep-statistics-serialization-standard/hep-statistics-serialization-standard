@@ -2,11 +2,11 @@ name: Deploy MkDocs
 
 on:
   push:
-    branches: [ master, main ]   # your default branch is 'master'
+    branches: [ master, main ]
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: write   # needed by peaceiris/actions-gh-pages
 
 jobs:
   build-deploy:
@@ -17,11 +17,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install mkdocs mkdocs-material pymdown-extensions
+          pip install -r mkdocs-requirements.txt
 
       - name: Build site
         run: mkdocs build --strict

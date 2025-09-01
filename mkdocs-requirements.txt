@@ -1,0 +1,12 @@
+# Core MkDocs
+mkdocs>=1.6
+
+# Theme
+mkdocs-material>=9.5
+
+# Plugins
+mkdocs-include-markdown-plugin>=6.2
+mkdocs-bibtex>=2.15
+
+# Markdown extensions
+pymdown-extensions>=10.8
