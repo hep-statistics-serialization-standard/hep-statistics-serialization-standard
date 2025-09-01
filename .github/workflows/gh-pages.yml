@@ -1,8 +1,8 @@
-name: Build & Deploy Pages
+name: Build & Deploy MkDocs + PDF
 
 on:
   push:
-    branches: [ master, main ]
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -11,54 +11,66 @@ permissions:
   id-token: write
 
 jobs:
-  pdf:
-    name: Build PDF with Pandoc
+  build-pdf:
     runs-on: ubuntu-latest
-    # This container has pandoc + a full LaTeX environment
-    container: pandoc/latex:3.1
+    # Use your prebuilt image from the manual workflow
+    container:
+      image: ghcr.io/${{ github.repository }}/pdf-builder:latest
+      # If private image, uncomment:
+      # credentials:
+      #   username: ${{ github.actor }}
+      #   password: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      # If you prefer not to use the Makefile, you can run pandoc directly.
-      - name: Build PDF (Makefile)
-        env:
-          PANDOC_RESOURCE_PATH: docs
+      - uses: actions/checkout@v4
+      - name: Build PDF
         run: make pdf
-
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
-          name: hs3-pdf
+          name: pdf
           path: hs3.pdf
-          if-no-files-found: error
 
-  build:
+  build-site:
+    needs: build-pdf
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
-          cache-dependency-path: mkdocs-requirements.txt
-      - name: Install deps
+
+        # Install your site deps (adjust as needed)
+      - name: Install MkDocs
         run: |
-          python -m pip install --upgrade pip
-          pip install -r mkdocs-requirements.txt
+          pip install --upgrade pip
+          pip install mkdocs mkdocs-material
+
+      - name: Ensure files dir exists
+        run: mkdir -p docs/files
+
+      - name: Download PDF artifact into docs/
+        uses: actions/download-artifact@v4
+        with:
+          name: pdf
+          path: docs/files
+
       - name: Build site
-        run: mkdocs build --strict
-      - name: Upload artifact
+        run: mkdocs build --site-dir site
+
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
   deploy:
-    needs: build
+    needs: build-site
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
+      - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
