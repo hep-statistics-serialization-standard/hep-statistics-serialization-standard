@@ -25,7 +25,7 @@ plugins:
   - bibtex:
       bib_file: docs/hs3.bib
       bib_by_default: false
-      cite_inline: true
+      enable_inline_citations: true 
 
 nav:
   - Home: main.md
