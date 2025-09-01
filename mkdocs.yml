@@ -46,6 +46,8 @@ nav:
   - Appendix:
       - Supplementary: chapters/3_supplementary.md
       - Generic Expressions: chapters/3.1_generic_expressions.md
+  - PDF version: files/hs3.pdf
+    
 
 hooks:
   - tools/strip_front_matter.py
