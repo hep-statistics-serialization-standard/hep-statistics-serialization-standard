@@ -1,7 +1,7 @@
 name: Build PDF
 
 on:
-  push:        # run on every branch push
+  push:        # run on every branch
   pull_request:
 
 jobs:
@@ -11,6 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install make (inside container)
+        run: |
+          apt-get update
+          apt-get install -y make
+
       - name: Build PDF
         run: make pdf
 
@@ -18,4 +23,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pdf
-          path: hs3.pdf   # adjust if your Makefile outputs a different filename
+          path: hs3.pdf   # adjust to your output filename
