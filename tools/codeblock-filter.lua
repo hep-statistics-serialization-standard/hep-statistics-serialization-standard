@@ -1,94 +1,55 @@
--- tools/codeblock-filter.lua
--- Recover inline code-fence titles like: ```json title="Example: …"
--- Pandoc tokenizes info string into classes; title may be split across tokens.
+-- Convert fenced code blocks with title="..." (or caption="...")
+-- into captioned listings (LaTeX) or figure-like blocks (HTML).
 
-local function extract_inline_title(classes)
-  local kept, found_title = {}, nil
-  local i, n = 1, #classes
-  while i <= n do
-    local c = classes[i]
-
-    -- Detect title="... or title='...
-    local q = c:match('^title=(["\'])')
-    if q then
-      local acc = c:match('^title=['..q..'](.*)$') or ""
-      -- closed on same token?
-      if acc:sub(-1) == q then
-        acc = acc:sub(1, -2)
-        found_title = acc
-      else
-        i = i + 1
-        while i <= n do
-          local c2 = classes[i]
-          acc = acc .. " " .. c2
-          if c2:sub(-1) == q then
-            acc = acc:sub(1, -2)
-            found_title = acc
-            break
-          end
-          i = i + 1
-        end
-      end
-      -- do not keep the consumed title tokens
-    else
-      -- Bare form: title=NoSpaces
-      local bare = c:match('^title=([^%s]+)$')
-      if bare and not found_title then
-        found_title = bare
-      else
-        kept[#kept+1] = c
-      end
-    end
-    i = i + 1
-  end
-  return found_title, kept
-end
-
-local function get_attr(el)
-  -- Pandoc 2.x: identifier/classes/attributes; Pandoc 3.x: el.attr
-  if el.attr then
-    return el.attr
-  else
-    return {
-      identifier = el.identifier or "",
-      classes    = el.classes or {},
-      attributes = el.attributes or {}
-    }
-  end
-end
-
-local function set_attr(el, attr)
-  if el.attr then
-    el.attr = attr
-  else
-    el.identifier = attr.identifier
-    el.classes    = attr.classes
-    el.attributes = attr.attributes
-  end
+local function latex_escape(s)
+  -- Minimal escaping for captions.
+  local map = {
+    ["\\"] = "\\textbackslash{}",
+    ["%"]  = "\\%",
+    ["$"]  = "\\$",
+    ["#"]  = "\\#",
+    ["_"]  = "\\_",
+    ["&"]  = "\\&",
+    ["^"]  = "\\^{}",
+    ["~"]  = "\\textasciitilde{}",
+  }
+  return (s:gsub("[\\%%%$#_%^&~]", map))
 end
 
 function CodeBlock(el)
-  local attr = get_attr(el)
+  -- Accept either title= or caption=
+  local title = (el.attributes and (el.attributes.title or el.attributes.caption)) or nil
+  if not title then return nil end
 
-  -- If someone already gave us a title/caption, keep it
-  local title = (attr.attributes and (attr.attributes.caption or attr.attributes.title)) or nil
+  local id   = el.identifier
+  local lang = (#el.classes > 0) and el.classes[1] or nil
 
-  -- Otherwise try to recover from classes
-  if not title then
-    local t, kept = extract_inline_title(attr.classes or {})
-    if t then
-      title = t
-      attr.classes = kept
-    end
+  if FORMAT:match("latex") then
+    -- Render via listings. Requires pandoc --listings (which you already use).
+    local opts = {}
+    if lang and lang ~= "" then table.insert(opts, "language=" .. lang) end
+    if id and id ~= "" then table.insert(opts, "label={" .. id .. "}") end
+    table.insert(opts, "caption={" .. latex_escape(title) .. "}")
+
+    local head = "\\begin{lstlisting}[" .. table.concat(opts, ",") .. "]\n"
+    local tail = "\n\\end{lstlisting}\n"
+    return pandoc.RawBlock("latex", head .. el.text .. tail)
+
+  elseif FORMAT:match("html") then
+    -- <figure>   <figcaption>Title</figcaption> <pre><code>...</code></pre>  </figure>
+    local cap  = pandoc.RawBlock("html", "<figcaption>" .. pandoc.text.escape(title, true) .. "</figcaption>")
+    local pre  = pandoc.RawBlock("html", "<pre><code class=\"" ..
+                                         table.concat(el.classes or {}, " ") .. "\">" ..
+                                         pandoc.text.escape(el.text, true) ..
+                                         "</code></pre>")
+    local open = pandoc.RawBlock("html", "<figure class=\"code-with-caption\"" ..
+                                         (id and id ~= "" and (" id=\""..id.."\"") or "") .. ">")
+    local close = pandoc.RawBlock("html", "</figure>")
+    return { open, cap, pre, close }
+
+  else
+    -- Fallback for other writers: show a simple caption paragraph above the code.
+    local cap = pandoc.Para({ pandoc.Emph{ pandoc.Str(title) } })
+    return { cap, el }
   end
-
-  if title then
-    attr.attributes = attr.attributes or {}
-    -- set both: some outputs key off caption; others might use title
-    attr.attributes.title   = title
-    attr.attributes.caption = title
-    set_attr(el, attr)
-  end
-
-  return el
 end

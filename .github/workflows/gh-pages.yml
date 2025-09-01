@@ -11,6 +11,28 @@ permissions:
   id-token: write
 
 jobs:
+  pdf:
+    name: Build PDF with Pandoc
+    runs-on: ubuntu-latest
+    # This container has pandoc + a full LaTeX environment
+    container: pandoc/latex:3.1
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # If you prefer not to use the Makefile, you can run pandoc directly.
+      - name: Build PDF (Makefile)
+        env:
+          PANDOC_RESOURCE_PATH: docs
+        run: make pdf
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hs3-pdf
+          path: hs3.pdf
+          if-no-files-found: error
+
   build:
     runs-on: ubuntu-latest
     steps:
