@@ -1,0 +1,79 @@
+site_name: HEP Statistics Serialization Standard (HS3)
+site_description: Official documentation for HS3
+site_url: https://hep-statistics-serialization-standard.github.io/hep-statistics-serialization-standard/
+repo_url: https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard
+use_directory_urls: true
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - content.code.copy
+    - content.code.annotate   # <-- add this    
+    - content.tabs.link
+    - search.suggest
+    - search.highlight
+  palette:
+    - scheme: default
+    - scheme: slate
+
+plugins:
+  - search
+  - include-markdown:
+      rewrite_relative_urls: true
+  - bibtex:
+      bib_file: docs/hs3.bib
+      bib_by_default: false
+      cite_inline: true
+
+nav:
+  - Home: main.md
+  - Introduction: chapters/1_introduction.md
+  - Contents:
+      - Top Levels: chapters/2_toplevels.md
+      - Distributions: chapters/2.1_distributions.md
+      - Fundamental Distributions: chapters/2.1.1_fundamental_distributions.md
+      - Composite Distributions: chapters/2.1.2_composite_distributions.md
+      - Functions: chapters/2.2_functions.md
+      - Data: chapters/2.3_data.md
+      - Likelihoods: chapters/2.4_likelihoods.md
+      - Domains: chapters/2.5_domains.md
+      - Parameter Points: chapters/2.6_parameter_points.md
+      - Analyses: chapters/2.7_analyses.md
+      - Metadata: chapters/2.8_metadata.md
+      - Misc: chapters/2.9_misc.md
+  - Appendix:
+      - Supplementary: chapters/3_supplementary.md
+      - Generic Expressions: chapters/3.1_generic_expressions.md
+
+hooks:
+  - tools/strip_front_matter.py
+  - tools/convert_smallcaps.py  
+  
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - footnotes
+  - attr_list
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.snippets
+  - pymdownx.arithmatex:
+      generic: true
+    
+extra_javascript:
+  # IMPORTANT: put the config BEFORE the MathJax script
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard
+      
+extra_css:
+  - styles/extra.css

@@ -1,0 +1,5 @@
+/* Example: tighten top/bottom page spacing a bit */
+.md-main__inner { padding-top: 0.8rem; padding-bottom: 1.0rem; }
+.smallcaps {
+  font-variant: small-caps;
+}
