@@ -10,7 +10,7 @@ author:
     - Robin Pelkner
     - Jonas Rembser
     - Oliver Schulz
-	
+
 bibliography: ./hs3.bib 
 
 date: 2025-01-24
@@ -20,12 +20,12 @@ title: HS<sup>3</sup> v0.2.9
 
 # About this document {#about-this-document .unnumbered} 
   ------------------------------------------ 
-  ![image](images/cc0.png){height="1em" style="vertical-align: text-bottom;}  To the extent possible under law, the authors have waived all 
+  ![image](images/cc0.png){style="vertical-align: text-bottom; height:1em"}  To the extent possible under law, the authors have waived all 
   copyright and related or neighboring rights to this document. For details, 
   please refer to the *Creative Commons* `CC0` license [@cc0]. 
   This work is published from: CERN, Geneva. 
   ------------------------------------------
-
+ 
 {% include-markdown "chapters/1_introduction.md" %}
 
 {% include-markdown "chapters/2_toplevels.md" %}
