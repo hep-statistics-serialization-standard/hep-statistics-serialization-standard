@@ -1,4 +1,4 @@
-name: Deploy MkDocs
+name: Build & Deploy Docs
 
 on:
   push:
@@ -6,31 +6,37 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write   # needed by peaceiris/actions-gh-pages
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  build-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5   
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
-          cache-dependency-path: mkdocs-requirements.txt   
-
-      - name: Install dependencies
+          cache-dependency-path: mkdocs-requirements.txt
+      - name: Install deps
         run: |
           python -m pip install --upgrade pip
           pip install -r mkdocs-requirements.txt
-
       - name: Build site
         run: mkdocs build --strict
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
-          publish_branch: gh-pages
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
