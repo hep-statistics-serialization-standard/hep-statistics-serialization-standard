@@ -45,67 +45,57 @@ local function find_file(name, current_dir)
   return nil
 end
 
--- --- MkDocs fence info -> Pandoc curly-brace attributes ---------------------
--- Rewrites code-fence opener lines like:
---   ```json title="X" linenums="1"
--- to:
---   ```{.json title="X" linenums="1"}
--- Leaves existing { ... } alone. Handles ``` and ~~~.
 
+-- MkDocs fence info -> Pandoc curly-brace attributes
+-- Turns:  ```json title="X" linenums="1"
+-- into:   ```{.json title="X" linenums="1"}
+-- Logs every rewrite. Works for ``` and ~~~, >=3 chars.
 local function mkdocs_fences_to_pandoc(md)
   local out = {}
   local in_fence = false
   local fence_char, fence_len = nil, 0
 
   local function trim(s) return (s:gsub("^%s+",""):gsub("%s+$","")) end
+  local function all_same_char(s)
+    local ch = s:sub(1,1)
+    return not s:find("[^"..ch.."]")
+  end
 
   for line in md:gmatch("([^\n]*)\n?") do
     if not in_fence then
-      -- opener?  leading ws + >=3 same ` or ~
-      local lead, seq, rest = line:match("^([ \t]*)([`~])%2%2%2*(.*)$")
-      if lead then
-        -- count full fence length for close detection
-        local full = line:match("^%s*([`~]+)")
-        fence_char, fence_len = full:sub(1,1), #full
+      -- opener: indent + run of backticks/ tildes + optional info
+      local lead, fence, rest = line:match("^([ \t]*)([`~]+)%s*(.*)$")
+      if fence and #fence >= 3 and all_same_char(fence) then
+        fence_char, fence_len = fence:sub(1,1), #fence
         local info = trim(rest or "")
-        -- If there is info and it's NOT already { ... }, maybe rewrite.
         if info ~= "" and not info:match("^%s*%{") then
-          -- Decide language vs attrs:
-          -- first token; if it contains '=', treat as attrs-only.
-          local first = info:match("^([^%s]+)")
-          local is_kv = first and first:find("=") ~= nil
+          -- split "lang attrs…" (if first token has '=', treat as attrs-only)
+          local first = info:match("^([^%s]+)") or ""
+          local is_kv = first:find("=") ~= nil
           local lang, attrs
-          if is_kv then
-            lang, attrs = nil, info
-          else
-            lang, attrs = first, trim(info:sub(#first+1))
-          end
-          -- Only wrap if we actually have attrs (e.g. title=..., linenums, hl_lines, etc.)
-          if attrs ~= "" or (lang and lang:match("^%.")) then
-            local inside = ""
-            if lang and lang ~= "" then
-              -- turn 'json' into '.json' inside braces
-              if lang:sub(1,1) ~= "." then inside = "."..lang else inside = lang end
-            end
-            if attrs ~= "" then
-              if inside ~= "" then inside = inside .. " " .. attrs else inside = attrs end
-            end
-            local new_line = string.format("%s%s {%s}", lead, full, inside)
+          if is_kv then lang, attrs = nil, info else lang, attrs = first, trim(info:sub(#first+1)) end
+
+          local inside = ""
+          if lang and lang ~= "" then inside = (lang:sub(1,1) ~= ".") and ("."..lang) or lang end
+          if attrs and attrs ~= "" then inside = (inside ~= "" and (inside.." "..attrs) or attrs) end
+
+          if inside ~= "" then
+            local new_line = string.format("%s%s{%s}", lead, fence, inside) -- no space before {
+            print("fence-rewrite:", line)
+            print("           ->", new_line)
             table.insert(out, new_line)
             in_fence = true
           else
-            -- no attrs -> leave as-is
             table.insert(out, line); in_fence = true
           end
         else
-          -- no info or already has { ... }
-          table.insert(out, line); in_fence = (info ~= "") or (info == "")
+          table.insert(out, line); in_fence = true
         end
       else
         table.insert(out, line)
       end
     else
-      -- inside a fence: detect closer of same char with at least same length
+      -- closer: same char, at least same length, nothing else on line (except ws)
       local closer = line:match("^%s*("..fence_char.."+)%s*$")
       if closer and #closer >= fence_len then
         in_fence, fence_char, fence_len = false, nil, 0
@@ -203,11 +193,15 @@ local function resolve_includes_text(content, depth, current_dir)
   return table.concat(out_lines, "\n")
 end
 
--- Parse markdown to a Pandoc doc with a known-good reader.
+-- Parse markdown using the same reader + options as the main invocation.
 local function parse_markdown(md)
-  local reader_fmt = "markdown+tex_math_dollars+fenced_code_blocks+fenced_code_attributes"
-  return pandoc.read(md, reader_fmt)
+  -- Format string exactly as passed on CLI (e.g. "markdown+...").
+  local reader_fmt = (PANDOC_STATE and PANDOC_STATE.input_format) or "markdown"
+  -- Reader options from Pandoc (Pandoc ≥ 3 exposes PANDOC_READER_OPTIONS).
+  local reader_opts = rawget(_G, "PANDOC_READER_OPTIONS") or pandoc.ReaderOptions()
+  return pandoc.read(md, reader_fmt, reader_opts)
 end
+
 
 -- Convert an include path into Blocks (resolving nested includes).
 local function blocks_from_include(target, base_dir)
@@ -222,6 +216,8 @@ local function blocks_from_include(target, base_dir)
   local raw = f:read("*a"); f:close()
   local text_no_meta = strip_metadata(raw)
   local fully_resolved_text = resolve_includes_text(text_no_meta, 1, dirname(found))
+  -- convert MkDocs fence titles to Pandoc attributes for Pandoc parsing
+  fully_resolved_text = mkdocs_fences_to_pandoc(fully_resolved_text)
   local subdoc = parse_markdown(fully_resolved_text)
   return subdoc.blocks
 end
@@ -343,6 +339,7 @@ function Pandoc(doc)
   local raw = f:read("*a"); f:close()
   print("Fallback: expanding includes from raw text of " .. top)
   local resolved = resolve_includes_text(raw, 0, dirname(top))
+  resolved = mkdocs_fences_to_pandoc(resolved)
   local parsed = parse_markdown(resolved)
   return parsed
 end
