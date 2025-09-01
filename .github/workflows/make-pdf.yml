@@ -1,0 +1,21 @@
+name: Build PDF
+
+on:
+  push:        # run on every branch push
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: pandoc/latex:latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build PDF
+        run: make pdf
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf
+          path: hs3.pdf   # adjust if your Makefile outputs a different filename
