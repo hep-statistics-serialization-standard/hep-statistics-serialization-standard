@@ -1,63 +1,58 @@
 name: Build & Deploy MkDocs + PDF
 
 on:
-  push:
-    branches: [ main ]
+  push:            # trigger from ANY branch
+  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
+  # If your GHCR image is PRIVATE, uncomment the next line:
+  # packages: read
 
 jobs:
-  build-pdf:
+  build-site:
     runs-on: ubuntu-latest
-    # Use your prebuilt image from the manual workflow
+
+    # Use your prebuilt PDF builder image
     container:
       image: ghcr.io/${{ github.repository }}/pdf-builder:latest
-      # If private image, uncomment:
+      # If image is PRIVATE, uncomment:
       # credentials:
       #   username: ${{ github.actor }}
       #   password: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
       - name: Build PDF
         run: make pdf
-      - name: Upload PDF artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: pdf
-          path: hs3.pdf
 
-  build-site:
-    needs: build-pdf
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+      - name: Place PDF into docs
+        run: |
+          mkdir -p docs/files
+          cp -v hs3.pdf docs/files/
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-        # Install your site deps (adjust as needed)
-      - name: Install MkDocs
+      - name: Install MkDocs deps (incl. include-markdown)
         run: |
           pip install --upgrade pip
-          pip install mkdocs mkdocs-material
-
-      - name: Ensure files dir exists
-        run: mkdir -p docs/files
-
-      - name: Download PDF artifact into docs/
-        uses: actions/download-artifact@v4
-        with:
-          name: pdf
-          path: docs/files
+          pip install \
+            mkdocs \
+            mkdocs-material \
+            mkdocs-include-markdown-plugin
 
       - name: Build site
-        run: mkdocs build --site-dir site
+        run: mkdocs build --strict --site-dir site
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
