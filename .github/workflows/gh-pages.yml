@@ -70,7 +70,9 @@ jobs:
 
   # 3) Deploy — ONLY on push to master; uses the site artifact
   deploy:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/master')  
     needs: [build-site]
     runs-on: ubuntu-latest
     steps:
