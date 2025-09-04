@@ -73,8 +73,6 @@ jobs:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
     needs: [build-site]
     runs-on: ubuntu-latest
-    container:
-      image: squidfunk/mkdocs-material:latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
