@@ -73,22 +73,20 @@ jobs:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
     needs: [build-site]
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      # Download the site artifact produced by build-site
+      # Get the built site from the previous job
       - name: Download site artifact
         uses: actions/download-artifact@v4
         with:
           name: mkdocs-site
           path: site
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+  
+      # Push the rendered site to the user/org Pages repo at gh-pages
+      - name: Deploy to external GitHub Pages repo
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: site
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          personal_token: ${{ secrets.GH_PAT }}
+          external_repository: hep-statistics-serialization-standard/hep-statistics-serialization-standard.github.io
+          publish_branch: gh-pages
+          publish_dir: ./site
+          commit_message: "Deploy site from ${GITHUB_REPOSITORY}@${GITHUB_SHA}"

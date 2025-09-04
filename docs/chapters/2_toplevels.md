@@ -4,7 +4,7 @@ bibliography: ./hs3.bib
 
 
 # Top-level components {#sec:toplevel} 
-In the followingc the top-level `component`s of HS$^3$ and their parameters/arguments are described. Each component is completely [optional]{.smallcaps}, but certain components [may]{.smallcaps} depend on other components, which [should]{.smallcaps} be provided in that case. The only exception is the component `metadata` containing the version of HS$^3$, which is always [required]{.smallcaps}. The supported top-level components are 
+In the following, the top-level `component`s of HS$^3$ and their parameters/arguments are described. Each component is completely [optional]{.smallcaps}, but certain components [may]{.smallcaps} depend on other components, which [should]{.smallcaps} be provided in that case. The only exception is the component `metadata` containing the version of HS$^3$, which is always [required]{.smallcaps}. The supported top-level components are 
 
 -   [`distributions`](#sec:distributions): ([optional]{.smallcaps}) array of `object`s defining distributions 
 -   [`functions`](#sec:functions): ([optional]{.smallcaps}) array of `object`s defining mathematical functions 
