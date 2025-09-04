@@ -1,25 +1,29 @@
-name: Build & Deploy MkDocs + PDF
+name: Build & Deploy Documentation
 
 on:
+  pull_request:
+    types: [opened, reopened, ready_for_review, synchronize]
+    branches: ['**']              # run builds for any PR branch
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    branches: [ master ]          # run builds + deploy when master changes
+  workflow_dispatch:              # allow manual runs if desired
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
+  # 1) Build PDF (Pandoc/LaTeX) — runs on PR events and on push to master
   build-pdf:
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master') }}
     runs-on: ubuntu-latest
-    # Use your prebuilt image from the manual workflow
     container:
       image: ghcr.io/${{ github.repository }}/pdf-builder:latest
-      # If private image, uncomment:
-      # credentials:
-      #   username: ${{ github.actor }}
-      #   password: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - name: Build PDF
@@ -27,50 +31,66 @@ jobs:
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
-          name: pdf
+          name: hs3-pdf
           path: hs3.pdf
 
+  # 2) Build site (MkDocs) — needs the PDF; runs after build-pdf
   build-site:
     needs: build-pdf
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master') }}
     runs-on: ubuntu-latest
+    container:
+      image: squidfunk/mkdocs-material:latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-        # Install your site deps (adjust as needed)
-      - name: Install MkDocs
+      - name: Install MkDocs plugins
         run: |
           pip install --upgrade pip
-          pip install mkdocs mkdocs-material
+          pip install -r mkdocs-requirements.txt
 
-      - name: Ensure files dir exists
-        run: mkdir -p docs/files
-
-      - name: Download PDF artifact into docs/
+      # Pull the PDF artifact from the previous job into docs/files/
+      - name: Download PDF artifact into docs/files
         uses: actions/download-artifact@v4
         with:
-          name: pdf
+          name: hs3-pdf
           path: docs/files
 
-      - name: Build site
-        run: mkdocs build --site-dir site
+      - name: Verify PDF present
+        run: ls -lh docs/files/ && test -f docs/files/hs3.pdf
+
+      - name: Build MkDocs site (strict)
+        run: mkdocs build --strict --site-dir site
+
+      - name: Upload combined site artifact (includes PDF)
+        uses: actions/upload-artifact@v4
+        with:
+          name: mkdocs-site
+          path: site
+
+  # 3) Deploy — ONLY on push to master; uses the site artifact
+  deploy:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    needs: [build-site]
+    runs-on: ubuntu-latest
+    container:
+      image: squidfunk/mkdocs-material:latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # Download the site artifact produced by build-site
+      - name: Download site artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: mkdocs-site
+          path: site
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
-  deploy:
-    needs: build-site
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
