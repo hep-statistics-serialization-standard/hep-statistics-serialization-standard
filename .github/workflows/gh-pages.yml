@@ -1,4 +1,4 @@
-name: Site & PDF (PR builds) + Deploy on master
+name: Build & Deploy Documentation
 
 on:
   pull_request:
@@ -6,14 +6,12 @@ on:
     branches: ['**']              # run builds for any PR branch
   push:
     branches: [ master ]          # run builds + deploy when master changes
-  workflow_dispatch:               # allow manual runs if desired
+  workflow_dispatch:              # allow manual runs if desired
 
 permissions:
   contents: read
   pages: write
   id-token: write
-  # If your GHCR image is PRIVATE, uncomment:
-  # packages: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -26,10 +24,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/${{ github.repository }}/pdf-builder:latest
-      # If your image is private, uncomment:
-      # credentials:
-      #   username: ${{ github.actor }}
-      #   password: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - name: Build PDF
@@ -39,7 +33,6 @@ jobs:
         with:
           name: hs3-pdf
           path: hs3.pdf
-          # retention-days: 14
 
   # 2) Build site (MkDocs) — needs the PDF; runs after build-pdf
   build-site:
@@ -74,7 +67,6 @@ jobs:
         with:
           name: mkdocs-site
           path: site
-          # retention-days: 14
 
   # 3) Deploy — ONLY on push to master; uses the site artifact
   deploy:
