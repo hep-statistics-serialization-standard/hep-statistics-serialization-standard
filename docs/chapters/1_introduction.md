@@ -41,8 +41,8 @@ This means that given a model $m$ and concrete parameter values $\theta$, drawin
 
 ### Likelihood functions {#sec:likelihood-definition} 
 The concrete probability distribution $m(\theta)$ that a model $m$ returns for specific parameter values $\theta$ can be compared to observed data $x$. This gives rise to a likelihood $\mathcal{L}_{m,x}(\theta) = \text{PDF}(m(\theta), x)$ that is a real-valued function on the parameter space. Multiple distributions/models that describe different modes of observation can be combined with multiple sets of data that cover those modes of observation into a single likelihood (Sec. 
-[\[sec:likelihoods\]](#sec:likelihoods){reference-type="ref" reference="sec:likelihoods"}). In addition to using observed data, implementations may provide the option to use random data generated from 
-the model (see [1.2.3](#sec:data-generation){reference-type="ref" reference="sec:data-generation"}) to check for Monte-Carlo closure. 
+[Likelihoods](#sec:likelihoods){reference-type="ref" reference="sec:likelihoods"}). In addition to using observed data, implementations may provide the option to use random data generated from 
+the model (see [Data](#sec:data-generation){reference-type="ref" reference="sec:data-generation"}) to check for Monte-Carlo closure. 
 
 ### Frequentist parameter inference {#sec:frequentist-inference} 
 The standard method of frequentist inference is the maximum (or, respectively, profile) likelihood method. In the vast majority of cases, the test statistic used here is the likelihood ratio, that is, the ratio of two values of the likelihood corresponding to two different points in parameter space: one that maximizes the likelihood unconditionally, one one that maximizes the likelihood under some condition such as the values of the parameters of interest expected in the absence of a deviation from the null hypothesis. The corresponding building blocks for such an analysis, such as the list of parameters of interest and the likelihood function to be used, are specified in the analysis section of an HS<sup>3</sup> configuration (Sec. [Analyses](#sec:analyses){reference-type="ref" reference="sec:analyses"}). 
@@ -71,7 +71,7 @@ All `struct`s defining functions, distributions, parameters, variables, domains,
 Within most top-level `component`s, any one `string` given as a value to any component [should]{.smallcaps} refer to the `name` of another `object`, unless explicitly stated otherwise. Top-level `component`s in which this is not the case are explicitly marked as such. 
 
 ## File format 
-HS3 documents are encoded in the JSON format as defined in ISO/IEC 21778:2017 [@json]. Implementations [may]{.smallcaps} support other serialization formats that support a non-ambiguous mapping to JSON, such as TOML or YAML, in which case they [should]{.smallcaps} use a different file extension. 
+HS${}^3$ documents are encoded in the JSON format as defined in ISO/IEC 21778:2017 [@json]. Implementations [may]{.smallcaps} support other serialization formats that support a non-ambiguous mapping to JSON, such as TOML or YAML, in which case they [should]{.smallcaps} use a different file extension. 
 
 ## Validators 
 Future versions of this standard will recommend official validator implementations and schemata. Currently, these have not been finalized. 

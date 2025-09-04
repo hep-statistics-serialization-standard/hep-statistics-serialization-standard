@@ -6,7 +6,6 @@ html: hs3.html
 pandoc-container: Dockerfile
 	DOCKER_BUILDKIT=1 docker build -t pdf-builder .
 
-
 hs3.pdf: docs/main.md docs/chapters/*.md docs/parts/*.md tools/*.lua tools/*.tex
 	export PANDOC_RESOURCE_PATH="docs" && pandoc docs/main.md -o hs3.pdf  --metadata-file=markdown.yaml --listings --bibliography ./docs/hs3.bib --lua-filter=tools/resolve_includes.lua --lua-filter=tools/root-relative.lua --lua-filter=tools/mkdocs-bib-placeholder.lua --include-in-header=tools/pandoc-header.tex --citeproc --metadata link-citations=true --from=markdown+tex_math_dollars+fenced_code_blocks+fenced_code_attributes+link_attributes+implicit_figures --resource-path "$$PANDOC_RESOURCE_PATH"
 
@@ -15,3 +14,13 @@ hs3.html: docs/main.md docs/chapters/*.md docs/parts/*.md tools/*.lua tools/*.ht
 
 clean:
 	rm -f hs3.pdf hs3.html
+
+docs/files/hs3.pdf: hs3.pdf
+	mkdir -p docs/files
+	cp hs3.pdf docs/files
+
+.venv/bin/activate:
+	python3 -m venv .venv && . .venv/bin/activate && pip install --upgrade pip && pip install -r mkdocs-requirements.txt
+
+local-serve: docs/files/hs3.pdf .venv/bin/activate
+	source .venv/bin/activate && mkdocs serve --strict
