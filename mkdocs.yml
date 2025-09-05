@@ -10,7 +10,7 @@ theme:
     - navigation.instant
     - navigation.tracking
     - content.code.copy
-    - content.code.annotate   # <-- add this    
+    - content.code.annotate  
     - content.tabs.link
     - search.suggest
     - search.highlight
