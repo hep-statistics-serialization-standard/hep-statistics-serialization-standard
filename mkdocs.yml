@@ -51,7 +51,8 @@ nav:
 
 hooks:
   - tools/strip_front_matter.py
-  - tools/convert_smallcaps.py  
+  - tools/convert_smallcaps.py
+  - tools/mkdocs_objects_inv.py  
   
 markdown_extensions:
   - admonition
