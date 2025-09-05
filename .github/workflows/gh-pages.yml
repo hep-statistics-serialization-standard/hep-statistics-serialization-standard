@@ -82,7 +82,11 @@ jobs:
         with:
           name: mkdocs-site
           path: site
-  
+
+      # Don’t run Jekyll at all. Just serve these files exactly as they are.
+      - name: Ensure GitHub Pages serves static site (disable Jekyll)
+        run: touch site/.nojekyll
+          
       # Push the rendered site to the user/org Pages repo at gh-pages
       - name: Deploy to external GitHub Pages repo
         uses: peaceiris/actions-gh-pages@v4

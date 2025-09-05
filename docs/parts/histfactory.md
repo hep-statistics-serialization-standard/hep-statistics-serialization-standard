@@ -5,7 +5,7 @@ bibliography: ./hs3.bib
 
 HistFactory [@hf] is a language to describe statistical models consisting only of "histograms" (which is used interchangeably with "step-functions" in this context). Each HistFactory distribution describes one "channel" or "region" of a binned measurement, containing a stack of "samples", i. e.&nbsp;binned distributions sharing the same binning (step-functions describing the signal or background of a measurement). Such a HistFactory model is shown in Figure [1](#fig:hf-example){reference-type="ref" reference="fig:hf-example"} (originally from  [@atlashzz]). Each of the contributions may be subject to `modifiers`. 
 
-![A binned statistical model describing a High Energy Physics measurement, in this case of the $H\rightarrow 4l$ process by the ATLAS collaboration. Three different sample (blue, red, violet) are considered.](/images/hf-example.pdf){#fig:hf-example width=".6\%"} 
+![A binned statistical model describing a High Energy Physics measurement, in this case of the $H\rightarrow 4l$ process by the ATLAS collaboration. Three different sample (blue, red, violet) are considered.](/images/hf-example.png){#fig:hf-example width=".6\%"} 
 
 The prediction for a binned region is given as 
 
@@ -50,8 +50,8 @@ The way modifiers affect the yield in the corresponding bin is subject to an int
 
 -   `lin`: $\begin{cases}     y_{\textit{nominal}} + x \cdot (y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x\geq0\\     y_{\textit{nominal}} + x \cdot (y_{\textit{nominal}} - y_{\textit{low}}) \text{ if } x<0     \end{cases}$ 
 -   `log`: $\begin{cases}     y_{\textit{nominal}} \cdot \left(\frac{y_{\textit{high}}}{y_{\textit{nominal}}}\right)^x \text{ if } x\geq0\\     y_{\textit{nominal}} \cdot \left(\frac{y_{\textit{low}}}{y_{\textit{nominal}}}\right)^{-x}\text{ if } x<0     \end{cases}$ 
--   `parabolic`: $\begin{cases}     y_{\textit{nominal}} + (2s+d)\cdot(x-1)+(y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x>1\\     y_{\textit{nominal}} - (2s-d)\cdot(x+1)+(y_{\textit{low}} - y_{\textit{nominal})}\text{ if } x<-1\\     s \cdot x^2 + d\cdot x  \text{ otherwise}     \end{cases}$\     with     $s=\frac{1}{2}(y_{\textit{high}} + y_{\textit{low}}) - y_{\textit{nominal}}$     and $d=\frac{1}{2}(y_{\textit{high}} - y_{\textit{low}})$ 
--   `poly6`: $\begin{cases}     y_{\textit{nominal}} + x \cdot (y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x>1\\     y_{\textit{nominal}} + x \cdot (y_{\textit{nominal}} - y_{\textit{low}}) \text{ if } x<-1\\     y_{\textit{nominal}} + x \cdot (S + x \cdot A \cdot (15 + x^2 \cdot (3x^2-10))) \text{ otherwise}     \end{cases}$\     with $S = \frac{1}{2}(y_{\textit{high}} - y_{\textit{low}})$ and     $A=\frac{1}{16}(y_{\textit{high}} + y_{\textit{low}} - 2\cdot y_{\textit{nominal}})$ 
+-   `parabolic`: $\begin{cases}     y_{\textit{nominal}} + (2s+d)\cdot(x-1)+(y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x>1\\     y_{\textit{nominal}} - (2s-d)\cdot(x+1)+(y_{\textit{low}} - y_{\textit{nominal})}\text{ if } x<-1\\     s \cdot x^2 + d\cdot x  \text{ otherwise}     \end{cases}$ with     $s=\frac{1}{2}(y_{\textit{high}} + y_{\textit{low}}) - y_{\textit{nominal}}$     and $d=\frac{1}{2}(y_{\textit{high}} - y_{\textit{low}})$ 
+-   `poly6`: $\begin{cases}     y_{\textit{nominal}} + x \cdot (y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x>1\\     y_{\textit{nominal}} + x \cdot (y_{\textit{nominal}} - y_{\textit{low}}) \text{ if } x<-1\\     y_{\textit{nominal}} + x \cdot (S + x \cdot A \cdot (15 + x^2 \cdot (3x^2-10))) \text{ otherwise}     \end{cases}$     with $S = \frac{1}{2}(y_{\textit{high}} - y_{\textit{low}})$ and     $A=\frac{1}{16}(y_{\textit{high}} + y_{\textit{low}} - 2\cdot y_{\textit{nominal}})$ 
 
 Modifiers can be constrained. This is indicated by the component `constraint`, which identifies the type of the constraint term. In essence, the likelihood picks up a penalty term for changing the corresponding parameter too far away from its nominal value. The nominal value is, by convention, defined by the type of constraint, and is 0 for all modifiers of type `sys` (`histosys`, `normsys`) and is 1 for all modifiers of type `factor` (`normfactor`, `shapefactor`). The strength of the constraint is always such that the standard deviation of constraint distribution is $1$. 
 
@@ -76,22 +76,38 @@ Two modifiers are correlated exactly if they share the same parameters as indica
 {
   "name": "myAnalysisChannel",
   "type": "histfactory_dist",
-  "axes": [ { "max": 1.0, "min": 0.0, "name": "myRegion", "nbins": 2 } ],
+  "axes": [ 
+	{ "max": 1.0, "min": 0.0, "name": "myRegion", "nbins": 2 } 
+  ],
   "name":"myChannel1",
   "samples": [
-  	       {  "name": "mySignal",
-	       	  "data": { "contents": [ 0.5, 0.7 ], "errors": [ 0.1, 0.1 ] },
-		  "modifiers": [
-				 { "parameter": "Lumi", "type": "normfactor" },
-				 { "parameter": "mu_signal_strength", "type": "normfactor" },
-				 { "constraint": "Gauss", "data": { "hi": 1.1, "lo": 0.9 }, "parameter": "my_normalization_systematic_1", "type": "normsys" },
-				 { "constraint": "Poisson", "parameters": ["gamma_stat_1","gamma_stat_2"], "type": "staterror" },
-				 { "constraint": "Gauss", "data": { "hi": { "contents": [ -2.5, -3.1 ] }, "lo": { "contents": [ 2.2, 3.7 ] } }, "parameter": "my_correlated_shape_systematic_1", "type": "histosys" },
-				 { "constraint": "Poisson", "data": { "vals": [ 0.0, 1.2 ] }, "parameter": "my_uncorrelated_shape_systematic_2", "type": "shapesys" }
-			       ]
-	       },
-               { "name": "myBackground" ... }
-	     ]
+    { 
+      "name": "mySignal",
+      "data": { "contents": [ 0.5, 0.7 ], "errors": [ 0.1, 0.1 ] },
+      "modifiers": [
+        { "parameter": "Lumi", "type": "normfactor" },
+        { "parameter": "mu_signal_strength", "type": "normfactor" },
+        { "constraint": "Gauss", "data": { "hi": 1.1, "lo": 0.9 }, 
+          "parameter": "my_normalization_systematic_1", 
+          "type": "normsys" },
+        { "constraint": "Poisson", "type": "staterror", 
+          "parameters": ["gamma_stat_1","gamma_stat_2"]},
+        { "constraint": "Gauss", "type": "histosys", 
+          "data": { 
+            "hi": { "contents": [ -2.5, -3.1 ] }, 
+            "lo": { "contents": [ 2.2, 3.7 ] } 
+           }, 
+           "parameter": "my_correlated_shape_systematic_1" },
+        { "constraint": "Poisson", "data": { "vals": [ 0.0, 1.2 ] }, 
+          "parameter": "my_uncorrelated_shape_systematic_2", 
+          "type": "shapesys" }
+      ]
+    },
+    { 
+      "name": "myBackground",
+      ... 
+   }
+  ]
 } 
 ```
 
