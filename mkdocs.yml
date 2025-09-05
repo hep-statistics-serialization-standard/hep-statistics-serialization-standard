@@ -51,7 +51,8 @@ nav:
 
 hooks:
   - tools/strip_front_matter.py
-  - tools/convert_smallcaps.py  
+  - tools/convert_smallcaps.py
+  - tools/auto_image_ext.py
   
 markdown_extensions:
   - admonition
