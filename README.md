@@ -1,4 +1,4 @@
-# HS3 - HEP Statistics Serialization Standard
+# HS3 - HEP Statistics Serialization Standard [![Build & Deploy Documentation](https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard/actions/workflows/gh-pages.yml)
 
 Welcome to the High Energy Physics Statistics Serialization Standard.
 
@@ -17,7 +17,7 @@ different statistical procedures and results used in High Energy Physics
 versions are defined with specifications and semantics that are
 acknowledged by a committee. 
 
-View the current draft of the HS3 standard here: https://hep-statistics-serialization-standard.github.io/hep-statistics-serialization-standard/main/
+View the current draft of the HS3 standard here: https://hep-statistics-serialization-standard.github.io/
 
 Corresponding implementations to check the
 validity of files are also provided, at a *best effort* basis.
