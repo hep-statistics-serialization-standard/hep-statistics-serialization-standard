@@ -28,7 +28,7 @@ plugins:
       enable_inline_citations: true 
 
 nav:
-  - Home: main.md
+  - Home: index.md
   - Introduction: chapters/1_introduction.md
   - Contents:
       - Top Levels: chapters/2_toplevels.md
