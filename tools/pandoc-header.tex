@@ -1,1 +1,27 @@
 \usepackage{mathrsfs}
+\usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
+\addbibresource{docs/hs3.bib}
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+}
+
+\usepackage{titlesec}
+
+% Define a subsubsubsection under subsubsection
+\titleclass{\subsubsubsection}{straight}[\subsubsection]
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\titleformat{\subsubsubsection}
+  {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+% Make Pandoc’s level-4 (\paragraph) behave like that new level
+\let\paragraph\subsubsubsection
+
+% Ensure numbering/ToC depth goes deep enough
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
