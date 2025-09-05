@@ -5,7 +5,7 @@ bibliography: ./hs3.bib
 
 HistFactory [@hf] is a language to describe statistical models consisting only of "histograms" (which is used interchangeably with "step-functions" in this context). Each HistFactory distribution describes one "channel" or "region" of a binned measurement, containing a stack of "samples", i. e.&nbsp;binned distributions sharing the same binning (step-functions describing the signal or background of a measurement). Such a HistFactory model is shown in Figure [1](#fig:hf-example){reference-type="ref" reference="fig:hf-example"} (originally from  [@atlashzz]). Each of the contributions may be subject to `modifiers`. 
 
-![A binned statistical model describing a High Energy Physics measurement, in this case of the $H\rightarrow 4l$ process by the ATLAS collaboration. Three different sample (blue, red, violet) are considered.](/images/hf-example.pdf){#fig:hf-example width=".6\%"} 
+![A binned statistical model describing a High Energy Physics measurement, in this case of the $H\rightarrow 4l$ process by the ATLAS collaboration. Three different sample (blue, red, violet) are considered.](/images/hf-example.png){#fig:hf-example width=".6\%"} 
 
 The prediction for a binned region is given as 
 
