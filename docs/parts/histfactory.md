@@ -62,7 +62,7 @@ An exception to this is provided by the `staterror` modifier as described above,
 The components of a HistFactory distribution are: 
 
 -   `name`: custom unique string 
--   `type`: `histfactory_yield` 
+-   `type`: `histfactory_dist` 
 -   `axes`: array of structs representing the axes. If given each struct     needs to have the component `name`. Further,     ([optional]{.smallcaps}) components are `max`, `min` and `nbins`,     or, alternatively, `edges`. The definition of the axes follows the     format for binned data (see Section 
     [Binned Data](#sec:binned-data){reference-type="ref"     reference="sec:binned-data"}). 
 -   `samples`: array of structs containing the samples of this channel.     For details see below. 
