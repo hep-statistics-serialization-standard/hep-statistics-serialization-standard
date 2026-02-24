@@ -44,14 +44,14 @@ The different modifies and their descriptions are also summarized in the followi
 | `normfactor`                 | Normalization factor          | $\kappa(x,\mu) = \mu$                        | $\mu$                         | 1                              |
 | `shapefactor`, `staterror`   | Shape factor                  | $\kappa(x,\vec{\gamma}) = \chi_b^{\gamma}$   | $\gamma_0$, ..., $\gamma_n$   | #bins                          |
 
-  
+
 The `staterror` modifier is a special subtype of `shapefactor`, where the mean of the constraint is given as the sum of the predictions of all the samples carrying a `staterror` modifier in this bin. 
 The way modifiers affect the yield in the corresponding bin is subject to an interpolation function. The `overallsys` and `histosys` modifiers thus allow for an additional key `interpolation`, which identifies one of the following functions: 
 
--   `lin`: $\begin{cases}     y_{\textit{nominal}} + x \cdot (y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x\geq0\\     y_{\textit{nominal}} + x \cdot (y_{\textit{nominal}} - y_{\textit{low}}) \text{ if } x<0     \end{cases}$ 
--   `log`: $\begin{cases}     y_{\textit{nominal}} \cdot \left(\frac{y_{\textit{high}}}{y_{\textit{nominal}}}\right)^x \text{ if } x\geq0\\     y_{\textit{nominal}} \cdot \left(\frac{y_{\textit{low}}}{y_{\textit{nominal}}}\right)^{-x}\text{ if } x<0     \end{cases}$ 
--   `parabolic`: $\begin{cases}     y_{\textit{nominal}} + (2s+d)\cdot(x-1)+(y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x>1\\     y_{\textit{nominal}} - (2s-d)\cdot(x+1)+(y_{\textit{low}} - y_{\textit{nominal})}\text{ if } x<-1\\     s \cdot x^2 + d\cdot x  \text{ otherwise}     \end{cases}$ with     $s=\frac{1}{2}(y_{\textit{high}} + y_{\textit{low}}) - y_{\textit{nominal}}$     and $d=\frac{1}{2}(y_{\textit{high}} - y_{\textit{low}})$ 
--   `poly6`: $\begin{cases}     y_{\textit{nominal}} + x \cdot (y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x>1\\     y_{\textit{nominal}} + x \cdot (y_{\textit{nominal}} - y_{\textit{low}}) \text{ if } x<-1\\     y_{\textit{nominal}} + x \cdot (S + x \cdot A \cdot (15 + x^2 \cdot (3x^2-10))) \text{ otherwise}     \end{cases}$     with $S = \frac{1}{2}(y_{\textit{high}} - y_{\textit{low}})$ and     $A=\frac{1}{16}(y_{\textit{high}} + y_{\textit{low}} - 2\cdot y_{\textit{nominal}})$ 
+-   `lin`: $\begin{cases}     y_{\mathrm{nominal}} + x \cdot (y_{\mathrm{high}} - y_{\mathrm{nominal}}) \text{ if } x\geq0\\     y_{\mathrm{nominal}} + x \cdot (y_{\mathrm{nominal}} - y_{\mathrm{low}}) \text{ if } x<0     \end{cases}$ 
+-   `log`: $\begin{cases}     y_{\mathrm{nominal}} \cdot \left(\frac{y_{\mathrm{high}}}{y_{\mathrm{nominal}}}\right)^x \text{ if } x\geq0\\     y_{\mathrm{nominal}} \cdot \left(\frac{y_{\mathrm{low}}}{y_{\mathrm{nominal}}}\right)^{-x}\text{ if } x<0     \end{cases}$ 
+-   `parabolic`: $\begin{cases}     y_{\mathrm{nominal}} + (2s+d)\cdot(x-1)+(y_{\mathrm{high}} - y_{\mathrm{nominal}}) \text{ if } x>1\\     y_{\mathrm{nominal}} - (2s-d)\cdot(x+1)+(y_{\mathrm{low}} - y_{\mathrm{nominal})}\text{ if } x<-1\\     s \cdot x^2 + d\cdot x  \text{ otherwise}     \end{cases}$ with     $s=\frac{1}{2}(y_{\mathrm{high}} + y_{\mathrm{low}}) - y_{\mathrm{nominal}}$     and $d=\frac{1}{2}(y_{\mathrm{high}} - y_{\mathrm{low}})$ 
+-   `poly6`: $\begin{cases}     y_{\mathrm{nominal}} + x \cdot (y_{\mathrm{high}} - y_{\mathrm{nominal}}) \text{ if } x>1\\     y_{\mathrm{nominal}} + x \cdot (y_{\mathrm{nominal}} - y_{\mathrm{low}}) \text{ if } x<-1\\     y_{\mathrm{nominal}} + x \cdot (S + x \cdot A \cdot (15 + x^2 \cdot (3x^2-10))) \text{ otherwise}     \end{cases}$     with $S = \frac{1}{2}(y_{\mathrm{high}} - y_{\mathrm{low}})$ and     $A=\frac{1}{16}(y_{\mathrm{high}} + y_{\mathrm{low}} - 2\cdot y_{\mathrm{nominal}})$ 
 
 Modifiers can be constrained. This is indicated by the component `constraint`, which identifies the type of the constraint term. In essence, the likelihood picks up a penalty term for changing the corresponding parameter too far away from its nominal value. The nominal value is, by convention, defined by the type of constraint, and is 0 for all modifiers of type `sys` (`histosys`, `normsys`) and is 1 for all modifiers of type `factor` (`normfactor`, `shapefactor`). The strength of the constraint is always such that the standard deviation of constraint distribution is $1$. 
 
@@ -60,7 +60,7 @@ The supported constraint distributions, also called constraint types, are `Gauss
 An exception to this is provided by the `staterror` modifier as described above, and the `shapesys` for which a Poissonian constraint is defined with the central values defined as the squares of the values defined in `vals`. 
 
 The components of a HistFactory distribution are: 
-
+    
 -   `name`: custom unique string 
 -   `type`: `histfactory_dist` 
 -   `axes`: array of structs representing the axes. If given each struct     needs to have the component `name`. Further,     ([optional]{.smallcaps}) components are `max`, `min` and `nbins`,     or, alternatively, `edges`. The definition of the axes follows the     format for binned data (see Section 
