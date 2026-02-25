@@ -5,7 +5,7 @@ bibliography: ./hs3.bib
 
 HistFactory [@hf] is a language to describe statistical models consisting only of "histograms" (which is used interchangeably with "step-functions" in this context). Each HistFactory distribution describes one "channel" or "region" of a binned measurement, containing a stack of "samples", i. e.&nbsp;binned distributions sharing the same binning (step-functions describing the signal or background of a measurement). Such a HistFactory model is shown in Figure [1](#fig:hf-example){reference-type="ref" reference="fig:hf-example"} (originally from  [@atlashzz]). Each of the contributions may be subject to `modifiers`. 
 
-![A binned statistical model describing a High Energy Physics measurement, in this case of the $H\rightarrow 4l$ process by the ATLAS collaboration. Three different sample (blue, red, violet) are considered.](/images/hf-example.pdf){#fig:hf-example width=".6\%"} 
+![A binned statistical model describing a High Energy Physics measurement, in this case of the $H\rightarrow 4l$ process by the ATLAS collaboration. Three different sample (blue, red, violet) are considered.](/images/hf-example.png){#fig:hf-example width=".6\%"} 
 
 The prediction for a binned region is given as 
 
@@ -44,14 +44,14 @@ The different modifies and their descriptions are also summarized in the followi
 | `normfactor`                 | Normalization factor          | $\kappa(x,\mu) = \mu$                        | $\mu$                         | 1                              |
 | `shapefactor`, `staterror`   | Shape factor                  | $\kappa(x,\vec{\gamma}) = \chi_b^{\gamma}$   | $\gamma_0$, ..., $\gamma_n$   | #bins                          |
 
-  
+
 The `staterror` modifier is a special subtype of `shapefactor`, where the mean of the constraint is given as the sum of the predictions of all the samples carrying a `staterror` modifier in this bin. 
 The way modifiers affect the yield in the corresponding bin is subject to an interpolation function. The `overallsys` and `histosys` modifiers thus allow for an additional key `interpolation`, which identifies one of the following functions: 
 
--   `lin`: $\begin{cases}     y_{\textit{nominal}} + x \cdot (y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x\geq0\\     y_{\textit{nominal}} + x \cdot (y_{\textit{nominal}} - y_{\textit{low}}) \text{ if } x<0     \end{cases}$ 
--   `log`: $\begin{cases}     y_{\textit{nominal}} \cdot \left(\frac{y_{\textit{high}}}{y_{\textit{nominal}}}\right)^x \text{ if } x\geq0\\     y_{\textit{nominal}} \cdot \left(\frac{y_{\textit{low}}}{y_{\textit{nominal}}}\right)^{-x}\text{ if } x<0     \end{cases}$ 
--   `parabolic`: $\begin{cases}     y_{\textit{nominal}} + (2s+d)\cdot(x-1)+(y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x>1\\     y_{\textit{nominal}} - (2s-d)\cdot(x+1)+(y_{\textit{low}} - y_{\textit{nominal})}\text{ if } x<-1\\     s \cdot x^2 + d\cdot x  \text{ otherwise}     \end{cases}$\     with     $s=\frac{1}{2}(y_{\textit{high}} + y_{\textit{low}}) - y_{\textit{nominal}}$     and $d=\frac{1}{2}(y_{\textit{high}} - y_{\textit{low}})$ 
--   `poly6`: $\begin{cases}     y_{\textit{nominal}} + x \cdot (y_{\textit{high}} - y_{\textit{nominal}}) \text{ if } x>1\\     y_{\textit{nominal}} + x \cdot (y_{\textit{nominal}} - y_{\textit{low}}) \text{ if } x<-1\\     y_{\textit{nominal}} + x \cdot (S + x \cdot A \cdot (15 + x^2 \cdot (3x^2-10))) \text{ otherwise}     \end{cases}$\     with $S = \frac{1}{2}(y_{\textit{high}} - y_{\textit{low}})$ and     $A=\frac{1}{16}(y_{\textit{high}} + y_{\textit{low}} - 2\cdot y_{\textit{nominal}})$ 
+-   `lin`: $\begin{cases}     y_{\mathrm{nominal}} + x \cdot (y_{\mathrm{high}} - y_{\mathrm{nominal}}) \text{ if } x\geq0\\     y_{\mathrm{nominal}} + x \cdot (y_{\mathrm{nominal}} - y_{\mathrm{low}}) \text{ if } x<0     \end{cases}$ 
+-   `log`: $\begin{cases}     y_{\mathrm{nominal}} \cdot \left(\frac{y_{\mathrm{high}}}{y_{\mathrm{nominal}}}\right)^x \text{ if } x\geq0\\     y_{\mathrm{nominal}} \cdot \left(\frac{y_{\mathrm{low}}}{y_{\mathrm{nominal}}}\right)^{-x}\text{ if } x<0     \end{cases}$ 
+-   `parabolic`: $\begin{cases}     y_{\mathrm{nominal}} + (2s+d)\cdot(x-1)+(y_{\mathrm{high}} - y_{\mathrm{nominal}}) \text{ if } x>1\\     y_{\mathrm{nominal}} - (2s-d)\cdot(x+1)+(y_{\mathrm{low}} - y_{\mathrm{nominal})}\text{ if } x<-1\\     s \cdot x^2 + d\cdot x  \text{ otherwise}     \end{cases}$ with     $s=\frac{1}{2}(y_{\mathrm{high}} + y_{\mathrm{low}}) - y_{\mathrm{nominal}}$     and $d=\frac{1}{2}(y_{\mathrm{high}} - y_{\mathrm{low}})$ 
+-   `poly6`: $\begin{cases}     y_{\mathrm{nominal}} + x \cdot (y_{\mathrm{high}} - y_{\mathrm{nominal}}) \text{ if } x>1\\     y_{\mathrm{nominal}} + x \cdot (y_{\mathrm{nominal}} - y_{\mathrm{low}}) \text{ if } x<-1\\     y_{\mathrm{nominal}} + x \cdot (S + x \cdot A \cdot (15 + x^2 \cdot (3x^2-10))) \text{ otherwise}     \end{cases}$     with $S = \frac{1}{2}(y_{\mathrm{high}} - y_{\mathrm{low}})$ and     $A=\frac{1}{16}(y_{\mathrm{high}} + y_{\mathrm{low}} - 2\cdot y_{\mathrm{nominal}})$ 
 
 Modifiers can be constrained. This is indicated by the component `constraint`, which identifies the type of the constraint term. In essence, the likelihood picks up a penalty term for changing the corresponding parameter too far away from its nominal value. The nominal value is, by convention, defined by the type of constraint, and is 0 for all modifiers of type `sys` (`histosys`, `normsys`) and is 1 for all modifiers of type `factor` (`normfactor`, `shapefactor`). The strength of the constraint is always such that the standard deviation of constraint distribution is $1$. 
 
@@ -60,9 +60,9 @@ The supported constraint distributions, also called constraint types, are `Gauss
 An exception to this is provided by the `staterror` modifier as described above, and the `shapesys` for which a Poissonian constraint is defined with the central values defined as the squares of the values defined in `vals`. 
 
 The components of a HistFactory distribution are: 
-
+    
 -   `name`: custom unique string 
--   `type`: `histfactory_yield` 
+-   `type`: `histfactory_dist` 
 -   `axes`: array of structs representing the axes. If given each struct     needs to have the component `name`. Further,     ([optional]{.smallcaps}) components are `max`, `min` and `nbins`,     or, alternatively, `edges`. The definition of the axes follows the     format for binned data (see Section 
     [Binned Data](#sec:binned-data){reference-type="ref"     reference="sec:binned-data"}). 
 -   `samples`: array of structs containing the samples of this channel.     For details see below. 
@@ -76,22 +76,38 @@ Two modifiers are correlated exactly if they share the same parameters as indica
 {
   "name": "myAnalysisChannel",
   "type": "histfactory_dist",
-  "axes": [ { "max": 1.0, "min": 0.0, "name": "myRegion", "nbins": 2 } ],
+  "axes": [ 
+	{ "max": 1.0, "min": 0.0, "name": "myRegion", "nbins": 2 } 
+  ],
   "name":"myChannel1",
   "samples": [
-  	       {  "name": "mySignal",
-	       	  "data": { "contents": [ 0.5, 0.7 ], "errors": [ 0.1, 0.1 ] },
-		  "modifiers": [
-				 { "parameter": "Lumi", "type": "normfactor" },
-				 { "parameter": "mu_signal_strength", "type": "normfactor" },
-				 { "constraint": "Gauss", "data": { "hi": 1.1, "lo": 0.9 }, "parameter": "my_normalization_systematic_1", "type": "normsys" },
-				 { "constraint": "Poisson", "parameters": ["gamma_stat_1","gamma_stat_2"], "type": "staterror" },
-				 { "constraint": "Gauss", "data": { "hi": { "contents": [ -2.5, -3.1 ] }, "lo": { "contents": [ 2.2, 3.7 ] } }, "parameter": "my_correlated_shape_systematic_1", "type": "histosys" },
-				 { "constraint": "Poisson", "data": { "vals": [ 0.0, 1.2 ] }, "parameter": "my_uncorrelated_shape_systematic_2", "type": "shapesys" }
-			       ]
-	       },
-               { "name": "myBackground" ... }
-	     ]
+    { 
+      "name": "mySignal",
+      "data": { "contents": [ 0.5, 0.7 ], "errors": [ 0.1, 0.1 ] },
+      "modifiers": [
+        { "parameter": "Lumi", "type": "normfactor" },
+        { "parameter": "mu_signal_strength", "type": "normfactor" },
+        { "constraint": "Gauss", "data": { "hi": 1.1, "lo": 0.9 }, 
+          "parameter": "my_normalization_systematic_1", 
+          "type": "normsys" },
+        { "constraint": "Poisson", "type": "staterror", 
+          "parameters": ["gamma_stat_1","gamma_stat_2"]},
+        { "constraint": "Gauss", "type": "histosys", 
+          "data": { 
+            "hi": { "contents": [ -2.5, -3.1 ] }, 
+            "lo": { "contents": [ 2.2, 3.7 ] } 
+           }, 
+           "parameter": "my_correlated_shape_systematic_1" },
+        { "constraint": "Poisson", "data": { "vals": [ 0.0, 1.2 ] }, 
+          "parameter": "my_uncorrelated_shape_systematic_2", 
+          "type": "shapesys" }
+      ]
+    },
+    { 
+      "name": "myBackground",
+      ... 
+   }
+  ]
 } 
 ```
 

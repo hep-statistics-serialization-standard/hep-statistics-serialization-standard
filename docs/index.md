@@ -13,9 +13,9 @@ author:
 
 bibliography: ./hs3.bib 
 
-date: 2025-01-24
+date: 2025-09-01
 
-title: HS<sup>3</sup> v0.2.9
+title: HS3
 ---
 
 # About this document {#about-this-document .unnumbered} 

@@ -10,7 +10,7 @@ theme:
     - navigation.instant
     - navigation.tracking
     - content.code.copy
-    - content.code.annotate   # <-- add this    
+    - content.code.annotate  
     - content.tabs.link
     - search.suggest
     - search.highlight
@@ -28,7 +28,7 @@ plugins:
       enable_inline_citations: true 
 
 nav:
-  - Home: main.md
+  - Home: index.md
   - Introduction: chapters/1_introduction.md
   - Contents:
       - Top Levels: chapters/2_toplevels.md
@@ -51,7 +51,9 @@ nav:
 
 hooks:
   - tools/strip_front_matter.py
-  - tools/convert_smallcaps.py  
+  - tools/convert_smallcaps.py
+  - tools/mkdocs_objects_inv.py  
+  - tools/auto_image_ext.py
   
 markdown_extensions:
   - admonition
