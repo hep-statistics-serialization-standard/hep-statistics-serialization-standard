@@ -1,0 +1,41 @@
+#import "/docs/hs3-defs.typ": sc
+// Chapter 2.4: Likelihoods
+
+== Likelihoods <sec:likelihoods>
+
+The top-level component `likelihoods` contains an array of likelihoods in struct format specifying mappings of distributions and observations. The corresponding distributions and observations are inserted as keys in string format referencing to distributions and observations defined in the respective top-level components, or as numbers for fixed data values.
+
+The combination of parameterized distributions $m_i (theta_i)$ with observations $x_i$ generates a likelihood function
+
+$ cal(L)(theta_1, theta_2, dots) = product_i "PDF"(m_i (theta_i), x_i) $
+
+The components of a likelihood struct are:
+
+- `name`: custom string
+- `distributions`: array of strings referencing the considered distributions
+- `data`: array of strings referencing the used data, must be of the same length as the array of `distributions`. Alternatively, the data-values for single-dimensional distributions can be given in-line. For example, this can be used for constraint terms representing auxiliary measurements.
+- `aux_distributions`: (#sc[optional]) array of strings referencing the considered auxiliary distributions defined in the top-level component `distributions`. They can be used to encode regularizers or penalty terms to aid the minimization. These observed data for these distributions is implicit and not part of `data`.
+
+#figure(caption: [Example: Likelihoods])[
+```json
+"likelihoods":[
+  {
+    "name":"likelihood1",
+    "distributions":[
+      "dist1",
+      "dist2",
+      "single_dimensional_dist_1",
+      ...
+    ],
+    "data":[
+      "data1",
+      "data2",
+      0,
+      ...
+    ],
+    "aux_distributions" : [ "regularization_term" ]
+  },
+  ...
+]
+```
+]
