@@ -13,7 +13,21 @@ This document sets out to document the syntax and features of the Statistics Ser
 Developers of statistical toolkits are invited to specifically refer to versions of this document relating to the support of this standard in their respective implementations. 
 Please note that this document as well as the HS${}^3$ standard are still in development and can still undergo minor and major changes in the future. This document describes the syntax of HS${}^3$ v0.2.9. 
 
-## Statistical semantics of HS${}^3$ {#sec:hs3-semantics} 
+## Statistical semantics of HS${}^3$ {#sec:hs3-semantics}
+
+### Values
+
+HS${}^3$ currently supports these types of computational values:
+
+- real numbers
+
+- n-dimensional arrays of real numbers
+
+- named tuples of real numbers and n-dimensional arrays of real numbers: a named tuple `(some_property = ..., some_other_property = ..., ...)` is an unnamed struct with a fixed field order. It may realized as a named tuple (if supported by the programming language), a dictionary with fixed keys, a single row of a table with respective column names and so on in HS${}^3$ implementations.
+
+Outputs of functions may be numbers, arrays or named tuples, variates of distributions are always named tuples.
+
+Complex numbers are currently not supported, but may be added in a future version of this standard.
 
 ### Statistical models, probability distributions and parameters {#sec:models-and-parameters} 
 HS${}^3$ takes a "forward-modelling" approach throughout: a statistical model $m$ maps a space $\Theta$ of free parameters $\theta$ to a space of probability distributions that describe the possible outcomes of a specific experiment. For any given parameters $\theta$, the model returns a concrete probability distribution $m(\theta)$. Observed data $x$ is then treated as random variate, presumed to be drawn from the model: $x \sim m(\theta)$. 
