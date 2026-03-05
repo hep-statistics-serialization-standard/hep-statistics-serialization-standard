@@ -48,7 +48,7 @@ the model (see [Data](#sec:data-generation){reference-type="ref" reference="sec:
 The standard method of frequentist inference is the maximum (or, respectively, profile) likelihood method. In the vast majority of cases, the test statistic used here is the likelihood ratio, that is, the ratio of two values of the likelihood corresponding to two different points in parameter space: one that maximizes the likelihood unconditionally, one one that maximizes the likelihood under some condition such as the values of the parameters of interest expected in the absence of a deviation from the null hypothesis. The corresponding building blocks for such an analysis, such as the list of parameters of interest and the likelihood function to be used, are specified in the analysis section of an HS${}^3$ configuration (Sec. [Analyses](#sec:analyses){reference-type="ref" reference="sec:analyses"}). 
 
 ### Bayesian parameter inference {#sec:bayesian-inference} 
-The standard also encompasses the specification of Baysian posterior distributions over parameters by combining (Sec. 
+The standard also encompasses the specification of Bayesian posterior distributions over parameters by combining (Sec. 
 [Analyses](#sec:analyses){reference-type="ref" reference="sec:analyses"}) likelihoods with probabilty distributions that acts the priors. Here concrete distributions are used to describe the prior probability of parameters in addition to parameterized distributions that are used to describe of the probability of observing specific data. 
 
 ## How to read this document 
