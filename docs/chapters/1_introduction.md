@@ -23,11 +23,11 @@ HS${}^3$ currently supports these types of computational values:
 
 - n-dimensional arrays of real numbers
 
-- named tuples of real numbers and n-dimensional arrays of real numbers: a named tuple `(some_property = ..., some_other_property = ..., ...)` is an unnamed struct with a fixed field order. It may realized as a named tuple (if supported by the programming language), a dictionary with fixed keys, a single row of a table with respective column names and so on in HS${}^3$ implementations.
+- named tuples of real numbers and n-dimensional arrays of real numbers: a named tuple `(some_property = ..., some_other_property = ..., ...)` is an unnamed struct with a fixed field order. It may be realized as a named tuple (if supported by the programming language), a dictionary with fixed keys, a single row of a table with respective column names and so on in HS${}^3$ implementations.
 
-Outputs of functions may be numbers, arrays or named tuples, variates of distributions are always named tuples.
+Outputs of functions may be numbers, arrays, or named tuples; variates of distributions are always named tuples.
 
-Complex numbers are currently not supported, but may be added in a future version of this standard.
+Complex numbers are not currently supported, but may be added in a future version of this standard.
 
 ### Statistical models, probability distributions and parameters {#sec:models-and-parameters} 
 HS${}^3$ takes a "forward-modelling" approach throughout: a statistical model $m$ maps a space $\Theta$ of free parameters $\theta$ to a space of probability distributions that describe the possible outcomes of a specific experiment. For any given parameters $\theta$, the model returns a concrete probability distribution $m(\theta)$. Observed data $x$ is then treated as random variate, presumed to be drawn from the model: $x \sim m(\theta)$. 
