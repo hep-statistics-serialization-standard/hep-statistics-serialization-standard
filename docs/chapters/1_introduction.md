@@ -27,16 +27,13 @@ Distribution parameters may also be bound to the output of functions, and if tho
 If all parameter values of a probability distribution are set to concrete values, so if there are not directly (or indirectly via functions) bound to names, we call this probability distribution a concrete distribution here. Such distributions can be used as Bayesian 
 priors (see [Bayesian inference](#sec:bayesian-inference){reference-type="ref" reference="sec:bayesian-inference"}). 
 
-The variates of all distributions (so the possible results of random draws from them) are currently always records (this may be relaxed in future versions of this standard). So even instances of univariate distributions, like the normal distribution, have variates structured like $(a = \ldots,)$. Individual names are assigned to each entry of such record-valued variates. These names represent an unpacking of the record-shaped variates into separate variates in the global namespace of the document (see Section [Unique names](#sec:global-namespace) below).
+The variates of all distributions (so the possible results of random draws from them) are currently always records (this may be relaxed in future versions of this standard). So even instances of univariate distributions, like the normal distribution, have variates structured like $(a = \ldots,)$. Individual names are assigned to each entry of such record-valued variates.
 
-Future versions of the standard may support array-valued and record-valued variates as single named objects in the global
-namespace, so not force unpacking record-valued variates into multiple global namespace entries. So that for a distributions with
-variates of the shape `(a = ..., b = ..., c = ...)`, users may be able to choose whether to have separate variates `a`, `b` and `c`
-in the global namespace, or a just a single record-shaped variate (and similar for array-shaped variates).
+Future versions of the standard may support array-shaped and record-of-arrays-shaped variates and parameters.
 
 ### Global namespace {#sec:global-namespace}
 
-The names given to variates of distributions (i.e. the field names in variate records), and the names of all named HS${}^3$ objects (distributions, functions, likelihoods, data, parameters, variables, domains, parameter points, etc.) form a single namespace and must be unique within an HS${}^3$ document. The names assigned to data fields/axes are matched to variate names during likelihood construction, but are themselves *not* part of the global namespace.
+The names of all named HS${}^3$ objects (distributions, functions, likelihoods, data, parameters, variables, domains, parameter points, etc.) form a single namespace and must be unique within an HS${}^3$ document. The names assigned to variate record entries and data fields/axes are not part of the global namespace.
 
 HS${}^3$ implementations will typically provide a renaming/aliasing mechanism that can be used to resolve name clashes when using
 multiple HS${}^3$ documents together, e.g. for combined analyses.
