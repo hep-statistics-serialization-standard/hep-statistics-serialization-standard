@@ -66,10 +66,10 @@ The components of a HistFactory distribution are:
 -   `axes`: array of structs representing the axes. If given each struct     needs to have the component `name`. Further,     ([optional]{.smallcaps}) components are `max`, `min` and `nbins`,     or, alternatively, `edges`. The definition of the axes follows the     format for binned data (see Section 
     [Binned Data](#sec:binned-data){reference-type="ref"     reference="sec:binned-data"}). 
 -   `samples`: array of structs containing the samples of this channel.     For details see below. 
-Struct of one sample: 
--   `name`: ([optional]{.smallcaps}) custom string, unique within this     function 
--   `data`: struct containing the components `contents` and `errors`,     depicting the data contents and their errors. Both components are     arrays of the same length. 
--   `modifiers`: array of structs with each struct containing a     component `type` of the modifier, as well as a component `parameter`     (defining a string) or a component `parameters` (defining an array     of strings) relating to the name or names of parameters controlling     this modifier. Further ([optional]{.smallcaps}) components are     `data` and `constraint`, both depending on the type of modifier. For     details on these components, see the description above. 
+Struct of one sample:  
+    -   `name`: ([optional]{.smallcaps}) custom string, unique within this     function 
+    -   `data`: struct containing the components `contents` and `errors`,     depicting the data contents and their errors. Both components are     arrays of the same length. 
+    -   `modifiers`: array of structs with each struct containing a     component `type` of the modifier, as well as a component `parameter`     (defining a string) or a component `parameters` (defining an array     of strings) relating to the name or names of parameters controlling     this modifier. Further ([optional]{.smallcaps}) components are     `data` and `constraint`, both depending on the type of modifier. For     details on these components, see the description above. 
 Two modifiers are correlated exactly if they share the same parameters as indicated by `parameter` or `parameters`. In such a case, it is mandatory that they share the same constraint term. If this is not the case, the behavior is undefined. 
 
 ```json title="HistFactory"
