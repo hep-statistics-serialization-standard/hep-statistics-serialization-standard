@@ -10,7 +10,7 @@ construction and open to discussion**
 
 # Preprint and Citation
 
-We now have a preprint paper: https://arxiv.org/abs/2606.01760v2
+We now have a preprint paper: https://arxiv.org/abs/2606.01760
 
 If you use HS3 in your work please cite as:
 
