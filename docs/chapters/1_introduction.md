@@ -71,7 +71,9 @@ All `struct`s defining functions, distributions, parameters, variables, domains,
 Within most top-level `component`s, any one `string` given as a value to any component [should]{.smallcaps} refer to the `name` of another `object`, unless explicitly stated otherwise. Top-level `component`s in which this is not the case are explicitly marked as such. 
 
 ## File format 
-HS${}^3$ documents are encoded in the JSON format as defined in ISO/IEC 21778:2017 [@json]. Implementations [may]{.smallcaps} support other serialization formats that support a non-ambiguous mapping to JSON, such as TOML or YAML, in which case they [should]{.smallcaps} use a different file extension. 
+HS${}^3$ documents are encoded in the JSON format as defined in ISO/IEC 21778:2017 [@json]. Implementations [may]{.smallcaps} support other serialization formats that support a non-ambiguous mapping to JSON, such as TOML or YAML, in which case they [should]{.smallcaps} use a different file extension.
+
+The recommended filename extension for HS${}^3$ JSON documents is `.hs3.json`.
 
 ## Validators 
 Future versions of this standard will recommend official validator implementations and schemata. Currently, these have not been finalized. 
