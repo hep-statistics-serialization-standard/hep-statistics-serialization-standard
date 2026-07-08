@@ -77,7 +77,7 @@ The following functions are allowed for `in` and `out`:
 The choice of functions for `in` and `out`, together with the anchor conditions ($y(0) = y_0$, $y(\pm1) = y_\pm$) and, where required, matching of first and second derivatives at the boundary ($\left.\frac{\mathrm{d}y}{\mathrm{d}\theta}\right|_{\theta=\pm 1}$ and $\left.\frac{\mathrm{d}^2y}{\mathrm{d}\theta}\right|_{\theta=\pm 1}$), fixes all free parameters of the chosen functions except for $\theta$ itself.
 
 
-The following combinations are often used and showcase the :
+The following choices are often used and showcase the resulting functional forms for common combinations of `type`, `in` and `out`:
 
 - additive, piecewise linear: 
     - `{"type":"add", "in":"poly1", "out":null}`
