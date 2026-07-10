@@ -98,7 +98,8 @@ The following choices are often used and showcase the resulting functional forms
 - multiplicative, polynomial (6th degree) interpolation and exponential extrapolation 
     - `{type:"mult", in:"poly6", out:"exp"}`
     - with $y_5(\theta, y_0, y_+, y_-) = \left\{\begin{array}{ll} (y_+/y_0)^\theta &  \theta\geq 1 \\ 1+\theta\cdot(a+\theta\cdot(b+\theta\cdot(c+\theta\cdot(d+\theta\cdot(e+\theta\cdot f)))))& |\theta|<1\\ (y_-/y_0)^{-\theta} &  \theta\leq-1\end{array}\right.$,  
-  where: $\begin{array}{l}a=\tfrac18(15A_0-7S_1+A_2) \\ b=\tfrac18(-24+24S_0-9A_1+S_2) \\ c=\tfrac14(-5A_0+5S_1-A_2) \\ d=\tfrac14(12-12S_0+7A_1-S_2) \\ e = \tfrac18 (3A_0 -3S_1+A_2) \\ f=\tfrac18 (-8+8S_0-5A_1+S_2)\end{array}$, with: $\begin{array}{l}S_0=\tfrac12(y_+ + y_-) \\ A_0=\tfrac12(y_+ - y_-) \\ S_1=\tfrac12(y_+\log{y_+} + y_-\log{y_-}) \\ A_1=\tfrac12(y_+\log{y_+} - y_-\log{y_-}) \\ S_2=\tfrac12(y_+\log^2{y_+} + y_-\log^2{y_-}) \\ A_2=\tfrac12(y_+\log^2{y_+} - y_-\log^2{y_-})\end{array}$ 
+    where: $\begin{array}{l}a=\tfrac18(15A_0-7S_1+A_2) \\ b=\tfrac18(-24+24S_0-9A_1+S_2) \\ c=\tfrac14(-5A_0+5S_1-A_2) \\ d=\tfrac14(12-12S_0+7A_1-S_2) \\ e = \tfrac18 (3A_0 -3S_1+A_2) \\ f=\tfrac18 (-8+8S_0-5A_1+S_2)\end{array}$,  
+    with: $\begin{array}{l}S_i=\tfrac12(y_+(\log{y_+})^i + y_-(\log{y_-})^i) \\ A_i=\tfrac12(y_+(\log{y_+})^i - y_-(\log{y_-})^i)\end{array}$ and $\log t := \begin{cases}\log t & t > 0 \\0 & t \le 0 \end{cases}$
 - multiplicative, polynomial (6th degree) interpolation and linear extrapolation 
     - `{type:"mult", in:"poly6", out:"poly1"}`
     - with $y_6(\theta, y_0, y_+, y_-) = 1 + y_4(\theta, y_0, y_+, y_-)$
