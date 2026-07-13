@@ -86,6 +86,22 @@ proposals (draft or pending) folder and create a PR to discussion them.
 If you are interest to become part of the core committee, please open an
 issue. Anyone is allowed to join.
 
+## Emoji-Reactions to Issues, PRs, Discussions and Comments
+
+To keep thread notifications low and avoid comment spam, we use GitHub reactions as a structured tool for project governance. We invite everyone to use these specific emojis. 
+
+By standardizing our reactions, we can all communicate the status of a proposal, signal technical intent, or show appreciation instantly without cluttering the discussion thread:
+
+*   ❤️ (`:heart:`): **Gratitude.** Thank you for your time and effort spent. This is greatly appreciated, but does *not* imply technical approval or disapproval of the content.
+*   👀 (`:eyes:`): **Community Call to Action.** I have reviewed this and find it interesting. I am stepping back to invite more community members to share their opinions on this topic.
+*   👍 (`:+1:`): **Approval.** This proposal has approval as-is.
+*   👎 (`:-1:`): **Disapproval.** This requires significant changes, or a much stronger scientific/technical argument before it can be reconsidered.
+*   🚀 (`:rocket:`): **Fast-Track.** This is a minimal, uncontroversial, or critical fix. Maintainers intend to merge this immediately skipping a formal vote.
+*   🎉 (`:tada:`): **Consensus Reached.** Glad we got this settled and found a path forward, regardless of the original opposing viewpoints.
+*   😄 (`:smile:`): **Uncontroversial / Positive Tone.** This signals that the proposal is straightforward, or appreciates the highly professional, constructive tone of the conversation.
+*   😕 (`:confused:`): **Clarification Needed.** The technical proposal or argument is currently unclear. Please provide more precise language, data examples, or use cases so we can evaluate it.
+
+
 # Contact
 
 To stay updated, you can sign up for the e-group:
