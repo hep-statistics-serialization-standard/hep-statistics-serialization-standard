@@ -31,7 +31,7 @@ The variates of all distributions (so the possible results of random draws from 
 ### Probability density functions (PDFs) {#sec:what-is-a-pdf} 
 Statistics literature often discriminates between probability density functions (PDF) for continuous probability distributions and probability mass functions (PMF) for discrete probability distributions. This standard use the term PDF for both continuous and discrete distributions. The concept of density is to be understood in terms of densities in the realm of measure theory here, that is the density of a probability measure (distribution) is its Radon-Nikodym derivative in respect to an (implied) reference measure. 
 The choice of reference measure would be arbitrary in principle, which scales likelihood functions 
-(Sec. [Likelihood](#sec:likelihood-definition){reference-type="ref" reference="sec:likelihood-definition"}) by a constant factor that depends on choice of reference. In this standard, a specific reference measures is implied for each probability distribution, typically the Lebesgue measure for continuous distributions and the counting measure for discrete distributions. The standard aims to to match the PDF (resp.&nbsp;PMF) most commonly used in literature for each specific probability distribution and the mathematical form of the PDF is documented explicitly for each distribution in the standard. So within HS${}^3$, probability densities and likelihood functions are unambiguous. 
+(Sec. [Likelihood](#sec:likelihood-definition){reference-type="ref" reference="sec:likelihood-definition"}) by a constant factor that depends on choice of reference. In this standard, a specific reference measures is implied for each probability distribution, typically the Lebesgue measure for continuous distributions and the counting measure for discrete distributions. The standard aims to match the PDF (resp.&nbsp;PMF) most commonly used in literature for each specific probability distribution and the mathematical form of the PDF is documented explicitly for each distribution in the standard. So within HS${}^3$, probability densities and likelihood functions are unambiguous. 
 Here we use $\text{PDF}(m(\theta), x)$ to denote the density value of the probability distribution/measure $m$, parameterized by $\theta$, at the point/variate $x$, in respect to the implied reference for $m$. 
 
 ### Observed and simulated data {#sec:data-generation} 
@@ -45,10 +45,10 @@ The concrete probability distribution $m(\theta)$ that a model $m$ returns for s
 the model (see [Data](#sec:data-generation){reference-type="ref" reference="sec:data-generation"}) to check for Monte-Carlo closure. 
 
 ### Frequentist parameter inference {#sec:frequentist-inference} 
-The standard method of frequentist inference is the maximum (or, respectively, profile) likelihood method. In the vast majority of cases, the test statistic used here is the likelihood ratio, that is, the ratio of two values of the likelihood corresponding to two different points in parameter space: one that maximizes the likelihood unconditionally, one one that maximizes the likelihood under some condition such as the values of the parameters of interest expected in the absence of a deviation from the null hypothesis. The corresponding building blocks for such an analysis, such as the list of parameters of interest and the likelihood function to be used, are specified in the analysis section of an HS${}^3$ configuration (Sec. [Analyses](#sec:analyses){reference-type="ref" reference="sec:analyses"}). 
+The standard method of frequentist inference is the maximum (or, respectively, profile) likelihood method. In the vast majority of cases, the test statistic used here is the likelihood ratio, that is, the ratio of two values of the likelihood corresponding to two different points in parameter space: one that maximizes the likelihood unconditionally, and one that maximizes the likelihood under some condition such as the values of the parameters of interest expected in the absence of a deviation from the null hypothesis. The corresponding building blocks for such an analysis, such as the list of parameters of interest and the likelihood function to be used, are specified in the analysis section of an HS${}^3$ configuration (Sec. [Analyses](#sec:analyses){reference-type="ref" reference="sec:analyses"}). 
 
 ### Bayesian parameter inference {#sec:bayesian-inference} 
-The standard also encompasses the specification of Baysian posterior distributions over parameters by combining (Sec. 
+The standard also encompasses the specification of Bayesian posterior distributions over parameters by combining (Sec. 
 [Analyses](#sec:analyses){reference-type="ref" reference="sec:analyses"}) likelihoods with probabilty distributions that acts the priors. Here concrete distributions are used to describe the prior probability of parameters in addition to parameterized distributions that are used to describe of the probability of observing specific data. 
 
 ## How to read this document 
@@ -62,7 +62,7 @@ This is a list of used types and terms in this document.
 -   `struct`: represented with { }, containing a *key:value* mapping,     keys are of type `string`. 
 -   `component`: key-value pair within a struct 
 -   `array` array of items (either `string`s or `number`s) without keys. Represented with `[...]`. 
--   `string`: references to objects, names and arbitrary information.     Represented with 
+-   `string`: references to objects, names and arbitrary information.     Represented with `"..."`
 -   `number`: either floating or integer type values 
 -   `boolean`: boolean values; they can be encoded as `true` and `false` 
 
@@ -71,7 +71,9 @@ All `struct`s defining functions, distributions, parameters, variables, domains,
 Within most top-level `component`s, any one `string` given as a value to any component [should]{.smallcaps} refer to the `name` of another `object`, unless explicitly stated otherwise. Top-level `component`s in which this is not the case are explicitly marked as such. 
 
 ## File format 
-HS${}^3$ documents are encoded in the JSON format as defined in ISO/IEC 21778:2017 [@json]. Implementations [may]{.smallcaps} support other serialization formats that support a non-ambiguous mapping to JSON, such as TOML or YAML, in which case they [should]{.smallcaps} use a different file extension. 
+HS${}^3$ documents are encoded in the JSON format as defined in ISO/IEC 21778:2017 [@json]. Implementations [may]{.smallcaps} support other serialization formats that support a non-ambiguous mapping to JSON, such as TOML or YAML, in which case they [should]{.smallcaps} use a different file extension.
+
+The recommended filename extension for HS${}^3$ JSON documents is `.hs3.json`.
 
 ## Validators 
 Future versions of this standard will recommend official validator implementations and schemata. Currently, these have not been finalized. 

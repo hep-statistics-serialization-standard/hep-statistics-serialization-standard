@@ -8,6 +8,20 @@ working group and not yet a standard.**
 **Everything, including naming, folder structure etc is under
 construction and open to discussion**
 
+# Preprint and Citation
+
+We now have a preprint paper: https://arxiv.org/abs/2606.01760
+
+If you use HS3 in your work please cite as:
+
+```
+@article{hs3preprint,
+  title={HS3: A Descriptive, Interoperable Serialization Standard for Statistical Models in High-Energy Physics},
+  author={Burgard, Carsten and Schulz, Oliver and Stark, Giordon and Rembser, Jonas and Cello, Simon and Grunwald, Cornelius},
+  journal={arXiv preprint arXiv:2606.01760},
+  year={2026}
+}
+```
 
 # In short
 
@@ -15,12 +29,12 @@ The HEP Statistics Serialization Standard (HS3) defines standards of
 different statistical procedures and results used in High Energy Physics
 (HEP) in terms of human-and machine readable representations. Different
 versions are defined with specifications and semantics that are
-acknowledged by a committee. 
+acknowledged by a committee.
 
 View the current draft of the HS3 standard here: https://hep-statistics-serialization-standard.github.io/
 
 Corresponding implementations to check the
-validity of files are also provided, at a *best effort* basis.
+validity of files are also provided, at a _best effort_ basis.
 More information can be found in the corresponding projects.
 
 # Why
@@ -28,13 +42,13 @@ More information can be found in the corresponding projects.
 There are two main motivation to have a code-independent representation
 of the likelihood and inference results.
 
--   It allows to publish the likelihood; a long-term goal in High Energy
-    Physics experiments.
+- It allows to publish the likelihood; a long-term goal in High Energy
+  Physics experiments.
 
 - A framework- and language independent representation allows to use
-different frameworks interchangeably; at least for reasonable
-complicated cases. It removes the dependency on code and reduces the
-need for maintenance of legacy projects.
+  different frameworks interchangeably; at least for reasonable
+  complicated cases. It removes the dependency on code and reduces the
+  need for maintenance of legacy projects.
 
 # Goal
 
@@ -71,6 +85,22 @@ proposals (draft or pending) folder and create a PR to discussion them.
 
 If you are interest to become part of the core committee, please open an
 issue. Anyone is allowed to join.
+
+## Emoji-Reactions to Issues, PRs, Discussions and Comments
+
+To keep thread notifications low and avoid comment spam, we use GitHub reactions as a structured tool for project governance. We invite everyone to use these specific emojis. 
+
+By standardizing our reactions, we can all communicate the status of a proposal, signal technical intent, or show appreciation instantly without cluttering the discussion thread:
+
+*   ❤️ (`:heart:`): **Gratitude.** Thank you for your time and effort spent. This is greatly appreciated, but does *not* imply technical approval or disapproval of the content.
+*   👀 (`:eyes:`): **Community Call to Action.** I have reviewed this and find it interesting. I am stepping back to invite more community members to share their opinions on this topic.
+*   👍 (`:+1:`): **Approval.** This proposal has approval as-is.
+*   👎 (`:-1:`): **Disapproval.** This requires significant changes, or a much stronger scientific/technical argument before it can be reconsidered.
+*   🚀 (`:rocket:`): **Fast-Track.** This is a minimal, uncontroversial, or critical fix. Maintainers intend to merge this immediately skipping a formal vote.
+*   🎉 (`:tada:`): **Consensus Reached.** Glad we got this settled and found a path forward, regardless of the original opposing viewpoints.
+*   😄 (`:smile:`): **Uncontroversial / Positive Tone.** This signals that the proposal is straightforward, or appreciates the highly professional, constructive tone of the conversation.
+*   😕 (`:confused:`): **Clarification Needed.** The technical proposal or argument is currently unclear. Please provide more precise language, data examples, or use cases so we can evaluate it.
+
 
 # Contact
 
