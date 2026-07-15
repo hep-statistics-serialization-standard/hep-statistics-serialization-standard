@@ -1,4 +1,4 @@
-# HS3 - HEP Statistics Serialization Standard [![Build & Deploy Documentation](https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard/actions/workflows/gh-pages.yml)
+# HS$^3$ - HEP Statistics Serialization Standard [![Build & Deploy Documentation](https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard/actions/workflows/gh-pages.yml)
 
 Welcome to the High Energy Physics Statistics Serialization Standard.
 
@@ -8,18 +8,19 @@ working group and not yet a standard.**
 **Everything, including naming, folder structure etc is under
 construction and open to discussion**
 
-# Preprint and Citation
+## Citation
 
-We now have a preprint paper: https://arxiv.org/abs/2606.01760
+We have a preprint paper on [arxiv](https://arxiv.org/abs/2606.01760).
 
-If you use HS3 in your work please cite as:
+If you use HS$^3$ in your work please cite as:
 
 ```
 @article{hs3preprint,
-  title={HS3: A Descriptive, Interoperable Serialization Standard for Statistical Models in High-Energy Physics},
+  title={HS$^3$: A Descriptive, Interoperable Serialization Standard for Statistical Models in High-Energy Physics},
   author={Burgard, Carsten and Schulz, Oliver and Stark, Giordon and Rembser, Jonas and Cello, Simon and Grunwald, Cornelius},
-  journal={arXiv preprint arXiv:2606.01760},
-  year={2026}
+  year={2026},
+  eprint = "2606.01760",
+  archivePrefix = "arXiv",
 }
 ```
 
