@@ -30,8 +30,8 @@ The $M_\kappa$ are the multiplicative modifiers, the $M_\delta$ are the additive
 The modifiers depend on a set of nuisance parameters $\theta$, where each modifier can only depend on one $\theta_i$, but the $\theta_i$ can take the form of vectors and the same $\theta_i$ can be shared by several modifiers. By convention, these are denoted $\alpha$ if they affect all bins in a correlated way, and $\gamma$ if they affect only one bin at a time. The types of modifiers are 
 
 -   A *uncorrelated shape systematic* or `shapefactor` modifier is a     multiplicative modifier that scales each single bin by the value of     some independent parameter $\gamma$. Here, $\theta_i=\vec{\gamma}$,     where the length of $\vec{\gamma}$ is equal to the number of bins in     this region. *This type of modifier is sometimes called `shapesys`,     with some nuance in the meaning. However, both are synonymous in the     context of this standard.* 
--   A *correlated shape systematic* or `histosys` modifier is an     additive modifier that adds or subtracts a constant step function     $\chi^f$, scaled with a single factor $\alpha$. The modifier     contains a `data` section, which contains the subsections     $\texttt{hi}$ and $\texttt{lo}$ that help to define the step     function $\chi^f$. They contain `contents`, which define the     bin-wise additions or subtractions for $\alpha=1$. Here,     $\theta_i=\alpha$. 
--   A *normalization systematic* or `normsys` modifier is a     multiplicative modifier that scales the entire sample with the same     constant factor $f$ that is a function of $\alpha$. The modifier     contains a `data` section, which contains the values $\texttt{hi}$     and $\texttt{lo}$ that help to define $f$. There are different     functional forms that can be chosen for $f$. However, by convention     $f(\alpha=0)=1$, $f(\alpha=+1)=$"`hi`" and     $f(\alpha=-1)=$"`lo`". In this case, $\theta_i=\alpha$. 
+-   A *correlated shape systematic* or `histosys` modifier is an     additive modifier that adds or subtracts a constant step function     $\chi^f$, scaled with a single factor $\alpha$. The modifier     contains a `data` section, which contains the subsections     $\texttt{hi}$ and $\texttt{lo}$ that help to define the step     function $\chi^f$. They contain `contents`, which define the     bin-wise additions or subtractions for $\alpha=1$. The functional form of $\chi^f$ for intermediate and outlying $\alpha$ is set by the `interpolation` component, described below. Here,     $\theta_i=\alpha$. 
+-   A *normalization systematic* or `normsys` modifier is a     multiplicative modifier that scales the entire sample with the same     constant factor $f$ that is a function of $\alpha$. The modifier     contains a `data` section, which contains the values $\texttt{hi}$     and $\texttt{lo}$ that help to define $f$. There are different     functional forms that can be chosen for $f$. However, by convention     $f(\alpha=0)=1$, $f(\alpha=+1)=$"`hi`" and     $f(\alpha=-1)=$"`lo`". The functional form of $f$ for intermediate and outlying $\alpha$ is set by the `interpolation` component, described below. In this case, $\theta_i=\alpha$. 
 -   A *normalization factor* or `normfactor` modifier is a     multiplicative modifier that scales the entire sample in this region     with the value of the parameter $\mu$ itself. In this case,     $\theta_i=\mu$. 
 -   The `staterror` modifier is a shorthand for encoding uncorrelated     statistical uncertainties on the values of the step-functions, using     a variant[^1] of the Barlow-Beeston Method [@barlowbeeston]. Here,     the relative uncertainty on the sum of all samples in this region     containing the `staterror` modifier is computed bin-by-bin. Then, a     constrained *uncorrelated shape systematic* (`shapesys`) is created,     encoding these relative uncertainties in the corresponding `Poisson`     (or `Gaussian`) constraint term. 
 
@@ -45,13 +45,64 @@ The different modifies and their descriptions are also summarized in the followi
 | `shapefactor`, `staterror`   | Shape factor                  | $\kappa(x,\vec{\gamma}) = \chi_b^{\gamma}$   | $\gamma_0$, ..., $\gamma_n$   | #bins                          |
 
 
-The `staterror` modifier is a special subtype of `shapefactor`, where the mean of the constraint is given as the sum of the predictions of all the samples carrying a `staterror` modifier in this bin. 
-The way modifiers affect the yield in the corresponding bin is subject to an interpolation function. The `overallsys` and `histosys` modifiers thus allow for an additional key `interpolation`, which identifies one of the following functions: 
+The `staterror` modifier is a special subtype of `shapefactor`, where the mean of the constraint is given as the sum of the predictions of all the samples carrying a `staterror` modifier in this bin.  
 
--   `lin`: $\begin{cases}     y_{\mathrm{nominal}} + x \cdot (y_{\mathrm{high}} - y_{\mathrm{nominal}}) \text{ if } x\geq0\\     y_{\mathrm{nominal}} + x \cdot (y_{\mathrm{nominal}} - y_{\mathrm{low}}) \text{ if } x<0     \end{cases}$ 
--   `log`: $\begin{cases}     y_{\mathrm{nominal}} \cdot \left(\frac{y_{\mathrm{high}}}{y_{\mathrm{nominal}}}\right)^x \text{ if } x\geq0\\     y_{\mathrm{nominal}} \cdot \left(\frac{y_{\mathrm{low}}}{y_{\mathrm{nominal}}}\right)^{-x}\text{ if } x<0     \end{cases}$ 
--   `parabolic`: $\begin{cases}     y_{\mathrm{nominal}} + (2s+d)\cdot(x-1)+(y_{\mathrm{high}} - y_{\mathrm{nominal}}) \text{ if } x>1\\     y_{\mathrm{nominal}} - (2s-d)\cdot(x+1)+(y_{\mathrm{low}} - y_{\mathrm{nominal})}\text{ if } x<-1\\     s \cdot x^2 + d\cdot x  \text{ otherwise}     \end{cases}$ with     $s=\frac{1}{2}(y_{\mathrm{high}} + y_{\mathrm{low}}) - y_{\mathrm{nominal}}$     and $d=\frac{1}{2}(y_{\mathrm{high}} - y_{\mathrm{low}})$ 
--   `poly6`: $\begin{cases}     y_{\mathrm{nominal}} + x \cdot (y_{\mathrm{high}} - y_{\mathrm{nominal}}) \text{ if } x>1\\     y_{\mathrm{nominal}} + x \cdot (y_{\mathrm{nominal}} - y_{\mathrm{low}}) \text{ if } x<-1\\     y_{\mathrm{nominal}} + x \cdot (S + x \cdot A \cdot (15 + x^2 \cdot (3x^2-10))) \text{ otherwise}     \end{cases}$     with $S = \frac{1}{2}(y_{\mathrm{high}} - y_{\mathrm{low}})$ and     $A=\frac{1}{16}(y_{\mathrm{high}} + y_{\mathrm{low}} - 2\cdot y_{\mathrm{nominal}})$ 
+The way modifiers affect the yield in the corresponding bin is subject to an interpolation function. The `histosys` and `normsys` modifiers thus allow for an additional component `interpolation`, a struct with the components 
+
+-   `type`: how the response combines with the sample prediction, `add` or `mult`, for additive or multiplicative, respectively, 
+-   `in`: the interpolating function used inside the bounds, $|\theta|<1$, 
+-   `out`: the extrapolating function used outside the bounds, $|\theta|\geq1$, if `null` the same function as for interpolation is used.
+
+The response is a scalar function $y(\theta;y_-,y_0,y_+)$ with anchors $y(0)=y_0$ and $y(\pm1)=y_\pm$, where $y_0$ and $y_\pm$ correspond to the nominal and `hi`/`lo`, respectively. 
+
+For the two option for `type="mult"` $y(\theta, y_0, y_+, y_-)$ combines to:
+
+$$  
+y(\theta) = y_0 \cdot \prod_i y(\theta_i, y_0, y_+, y_-),
+$$
+
+while for `type="add"` the combinations follows as:
+
+$$
+y(\theta) = y_0 + \sum_i y(\theta_i, y_0, y_+, y_-).
+$$
+
+The following functions are allowed for `in` and `out`:  
+
+- `poly1`: linear function
+- `poly2`: parabolic function
+- `poly6`: degree-6 polynomial
+- `exp`: exponential function
+
+The choice of functions for `in` and `out`, together with the anchor conditions ($y(0) = y_0$, $y(\pm1) = y_\pm$) and, where required, matching of first and second derivatives at the boundary ($\left.\frac{\mathrm{d}y}{\mathrm{d}\theta}\right|_{\theta=\pm 1}$ and $\left.\frac{\mathrm{d}^2y}{\mathrm{d}\theta}\right|_{\theta=\pm 1}$), fixes all free parameters of the chosen functions except for $\theta$ itself.
+
+
+The following choices are often used and showcase the resulting functional forms for common combinations of `type`, `in` and `out`:
+
+- additive, piecewise linear: 
+    - `{"type":"add", "in":"poly1", "out":null}`
+    - with $y_1(\theta, y_0, y_+, y_-) = \left\{ \begin{array}{ll} \theta\cdot(y_+ - y_0) &  \theta\geq0 \\ \theta\cdot(y_0-y_-) &  \theta<0\end{array}\right.$
+
+- multiplicative, piecewise exponential: 
+    - `{"type":"mult", "in":"exp", "out":null}`
+    - with $y_2(\theta, y_0, y_+, y_-) = \left\{ \begin{array}{ll} (y_+/y_0)^\theta &  \theta\geq0 \\ (y_-/y_0)^{-\theta} &  \theta<0 \end{array}\right.$
+
+- additive, quadratic interpolation and linear extrapolation 
+    - `{"type":"add", "in":"poly2", "out":"poly1"}`
+    - with $y_3(\theta, y_0, y_+, y_-) = \left\{\begin{array}{ll}(2s+d)\cdot(\theta - 1) + y_+ - y_0 &  \theta > 1 \\ s\cdot\theta^2 +d\cdot\theta & |\theta|\leq 1 \\ -(2s+d)\cdot(\theta + 1) + y_- - y_0& \theta < -1\end{array}\right.$,  
+  where $s=\tfrac12(y_+ + y_-) - y_0$ and $d=\tfrac12 (y_+ - y_-)$
+- additive, polynomial (6th degree) interpolation and linear extrapolation 
+    - `{type:"add", in:"poly6", out:"poly1"}`
+    - with $y_4(\theta, y_0, y_+, y_-) = \left\{\begin{array}{ll} \theta\cdot(y_+ - y_0) & \theta \geq 1 \\ \theta\cdot(S+\theta \cdot A (15+\theta^2\cdot(3\theta^2 -10))) & |\theta| < 1 \\ \theta\cdot(y_0 - y_-) & \theta \leq -1 \end{array}\right.$,  
+  where $S=\tfrac12(y_+ - y_-)$ and $A=\tfrac{1}{6}(y_+ + y_- -2y_0)$
+- multiplicative, polynomial (6th degree) interpolation and exponential extrapolation 
+    - `{type:"mult", in:"poly6", out:"exp"}`
+    - with $y_5(\theta, y_0, y_+, y_-) = \left\{\begin{array}{ll} (y_+/y_0)^\theta &  \theta\geq 1 \\ 1+\theta\cdot(a+\theta\cdot(b+\theta\cdot(c+\theta\cdot(d+\theta\cdot(e+\theta\cdot f)))))& |\theta|<1\\ (y_-/y_0)^{-\theta} &  \theta\leq-1\end{array}\right.$,  
+    where: $\begin{array}{l}a=\tfrac18(15A_0-7S_1+A_2) \\ b=\tfrac18(-24+24S_0-9A_1+S_2) \\ c=\tfrac14(-5A_0+5S_1-A_2) \\ d=\tfrac14(12-12S_0+7A_1-S_2) \\ e = \tfrac18 (3A_0 -3S_1+A_2) \\ f=\tfrac18 (-8+8S_0-5A_1+S_2)\end{array}$,  
+    with: $\begin{array}{l}S_i=\tfrac12(y_+(\log{y_+})^i + y_-(\log{y_-})^i) \\ A_i=\tfrac12(y_+(\log{y_+})^i - y_-(\log{y_-})^i)\end{array}$ and $\log t := \begin{cases}\log t & t > 0 \\0 & t \le 0 \end{cases}$
+- multiplicative, polynomial (6th degree) interpolation and linear extrapolation 
+    - `{type:"mult", in:"poly6", out:"poly1"}`
+    - with $y_6(\theta, y_0, y_+, y_-) = 1 + y_4(\theta, y_0, y_+, y_-)$
 
 Modifiers can be constrained. This is indicated by the component `constraint`, which identifies the type of the constraint term. In essence, the likelihood picks up a penalty term for changing the corresponding parameter too far away from its nominal value. The nominal value is, by convention, defined by the type of constraint, and is 0 for all modifiers of type `sys` (`histosys`, `normsys`) and is 1 for all modifiers of type `factor` (`normfactor`, `shapefactor`). The strength of the constraint is always such that the standard deviation of constraint distribution is $1$. 
 
@@ -65,12 +116,18 @@ The components of a HistFactory distribution are:
 -   `type`: `histfactory_dist` 
 -   `axes`: array of structs representing the axes. If given each struct     needs to have the component `name`. Further,     ([optional]{.smallcaps}) components are `max`, `min` and `nbins`,     or, alternatively, `edges`. The definition of the axes follows the     format for binned data (see Section 
     [Binned Data](#sec:binned-data){reference-type="ref"     reference="sec:binned-data"}). 
+-   `default_interpolation`: [optional]{.smallcaps} struct defining the default interpolation behaviour, for modifiers that do not specify it on their own. It has the components `type`, `in` and `out`, as described above.
 -   `samples`: array of structs containing the samples of this channel.     For details see below. 
 Struct of one sample:  
     -   `name`: ([optional]{.smallcaps}) custom string, unique within this     function 
     -   `data`: struct containing the components `contents` and `errors`,     depicting the data contents and their errors. Both components are     arrays of the same length. 
-    -   `modifiers`: array of structs with each struct containing a     component `type` of the modifier, as well as a component `parameter`     (defining a string) or a component `parameters` (defining an array     of strings) relating to the name or names of parameters controlling     this modifier. Further ([optional]{.smallcaps}) components are     `data` and `constraint`, both depending on the type of modifier. For     details on these components, see the description above. 
-Two modifiers are correlated exactly if they share the same parameters as indicated by `parameter` or `parameters`. In such a case, it is mandatory that they share the same constraint term. If this is not the case, the behavior is undefined. 
+    -   `modifiers`: array of structs with each struct containing the modifiers for this sample.
+    Struct of one modifier:
+        -  `type`: type of the modifier
+        -  `parameter` or `parameters`: defining a string or an array of strings, respectively. Relating to the name or names of parameters controlling this modifier. Two modifiers are correlated exactly if they share the same parameters as indicated by `parameter` or `parameters`. In such a case, it is mandatory that they share the same constraint term. If this is not the case, the behavior is undefined. 
+        -  `data`: [optional]{.smallcaps} relevant data for modifier. Its format depends on `type`, which is described above.
+        -  `constraint`: [optional]{.smallcaps} definition of how the modifier is constrained. Its format depends on `type`, which is described above.
+        -  `interpolation`: [optional]{.smallcaps} struct defining how the effect of the modifier is calculated within and outside of the boundaries $\theta=\pm 1$. It has the components `type`, `in` and `out` as described above. If this is ommited here for at least one modifier the top-level component `default_interpolation` becomes [required]{.smallcaps}.
 
 ```json title="HistFactory"
 {
@@ -80,6 +137,7 @@ Two modifiers are correlated exactly if they share the same parameters as indica
 	{ "max": 1.0, "min": 0.0, "name": "myRegion", "nbins": 2 } 
   ],
   "name":"myChannel1",
+  "default_interpolation": { "type": "mult", "in": "poly6", "out": "exp" },
   "samples": [
     { 
       "name": "mySignal",
@@ -97,6 +155,7 @@ Two modifiers are correlated exactly if they share the same parameters as indica
             "hi": { "contents": [ -2.5, -3.1 ] }, 
             "lo": { "contents": [ 2.2, 3.7 ] } 
            }, 
+           "interpolation": { "type": "add", "in": "poly6", "out": "poly1" },
            "parameter": "my_correlated_shape_systematic_1" },
         { "constraint": "Poisson", "data": { "vals": [ 0.0, 1.2 ] }, 
           "parameter": "my_uncorrelated_shape_systematic_2", 
