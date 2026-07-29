@@ -1,4 +1,4 @@
-# HS$^3$ - HEP Statistics Serialization Standard [![Build & Deploy Documentation](https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard/actions/workflows/gh-pages.yml)
+# HS³ - HEP Statistics Serialization Standard [![Build & Deploy Documentation](https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard/actions/workflows/gh-pages.yml)
 
 Welcome to the High Energy Physics Statistics Serialization Standard.
 
@@ -12,7 +12,7 @@ construction and open to discussion**
 
 We have a preprint paper on [arxiv](https://arxiv.org/abs/2606.01760).
 
-If you use HS$^3$ in your work please cite as:
+If you use HS³ in your work please cite as:
 
 ```
 @article{hs3preprint,
@@ -26,13 +26,13 @@ If you use HS$^3$ in your work please cite as:
 
 # In short
 
-The HEP Statistics Serialization Standard (HS3) defines standards of
+The HEP Statistics Serialization Standard (HS³) defines standards of
 different statistical procedures and results used in High Energy Physics
 (HEP) in terms of human-and machine readable representations. Different
 versions are defined with specifications and semantics that are
 acknowledged by a committee.
 
-View the current draft of the HS3 standard here: https://hep-statistics-serialization-standard.github.io/
+View the current draft of the HS³ standard here: https://hep-statistics-serialization-standard.github.io/
 
 Corresponding implementations to check the
 validity of files are also provided, at a _best effort_ basis.
@@ -53,7 +53,7 @@ of the likelihood and inference results.
 
 # Goal
 
-HS3 standardizes the machine- and human-readable serialization of all
+HS³ standardizes the machine- and human-readable serialization of all
 components involved in model fitting as used in High Energy Physics.
 This includes the definition of the model, the data as well as the loss
 function. The aim is to provide on one hand a language and framework
