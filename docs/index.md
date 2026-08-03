@@ -11,7 +11,7 @@ author:
     - Jonas Rembser
     - Oliver Schulz
 
-bibliography: ./hs3.bib 
+bibliography: hs3.bib 
 
 date: 2025-09-01
 

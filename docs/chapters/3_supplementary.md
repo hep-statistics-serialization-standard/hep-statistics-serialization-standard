@@ -1,5 +1,5 @@
 ---
-bibliography: ./hs3.bib
+bibliography: hs3.bib
 ---
 
 
