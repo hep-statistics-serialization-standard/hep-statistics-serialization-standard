@@ -89,4 +89,4 @@ The recommended filename extension for HS${}^3$ JSON documents is `.hs3.json`.
 Future versions of this standard will recommend official validator implementations and schemata. Currently, these have not been finalized. 
 
 ## How to get in touch 
-Visit the GitHub page <https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard> 
+Visit the [GitHub page](https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard).
