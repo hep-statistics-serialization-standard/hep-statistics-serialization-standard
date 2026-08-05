@@ -1,5 +1,5 @@
-site_name: HEP Statistics Serialization Standard (HS3)
-site_description: Official documentation for HS3
+site_name: HEP Statistics Serialization Standard (HS³)
+site_description: Official documentation for HS³
 site_url: https://hep-statistics-serialization-standard.github.io/
 repo_url: https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard
 use_directory_urls: true
