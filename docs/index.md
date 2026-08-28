@@ -36,6 +36,8 @@ title: HS3
 
 {% include-markdown "chapters/2.1.2_composite_distributions.md" %}
 
+{% include-markdown "chapters/2.1.3_resolution_models.md" %}
+
 {% include-markdown "chapters/2.2_functions.md" %}
 
 {% include-markdown "chapters/2.3_data.md" %}

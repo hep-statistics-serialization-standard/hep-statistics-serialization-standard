@@ -35,6 +35,7 @@ nav:
       - Distributions: chapters/2.1_distributions.md
       - Fundamental Distributions: chapters/2.1.1_fundamental_distributions.md
       - Composite Distributions: chapters/2.1.2_composite_distributions.md
+      - Resolution Models: chapters/2.1.3_resolution_models.md
       - Functions: chapters/2.2_functions.md
       - Data: chapters/2.3_data.md
       - Likelihoods: chapters/2.4_likelihoods.md
