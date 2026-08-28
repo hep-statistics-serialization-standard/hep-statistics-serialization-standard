@@ -117,8 +117,6 @@ all are required and have no default.
 
 - `name`: unique HS$^3$ object name.
 - `type`: the string `hammer_template_dist`.
-- `schema_version`: the string `0.2`. This version identifies the vocabulary defined here; it is
-  independent of the HS$^3$ and HAMMER versions.
 - `backend`: the string `HAMMER`.
 - `x`, `y`, `z`: references to the three HS$^3$ observables, in histogram-axis order.
 - `wilson_coefficients`: object with the required `process` member. Its value is the HAMMER
@@ -130,9 +128,7 @@ all are required and have no default.
 - `evaluation`: declares binning, normalization, floor, and error behaviour.
 - `hammer`: the complete effective HAMMER configuration and compiled responses.
 
-Unknown members in any normative object [must]{.smallcaps} be rejected for schema version `0.2`.
-Information that does not affect evaluation belongs in the enclosing HS$^3$ document.s `misc`
-top-level component, rather than in the distribution object.
+Information that does not affect evaluation belongs in the enclosing HS$^3$ documents `misc` top-level component, rather than in the distribution object.
 
 ### Parameter bindings
 
@@ -178,7 +174,7 @@ All unbound HAMMER settings retain the effective values in `hammer.configuration
 - `without_errors`: an object containing `histogram` and `scheme`;
 - `with_errors`: an object containing `histogram` and `scheme`.
 
-For schema version `0.2`, the two scheme values [must]{.smallcaps} respectively be
+The two scheme values [must]{.smallcaps} respectively be
 `templates.scheme + "_noErrors"` and `templates.scheme + "_withErrors"`. Each selected
 histogram [must]{.smallcaps} have a definition and a response for the selected scheme and empty
 specialization. The `without_errors` definition [must not]{.smallcaps} keep squared weights; the
@@ -353,7 +349,6 @@ definitions and responses and must include the complete effective setting store.
 {
   "name": "hammerPdf",
   "type": "hammer_template_dist",
-  "schema_version": "0.2",
   "backend": "HAMMER",
   "x": "x",
   "y": "y",
