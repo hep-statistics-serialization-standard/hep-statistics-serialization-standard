@@ -127,8 +127,9 @@ all are required and have no default.
 - `templates`: selects the two histogram/scheme pairs used by RooHammerModel.
 - `evaluation`: declares binning, normalization, floor, and error behaviour.
 - `hammer`: the complete effective HAMMER configuration and compiled responses.
+- `projection_provenance` (optional): non-evaluating provenance with `kind: compiled_mc_projection` and a nonempty `truth_model` reference to a separately serialized truth-amplitude model. It is absent when unset, round-trips exactly when set, does not participate in evaluation, and does not imply that the compiled response can be inverted.
 
-Information that does not affect evaluation belongs in the enclosing HS$^3$ documents `misc` top-level component, rather than in the distribution object.
+Except for the explicitly defined `projection_provenance` link, information that does not affect evaluation belongs in the enclosing HS$^3$ document `misc` top-level component rather than in the distribution object.
 
 ### Parameter bindings
 
