@@ -56,5 +56,7 @@ title: HS3
 
 {% include-markdown "chapters/3.1_generic_expressions.md" %}
 
+{% include-markdown "chapters/3.2_authoring_primitives.md" %}
+
 # References 
 \bibliography
