@@ -1,0 +1,1483 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HS3 amplitude serialization: minimal tensor-callable extension",
+  "description": "This schema describes the serialization format of an amplitude model for hadron physics.",
+  "additionalProperties": false,
+  "definitions": {
+    "AngularMomentum": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)$"
+        }
+      ]
+    },
+    "ComplexNumber": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string",
+          "pattern": "^-?\\d+(\\.\\d+)?(e[-+]?\\d+)? *[+-] *\\d+(\\.\\d+)?(e[-+]?\\d+)?i$"
+        }
+      ],
+      "examples": [
+        "1",
+        "1.0",
+        "1.0 + 2.0i",
+        "1.0-2.0i"
+      ]
+    },
+    "DecayChain": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "A label for the decay chain, used for clarity and not as a standardized identifier.",
+          "type": "string"
+        },
+        "propagators": {
+          "description": "List of the lineshape descriptors.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "spin": {
+                "$ref": "#/definitions/Spin"
+              },
+              "node": {
+                "description": "Defines a node in the topology graph by specifying the particles involved in the interaction.",
+                "$ref": "#/definitions/Topology"
+              },
+              "parametrization": {
+                "type": "string",
+                "description": "Lineshape parametrization. Should match the \"name\" of one of the function definitions under the \"functions\" section."
+              }
+            },
+            "required": [
+              "spin",
+              "node",
+              "parametrization"
+            ],
+            "additionalProperties": false
+          },
+          "uniqueItems": true
+        },
+        "topology": {
+          "description": "Structure of this decay chain represented as nested particle grouping into intermediate subsystems.",
+          "$ref": "#/definitions/Topology"
+        },
+        "vertices": {
+          "description": "Vertices define the nodes in the decay graphs denoted by grouping of particle indices.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Vertex"
+          },
+          "uniqueItems": true
+        },
+        "weight": {
+          "description": "The weight in each chain gives the complex coefficient that multiplies the decay matrix element of the chain\u2019s specific sequence of interactions and propagations. It influences the probability of the chain\u2019s occurrence and interference with other decay chains. The weight is a complex number.",
+          "$ref": "#/definitions/ComplexNumber"
+        }
+      },
+      "required": [
+        "name",
+        "propagators",
+        "topology",
+        "vertices",
+        "weight"
+      ],
+      "additionalProperties": false
+    },
+    "Function": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Identifier that can be used elsewhere to reference this function.",
+          "type": "string"
+        },
+        "type": {
+          "description": "Common type defines mathematical expression of the object.",
+          "type": "string"
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "gsq": {
+                "type": "number"
+              },
+              "ma": {
+                "type": "number"
+              },
+              "mb": {
+                "type": "number"
+              },
+              "l": {
+                "description": "Orbital angular momentum between particles in the decay.",
+                "$ref": "#/definitions/AngularMomentum"
+              },
+              "d": {
+                "description": "Size of the potential well for Blatt-Weisskopf factor.",
+                "type": "number"
+              }
+            },
+            "required": [
+              "gsq",
+              "ma",
+              "mb",
+              "l",
+              "d"
+            ],
+            "additionalProperties": false
+          },
+          "uniqueItems": true
+        },
+        "expression": {
+          "description": "Expression for the function. Use this for custom functions.",
+          "type": "string"
+        },
+        "l": {
+          "description": "Orbital angular momentum of the decay.",
+          "$ref": "#/definitions/AngularMomentum"
+        },
+        "mass": {
+          "description": "Nominal mass of the resonance in GeV.",
+          "type": "number",
+          "minimum": 0
+        },
+        "width": {
+          "description": "Nominal width of the resonance in GeV.",
+          "type": "number",
+          "minimum": 0
+        },
+        "ma": {
+          "type": "number",
+          "minimum": 0
+        },
+        "mb": {
+          "type": "number",
+          "minimum": 0
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "function_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "convention_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signature": {
+          "$ref": "#/definitions/ParticleSignature"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "kind",
+              "basis",
+              "semantics"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "kind": {
+                "enum": [
+                  "complex_vector",
+                  "real_vector"
+                ]
+              },
+              "basis": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "semantics": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "owner",
+                  "convention_version"
+                ],
+                "properties": {
+                  "owner": {
+                    "type": "string"
+                  },
+                  "convention_version": {
+                    "type": "string"
+                  },
+                  "scheme": {
+                    "type": "string"
+                  },
+                  "parametrization": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "result_axes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/TensorAxis"
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "provenance": {
+          "type": "object"
+        },
+        "input": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "owner",
+            "convention",
+            "basis"
+          ],
+          "properties": {
+            "owner": {
+              "type": "string"
+            },
+            "convention": {
+              "type": "string"
+            },
+            "basis": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "output": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "owner",
+            "convention",
+            "basis"
+          ],
+          "properties": {
+            "owner": {
+              "type": "string"
+            },
+            "convention": {
+              "type": "string"
+            },
+            "basis": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "matrix": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/definitions/ComplexMatrixEntry"
+            }
+          }
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "custom"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "expression"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "BlattWeisskopf"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "radius",
+              "l"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "MomentumPower"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "l"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "BreitWigner"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "mass",
+              "width",
+              "ma",
+              "mb",
+              "l",
+              "d"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "MultichannelBreitWigner"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "channels",
+              "mass"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "tensor_callable"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "provider",
+              "function_id",
+              "convention_version",
+              "signature",
+              "parameters",
+              "result_axes",
+              "assumptions"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "antilinear_vector_map"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "input",
+              "output",
+              "matrix"
+            ]
+          }
+        }
+      ],
+      "anyOf": [
+        {
+          "required": [
+            "name",
+            "type"
+          ]
+        },
+        {
+          "$ref": "#/definitions/TensorFunction"
+        },
+        {
+          "$ref": "#/definitions/VectorMap"
+        }
+      ]
+    },
+    "Parameter": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Spin": {
+      "description": "The spin of the particle, described as a fraction in string format. If the particle is a fermion, the spin is an integer or half-integer. If the particle is a boson, the spin is an integer.",
+      "examples": [
+        "0",
+        "1/2",
+        "1",
+        "-3/2"
+      ],
+      "pattern": "^(?![-+]0)[-+]?\\d+(/2)?$",
+      "type": "string"
+    },
+    "State": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "description": "A unique identifier for each particle, with 0 reserved for the initial state particle.",
+          "minimum": 0
+        },
+        "mass": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "Mass of the particle in GeV. Can be a constant value or a parametrization described under \"functions\" section."
+        },
+        "name": {
+          "type": "string",
+          "description": "A label for each particle, used for clarity and not as a standardized identifier."
+        },
+        "spin": {
+          "description": "The spin quantum number of the particle, represented in string format",
+          "$ref": "#/definitions/Spin"
+        },
+        "pdg_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "index",
+        "name",
+        "spin",
+        "mass"
+      ]
+    },
+    "Topology": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "$ref": "#/definitions/Topology"
+          }
+        ]
+      },
+      "uniqueItems": true
+    },
+    "Vertex": {
+      "type": "object",
+      "required": [
+        "type",
+        "node"
+      ],
+      "properties": {
+        "type": {
+          "description": "Specifies how the helicity recoupling factor H_{lam1,lam2} is computed. Each option reflects different ways of relating combinations of the helicity indices to a real-valued factor, the recoupling coefficient.",
+          "enum": [
+            "helicity",
+            "ls",
+            "parity"
+          ],
+          "enumDescriptions": [
+            "Recoupling with LS computes the value of the recoupling functions using Clebsch-Gordan coefficients.",
+            "Parity` recoupling is controlled by the parity factor and gives a non-zero value for two combination of the helicity pair, the selected one and the opposite.",
+            "No recoupling. The factor is 1 for a pair of selected helicities and zero for other combinations."
+          ]
+        },
+        "helicities": {
+          "type": "array",
+          "description": "Spin projections of the two decay products in the vertex.",
+          "items": {
+            "$ref": "#/definitions/Spin"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "node": {
+          "$ref": "#/definitions/Topology",
+          "description": "Description of the position of the vertex within the decay topology."
+        },
+        "parity_factor": {
+          "description": "Factor that is is required for parity couplings and LS couplings. Gives a non-zero value for two combination of the helicity pair, the selected one and the opposite.",
+          "enum": [
+            "-",
+            "+"
+          ]
+        },
+        "l": {
+          "description": "Orbital angular momentum of particles in the decay the vertex.",
+          "$ref": "#/definitions/AngularMomentum"
+        },
+        "s": {
+          "description": "Coupled spin of the vertex.",
+          "$ref": "#/definitions/Spin"
+        },
+        "formfactor": {
+          "description": "Optional form-factor for the vertex. The form-factor is a function of three arguments, (mX^2, mA^2, mB^2) for X->[A,B] vertex, that is defined under \"functions\" section.",
+          "default": "",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "helicity"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "helicities"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ls"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "l",
+              "s"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "parity"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "helicities",
+              "parity_factor"
+            ]
+          }
+        }
+      ]
+    },
+    "TensorAxis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "kind",
+        "basis",
+        "convention"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "coefficient",
+            "form_factor_component",
+            "spin",
+            "spin_reference"
+          ]
+        },
+        "basis": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "particle_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "convention": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "owner",
+            "id",
+            "status"
+          ],
+          "properties": {
+            "owner": {
+              "type": "string",
+              "minLength": 1
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "enum": [
+                "fully_specified",
+                "provider_local"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "ComplexMatrixEntry": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      ]
+    },
+    "ParticleSignature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parent_pdg",
+        "daughter_pdgs",
+        "particle_roles"
+      ],
+      "properties": {
+        "parent_pdg": {
+          "type": "integer"
+        },
+        "daughter_pdgs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "integer"
+          }
+        },
+        "particle_roles": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "TopologyScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "boundary_particles",
+        "nodes",
+        "role_bindings"
+      ],
+      "properties": {
+        "boundary_particles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/Topology"
+          }
+        },
+        "eliminated_internal_axes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "role_bindings": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/TopologyRoleBinding"
+          }
+        }
+      }
+    },
+    "TensorFunction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "type",
+        "provider",
+        "function_id",
+        "convention_version",
+        "signature",
+        "parameters",
+        "result_axes",
+        "assumptions"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "const": "tensor_callable"
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "function_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "convention_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signature": {
+          "$ref": "#/definitions/ParticleSignature"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "kind",
+              "basis",
+              "semantics"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "kind": {
+                "enum": [
+                  "complex_vector",
+                  "real_vector"
+                ]
+              },
+              "basis": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "semantics": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "owner",
+                  "convention_version"
+                ],
+                "properties": {
+                  "owner": {
+                    "type": "string"
+                  },
+                  "convention_version": {
+                    "type": "string"
+                  },
+                  "scheme": {
+                    "type": "string"
+                  },
+                  "parametrization": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "result_axes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/TensorAxis"
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "provenance": {
+          "type": "object"
+        }
+      }
+    },
+    "VectorMap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "type",
+        "input",
+        "output",
+        "matrix"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "const": "antilinear_vector_map"
+        },
+        "input": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "owner",
+            "convention",
+            "basis"
+          ],
+          "properties": {
+            "owner": {
+              "type": "string"
+            },
+            "convention": {
+              "type": "string"
+            },
+            "basis": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "output": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "owner",
+            "convention",
+            "basis"
+          ],
+          "properties": {
+            "owner": {
+              "type": "string"
+            },
+            "convention": {
+              "type": "string"
+            },
+            "basis": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "matrix": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/definitions/ComplexMatrixEntry"
+            }
+          }
+        }
+      }
+    },
+    "TensorComponent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "function",
+        "topology_scope"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "function": {
+          "type": "string"
+        },
+        "topology_scope": {
+          "$ref": "#/definitions/TopologyScope"
+        }
+      }
+    },
+    "TensorComposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "components",
+        "contractions",
+        "intensity"
+      ],
+      "properties": {
+        "components": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "contractions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "left",
+              "right"
+            ],
+            "properties": {
+              "left": {
+                "$ref": "#/definitions/AxisEndpoint"
+              },
+              "right": {
+                "$ref": "#/definitions/AxisEndpoint"
+              }
+            }
+          }
+        },
+        "intensity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "surviving_axes",
+            "summed_axes",
+            "identified_axes",
+            "initial_spin_average"
+          ],
+          "properties": {
+            "surviving_axes": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/definitions/AxisEndpoint"
+              }
+            },
+            "summed_axes": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/definitions/AxisEndpoint"
+              }
+            },
+            "identified_axes": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "$ref": "#/definitions/AxisEndpoint"
+                }
+              }
+            },
+            "initial_spin_average": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          }
+        }
+      }
+    },
+    "AxisEndpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component",
+        "axis"
+      ],
+      "properties": {
+        "component": {
+          "type": "string",
+          "minLength": 1
+        },
+        "axis": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "TopologyRoleBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "target"
+      ],
+      "properties": {
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "particle_index"
+              ],
+              "properties": {
+                "particle_index": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "intermediate_state"
+              ],
+              "properties": {
+                "intermediate_state": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "IntermediateState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "node",
+        "pdg_id",
+        "spin"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "node": {
+          "$ref": "#/definitions/Topology"
+        },
+        "pdg_id": {
+          "type": "integer"
+        },
+        "spin": {
+          "$ref": "#/definitions/Spin"
+        }
+      }
+    }
+  },
+  "properties": {
+    "distributions": {
+      "type": "array",
+      "description": "List of amplitude model PDF descriptions.",
+      "items": {
+        "properties": {
+          "decay_description": {
+            "type": "object",
+            "description": "Description of the decay that underlies the PDF.",
+            "properties": {
+              "chains": {
+                "type": "array",
+                "description": "List with definitions of the decay chains and their corresponding amplitudes that contribute to the PDF.",
+                "items": {
+                  "$ref": "#/definitions/DecayChain"
+                },
+                "minItems": 0
+              },
+              "kinematics": {
+                "type": "object",
+                "description": "Definition of the initial and final state of the decay.",
+                "properties": {
+                  "initial_state": {
+                    "description": "Initial state of the decay.",
+                    "$ref": "#/definitions/State"
+                  },
+                  "final_state": {
+                    "type": "array",
+                    "description": "List of states that form the final state.",
+                    "items": {
+                      "$ref": "#/definitions/State"
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true
+                  }
+                },
+                "additionalProperties": false
+              },
+              "reference_topology": {
+                "$ref": "#/definitions/Topology",
+                "description": "Definition of the basic decay structure (topology) of the model, which is used to define 1) parametrization of the decay kinematics, and 2) reference quantization axes. It outlines the decay chain for which the amplitude is written without a need for the alignment rotations. All other chains that have different decay topology must be aligned to this reference topology."
+              },
+              "appendix": {
+                "type": "object"
+              },
+              "tensor_components": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/TensorComponent"
+                },
+                "uniqueItems": true
+              },
+              "tensor_composition": {
+                "$ref": "#/definitions/TensorComposition"
+              },
+              "intermediate_states": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/IntermediateState"
+                },
+                "uniqueItems": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "name": {
+            "type": "string"
+          },
+          "parameters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Parameter"
+            },
+            "uniqueItems": true
+          },
+          "type": {
+            "description": "The type of the distribution. See https://rub-ep1.github.io/amplitude-serialization/description.html#amplitude-model-and-observables",
+            "markdownDescription": "The type of the distribution. For more info, see [here](https://rub-ep1.github.io/amplitude-serialization/description.html#amplitude-model-and-observables).",
+            "enum": [
+              "HadronicUnpolarizedIntensity",
+              "HadronicPolarizedIntensity"
+            ],
+            "enumDescriptions": [
+              "Amplitude model distribution that sums over the polarization of the initial state.",
+              "Amplitude model distribution that takes the polarization of the initial state into account."
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "domains": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Identifier for the distribution. Can be referred to from elsewhere in the model description.",
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "product_domain"
+            ],
+            "enumDescriptions": [
+              "Box-shaped domain defined by min-max values over each variable."
+            ]
+          },
+          "parameters": {
+            "type": "array",
+            "description": "List of parameters and their values that together describe a domain in phase space.",
+            "items": {
+              "$ref": "#/definitions/Parameter"
+            },
+            "uniqueItems": true
+          },
+          "axes": {
+            "type": "array",
+            "description": "List of variables and their ranges.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the variable."
+                },
+                "min": {
+                  "type": "number"
+                },
+                "max": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "name",
+          "type"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "product_domain"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "axes"
+              ]
+            }
+          }
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    },
+    "functions": {
+      "type": "array",
+      "description": "Definitions of functions that are used in the model.",
+      "items": {
+        "$ref": "#/definitions/Function"
+      },
+      "uniqueItems": true
+    },
+    "misc": {
+      "type": "object",
+      "description": "Any additional information about the model.",
+      "properties": {
+        "amplitude_model_checksums": {
+          "type": "array",
+          "description": "A list of checksums that can be used to validate whether the computational implementation of the serialized amplitude model is correct.",
+          "items": {
+            "properties": {
+              "point": {
+                "description": "Parameter point over which to evaluate the distribution.",
+                "type": "string"
+              },
+              "distribution": {
+                "type": "string",
+                "description": "The name of the distribution for which the checksum is calculated."
+              },
+              "value": {
+                "description": "The resulting checksum value ('non-normalized intensity').",
+                "minimum": 0,
+                "$ref": "#/definitions/ComplexNumber"
+              }
+            },
+            "uniqueItems": true
+          }
+        },
+        "callable_validation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "provider",
+              "function_id",
+              "convention_version",
+              "absolute_scale",
+              "relative_tolerance",
+              "points"
+            ],
+            "properties": {
+              "provider": {
+                "type": "string"
+              },
+              "function_id": {
+                "type": "string"
+              },
+              "convention_version": {
+                "type": "string"
+              },
+              "absolute_scale": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "relative_tolerance": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "points": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "kinematics",
+                    "result"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "kinematics": {
+                      "type": "object"
+                    },
+                    "result": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "resource",
+                        "encoding",
+                        "shape",
+                        "sha256"
+                      ],
+                      "properties": {
+                        "resource": {
+                          "type": "string"
+                        },
+                        "encoding": {
+                          "const": "dense_row_major_complex_pairs"
+                        },
+                        "shape": {
+                          "type": "array",
+                          "minItems": 1,
+                          "items": {
+                            "type": "integer",
+                            "minimum": 1
+                          }
+                        },
+                        "sha256": {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "parameter_points": {
+      "type": "array",
+      "description": "Definition of points in parameter space over which the model can be evaluated.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Identifier for the parameter point. Can be referred to from elsewhere in the model description."
+          },
+          "parameters": {
+            "type": "array",
+            "description": "List of parameters and their values that together describe a point in phase space.",
+            "items": {
+              "$ref": "#/definitions/Parameter"
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "distributions",
+    "domains",
+    "functions",
+    "misc",
+    "parameter_points"
+  ],
+  "type": "object",
+  "$id": "https://hep-statistics.org/hs3/schemas/amplitude-callables/1.0/amplitude.json",
+  "x-hs3-extension": {
+    "name": "amplitude-callables",
+    "version": "1.0.0",
+    "status": "extension",
+    "baseline": {
+      "project": "RUB-EP1/amplitude-serialization",
+      "schema": "schema.json",
+      "revision": "d0f0dff0eaa3025ed5aab2c7b85ccb36bd4b7524"
+    },
+    "compatibility": "A different baseline is compatible only after unchanged upstream models and extension semantic validation pass."
+  }
+}

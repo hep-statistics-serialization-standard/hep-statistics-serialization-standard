@@ -25,6 +25,8 @@ eggs/
 lib/
 lib64/
 parts/
+!docs/parts/
+!docs/parts/amplitude.md
 sdist/
 var/
 wheels/
