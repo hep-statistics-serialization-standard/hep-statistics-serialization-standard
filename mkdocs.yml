@@ -46,6 +46,7 @@ nav:
   - Appendix:
       - Supplementary: chapters/3_supplementary.md
       - Generic Expressions: chapters/3.1_generic_expressions.md
+      - Authoring Primitives: chapters/3.2_authoring_primitives.md
   - PDF version: files/hs3.pdf
     
 

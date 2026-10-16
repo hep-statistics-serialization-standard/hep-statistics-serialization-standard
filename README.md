@@ -32,7 +32,7 @@ different statistical procedures and results used in High Energy Physics
 versions are defined with specifications and semantics that are
 acknowledged by a committee.
 
-View the current draft of the HS³ standard here: https://hep-statistics-serialization-standard.github.io/
+View the current draft of the HS³ standard [here](https://hep-statistics-serialization-standard.github.io/).
 
 Corresponding implementations to check the
 validity of files are also provided, at a _best effort_ basis.
@@ -66,8 +66,6 @@ The focus of this project is not on the long-term storage of large data,
 which may be needed for an actual implementation, but rather to define a
 common serialization format.
 
-TODO: more description
-
 # Standard versions
 
 Until 1.x, the standard is considered unstable and may introduce
@@ -84,7 +82,11 @@ In order to submit ideas, proposals and examples, you can either start a
 discussion using issues or add the document(s), if you have some, in the
 proposals (draft or pending) folder and create a PR to discussion them.
 
-If you are interest to become part of the core committee, please open an
+Please make sure to read the [authorship
+guidelines](https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard/blob/master/docs/chapters/3.2_authoring_primitives.md)
+before you contribute or review content.
+
+If you are interested to become part of the core committee, please open an
 issue. Anyone is allowed to join.
 
 ## Emoji-Reactions to Issues, PRs, Discussions and Comments
