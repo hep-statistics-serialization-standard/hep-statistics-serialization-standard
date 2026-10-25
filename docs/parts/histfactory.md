@@ -143,7 +143,7 @@ Struct of one sample:
         -  `parameter` or `parameters`: defining a string or an array of strings, respectively. Relating to the name or names of parameters controlling this modifier. Two modifiers are correlated exactly if they share the same parameters as indicated by `parameter` or `parameters`. In such a case, it is mandatory that they share the same constraint term. If this is not the case, the behavior is undefined. 
         -  `data`: [optional]{.smallcaps} relevant data for modifier. Its format depends on `type`, which is described above.
         -  `constraint`: [optional]{.smallcaps} definition of how the modifier is constrained. Its format depends on `type`, which is described above.
-        -  `interpolation`: [optional]{.smallcaps} struct defining how the effect of the modifier is calculated within and outside of the boundaries $\theta=\pm 1$. It has the components `type`, `in` and `out` as described above. If this is omitted here for at least one modifier the top-level component `default_interpolation` becomes [required]{.smallcaps}.
+        -  `interpolation`: [optional]{.smallcaps} struct defining how the effect of the modifier is calculated within and outside of the boundaries $\theta=\pm 1$. It has the components `type`, `in` and `out` as described above. If this is omitted here for at least one modifier the top-level component `default_interpolation` becomes [required]{.smallcaps}. Implementations [must not]{.smallcaps} assume a default interpolation of their own; a document in which a modifier omits `interpolation` and no `default_interpolation` is given is invalid and [must]{.smallcaps} be rejected.
 
 ```json title="HistFactory"
 {
