@@ -35,6 +35,8 @@ Future versions of the standard may support array-shaped and record-of-arrays-sh
 
 The names of all named HS${}^3$ objects (distributions, functions, likelihoods, data, parameters, variables, domains, parameter points, etc.) form a single namespace and must be unique within an HS${}^3$ document. The names assigned to variate record entries and data fields/axes are not part of the global namespace.
 
+Only the definition of a named object introduces a name into the global namespace. Places where a name is merely used to refer to an existing object do not introduce a new name. In particular, the entries of `parameters` in a parameter point (see [Parameter points](#sec:parameterpoints){reference-type="ref" reference="sec:parameterpoints"}) refer to parameters of the model rather than defining new named objects, so the same parameter name may appear in several parameter points without violating the uniqueness requirement.
+
 HS${}^3$ implementations will typically provide a renaming/aliasing mechanism that can be used to resolve name clashes when using
 multiple HS${}^3$ documents together, e.g. for combined analyses.
 
