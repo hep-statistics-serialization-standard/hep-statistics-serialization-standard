@@ -11,7 +11,7 @@ This document sets out to document the syntax and features of the Statistics Ser
 
 ## How to use this document 
 Developers of statistical toolkits are invited to specifically refer to versions of this document relating to the support of this standard in their respective implementations. 
-Please note that this document as well as the HS${}^3$ standard are still in development and can still undergo minor and major changes in the future. This document describes the syntax of HS${}^3$ v0.2.9. 
+Please note that this document as well as the HS${}^3$ standard are still in development and can still undergo minor and major changes in the future. This document describes the syntax of HS${}^3$ version 0.3. Documents conforming to this version identify themselves with `"hs3_version": "0.3"` (see [Metadata](#sec:metadata){reference-type="ref" reference="sec:metadata"}). 
 
 ## Statistical semantics of HS${}^3$ {#sec:hs3-semantics} 
 
