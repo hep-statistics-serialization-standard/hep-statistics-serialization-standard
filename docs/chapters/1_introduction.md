@@ -35,6 +35,12 @@ Future versions of the standard may support array-shaped and record-of-arrays-sh
 
 The names of all named HS${}^3$ objects (distributions, functions, likelihoods, data, parameters, variables, domains, parameter points, etc.) form a single namespace and must be unique within an HS${}^3$ document. The names assigned to variate record entries and data fields/axes are not part of the global namespace.
 
+#### Identifiers {#sec:identifiers}
+
+The names of HS${}^3$ objects that can be referenced from generic expressions, i.e. parameters, variables, functions and distributions, [must]{.smallcaps} be identifiers matching the regular expression `[A-Za-z_][A-Za-z0-9_]*`: an ASCII letter or underscore, followed by any number of ASCII letters, digits or underscores. The generic expression language (see [Generic Expressions](#sec:generic_expression){reference-type="ref" reference="sec:generic_expression"}) relies on this, since symbols in an expression that are not defined by the expression language refer to these objects by name, and names containing other characters could not be written there without an escaping mechanism.
+
+The names of data sets, likelihoods, analyses, domains and parameter points [should]{.smallcaps} follow the same rule, but are not required to.
+
 HS${}^3$ implementations will typically provide a renaming/aliasing mechanism that can be used to resolve name clashes when using
 multiple HS${}^3$ documents together, e.g. for combined analyses.
 
