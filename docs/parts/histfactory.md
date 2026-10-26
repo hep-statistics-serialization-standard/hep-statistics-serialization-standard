@@ -129,7 +129,7 @@ The components of a HistFactory distribution are:
 -   `samples`: array of structs containing the samples of this channel.     For details see below. 
 Struct of one sample:  
     -   `name`: ([optional]{.smallcaps}) custom string, unique within this     function 
-    -   `data`: struct containing the component `contents` and the ([optional]{.smallcaps}) component `errors`, depicting the sample contents and their per-bin uncertainties. Both components are arrays with length equal to the number of bins. If `errors` is absent, no per-bin uncertainty is associated with the sample. 
+    -   `data`: struct containing the component `contents` and the ([optional]{.smallcaps}) component `errors`, depicting the sample contents and their per-bin uncertainties. Both components are arrays with length equal to the number of bins. If `errors` is absent, no per-bin uncertainty is associated with the sample. This `data` is the template of the sample, i.e. the predicted yields and their uncertainties, not observed data. 
     -   `modifiers`: array of structs with each struct containing the modifiers for this sample.
     Struct of one modifier:
         -  `type`: type of the modifier
