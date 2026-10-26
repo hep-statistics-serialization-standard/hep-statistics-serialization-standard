@@ -34,6 +34,7 @@ The modifiers depend on a set of nuisance parameters $\theta$, where each modifi
 -   A *normalization systematic* or `normsys` modifier is a     multiplicative modifier that scales the entire sample with the same     constant factor $f$ that is a function of $\alpha$. The modifier     contains a `data` section, which contains the values $\texttt{hi}$     and $\texttt{lo}$ that help to define $f$. There are different     functional forms that can be chosen for $f$. However, by convention     $f(\alpha=0)=1$, $f(\alpha=+1)=$"`hi`" and     $f(\alpha=-1)=$"`lo`". The functional form of $f$ for intermediate and outlying $\alpha$ is set by the `interpolation` component, described below. In this case, $\theta_i=\alpha$. 
 -   A *normalization factor* or `normfactor` modifier is a     multiplicative modifier that scales the entire sample in this region     with the value of the parameter $\mu$ itself. In this case,     $\theta_i=\mu$. 
 -   The `staterror` modifier is a shorthand for encoding uncorrelated statistical uncertainties on the values of the step-functions, using a variant[^1] of the Barlow-Beeston Method [@barlowbeeston]. It acts as a `shapefactor` whose per-bin relative uncertainty is derived from the samples: $\delta_i=\sqrt{\sum_s \sigma_{s,i}^2}\,/\sum_s y_{s,i}$, with $y_{s,i}$ and $\sigma_{s,i}$ the `contents` and `errors` of all samples in this region carrying a `staterror` modifier. The distributions named in `constraints` [should]{.smallcaps} be constructed as a `barlow_beeston_lite_poisson_constraint_dist` with `x` naming the $\gamma_i$ and `expected` holding $\tau_i=\delta_i^{-2}$. 
+-   A `custom` modifier is a multiplicative modifier that scales the sample with the value of an arbitrary function $f$ defined in the top-level component `functions` (see [Functions](#sec:functions)). The `name` of the modifier is the name of $f$. If $f$ depends on the observables, it acts as a shape factor, otherwise as a normalization factor. Here, $\theta_i$ are the parameters of $f$; the components `parameters`, `data` and `constraints` are not used for this type. 
 
 The different modifiers and their descriptions are also summarized in the following table: 
 
@@ -43,6 +44,7 @@ The different modifiers and their descriptions are also summarized in the follow
 | `normsys`                    | Normalization systematic      | $\kappa(x,\alpha) = f(\alpha)$               | $\alpha$                      | 1                              |
 | `normfactor`                 | Normalization factor          | $\kappa(x,\mu) = \mu$                        | $\mu$                         | 1                              |
 | `shapefactor`, `staterror`   | Shape factor                  | $\kappa(x,\vec{\gamma}) = \chi_b^{\gamma}$   | $\gamma_0$, ..., $\gamma_n$   | #bins                          |
+| `custom`                     | Custom function               | $\kappa(x,\vec{\theta}) = f(x,\vec{\theta})$ | parameters of $f$             | #parameters of $f$             |
 
 
 The way modifiers affect the yield in the corresponding bin is subject to an interpolation function. The `histosys` and `normsys` modifiers thus allow for an additional component `interpolation`, a struct with the components 
@@ -132,6 +134,7 @@ Struct of one sample:
     -   `data`: struct containing the component `contents` and the ([optional]{.smallcaps}) component `errors`, depicting the sample contents and their per-bin uncertainties. Both components are arrays with length equal to the number of bins. If `errors` is absent, no per-bin uncertainty is associated with the sample. This `data` is the template of the sample, i.e. the predicted yields and their uncertainties, not observed data. 
     -   `modifiers`: array of structs with each struct containing the modifiers for this sample.
     Struct of one modifier:
+        -  `name`: ([optional]{.smallcaps}) custom string, unique within this sample. [required]{.smallcaps} for `custom` modifiers, where it names a function defined in the top-level component `functions`.
         -  `type`: type of the modifier
         -  `parameters`: array of strings naming the parameters controlling this modifier.
         -  `data`: [optional]{.smallcaps} relevant data for modifier. Its format depends on `type`, which is described above.
