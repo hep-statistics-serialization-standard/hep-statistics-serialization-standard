@@ -124,7 +124,7 @@ The components of a HistFactory distribution are:
     
 -   `name`: custom unique string 
 -   `type`: `histfactory_dist` 
--   `axes`: array of axis structs. Each struct [must]{.smallcaps} contain `name`, `min`, `max` and exactly one of `nbins` or `edges`, following the [Axis Specifications](#sec:axes) for binned data. 
+-   `axes`: array of binned axis structs as defined for binned data in [Axis Specifications](#sec:axes). 
 -   `default_interpolation`: [optional]{.smallcaps} struct defining the default interpolation behaviour, for modifiers that do not specify it on their own. It has the components `type`, `in` and `out`, as described above.
 -   `samples`: array of structs containing the samples of this channel.     For details see below. 
 Struct of one sample:  
