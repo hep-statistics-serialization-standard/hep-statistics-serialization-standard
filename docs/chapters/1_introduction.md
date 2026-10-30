@@ -17,7 +17,7 @@ Please note that this document as well as the HS${}^3$ standard are still in dev
 
 ### Statistical models, probability distributions and parameters {#sec:models-and-parameters} 
 HS${}^3$ takes a "forward-modelling" approach throughout: a statistical model $m$ maps a space $\Theta$ of free parameters $\theta$ to a space of probability distributions that describe the possible outcomes of a specific experiment. For any given parameters $\theta$, the model returns a concrete probability distribution $m(\theta)$. Observed data $x$ is then treated as random variate, presumed to be drawn from the model: $x \sim m(\theta)$. 
-Parameters in HS${}^3$ are always named, so semantically the elements of a parameter space $\Theta$ are records $\theta$ (i.e. tuples in which every entry has a name). Even if there is only a single free parameter, $\theta$ should be thought of as a single-entry record. In the current version of this standard, parameter tuples must be flat and only consist of real numbers (or strings for categorical parameters); vector-valued or nested entries are not supported yet. Future versions of the standard will likely be less restrictive, especially with respect to discrete or vector-valued parameters. Parameter domains defined as part of this standard may be of various types, even though the current version only supports product domains. Future versions are likely to be less restrictive in this regard. 
+Parameters in HS${}^3$ are always named, so semantically the elements of a parameter space $\Theta$ are records $\theta$ (i.e. tuples in which every entry has a name). Even if there is only a single free parameter, $\theta$ should be thought of as a single-entry record. In the current version of this standard, parameter tuples [must]{.smallcaps} be flat and only consist of real numbers (or strings for categorical parameters); vector-valued or nested entries are not supported yet. Future versions of the standard will likely be less restrictive, especially with respect to discrete or vector-valued parameters. Parameter domains defined as part of this standard may be of various types, even though the current version only supports product domains. Future versions are likely to be less restrictive in this regard. 
 Mathematically and computationally, it is often convenient to treat parameters as flat real-valued vectors instead of records, it is the responsibility of the implementation to map between these different views of parameters when and where necessary.
 Probability distributions in HS${}^3$ (see 
 [Distributions](#sec:distributions){reference-type="ref" reference="sec:distributions"}) are typically parameterized. Any instance of a distribution that has some of its parameters bound to names instead of concrete values, e.g. $m = d_{\mu = a, \sigma = 0.7, \lambda = b, ...}$, constitutes a valid statistical model $m(\theta)$ with model parameters $\theta = (a, b)$. 
@@ -33,7 +33,9 @@ Future versions of the standard may support array-shaped and record-of-arrays-sh
 
 ### Global namespace {#sec:global-namespace}
 
-The names of all named HS${}^3$ objects (distributions, functions, likelihoods, data, parameters, variables, domains, parameter points, etc.) form a single namespace and must be unique within an HS${}^3$ document. The names assigned to variate record entries and data fields/axes are not part of the global namespace.
+The names of all named HS${}^3$ objects (distributions, functions, likelihoods, data, parameters, variables, domains, parameter points, etc.) form a single namespace and [must]{.smallcaps} be unique within an HS${}^3$ document. The names assigned to variate record entries and data fields/axes are not part of the global namespace. Neither are the names of analyses (see [Analyses](#sec:analyses){reference-type="ref" reference="sec:analyses"}): the names of analyses [must]{.smallcaps} be unique among all analyses in an HS${}^3$ document, but an analysis [may]{.smallcaps} have the same name as an object in the global namespace, for example the likelihood it refers to. Future versions of this standard may restrict the latter.
+
+Only the definition of a named object introduces a name into the global namespace. Places where a name is merely used to refer to an existing object do not introduce a new name. In particular, the entries of `parameters` in a parameter point (see [Parameter points](#sec:parameterpoints){reference-type="ref" reference="sec:parameterpoints"}) refer to parameters of the model rather than defining new named objects, so the same parameter name may appear in several parameter points without violating the uniqueness requirement.
 
 HS${}^3$ implementations will typically provide a renaming/aliasing mechanism that can be used to resolve name clashes when using
 multiple HS${}^3$ documents together, e.g. for combined analyses.
@@ -46,7 +48,7 @@ Here we use $\text{PDF}(m(\theta), x)$ to denote the density value of the probab
 
 ### Observed and simulated data {#sec:data-generation} 
 The term data refers here to any collection of values that represents the outcome of an experiment. Data takes the same form as variates of distributions (see 
-[Distributions](#sec:distributions){reference-type="ref" reference="sec:distributions"}, i. e.&nbsp;a record of real values or vectors. To compare given data with a given model, the names and shapes of the data entries must match the variates of the probability distributions $m(\theta)$ that the model returns for a specific choice of parameters $\theta$. 
+[Distributions](#sec:distributions){reference-type="ref" reference="sec:distributions"}, i. e.&nbsp;a record of real values or vectors. To compare given data with a given model, the names and shapes of the data entries [must]{.smallcaps} match the variates of the probability distributions $m(\theta)$ that the model returns for a specific choice of parameters $\theta$. 
 This means that given a model $m$ and concrete parameter values $\theta$, drawing a set of random values from the probability distribution $m(\theta)$ produces a valid set of simulated observations. Implementations can use this to provide mock-data generation capabilities. 
 
 ### Likelihood functions {#sec:likelihood-definition} 
@@ -64,7 +66,7 @@ The standard also encompasses the specification of Bayesian posterior distributi
 ## How to read this document 
 In the context of this document, any `JSON` object is referred to as a struct. A key-value-pair inside such a struct is referred to as a component. If not explicitly stated otherwise, all components mentioned are mandatory. 
 The components located inside the top-level struct are referred to as top-level components. 
-The keywords [optional]{.smallcaps} and [required]{.smallcaps}, as well as [should]{.smallcaps} and [may]{.smallcaps} are used in accordance with IETF requirement levels [@rfc2119]. 
+The keywords [must]{.smallcaps}, [must not]{.smallcaps}, [required]{.smallcaps}, [should]{.smallcaps}, [should not]{.smallcaps}, [may]{.smallcaps} and [optional]{.smallcaps} are used in accordance with IETF requirement levels [@rfc2119]. 
 
 ## Terms and Types 
 This is a list of used types and terms in this document. 
@@ -76,12 +78,14 @@ This is a list of used types and terms in this document.
 -   `number`: either floating or integer type values 
 -   `boolean`: boolean values; they can be encoded as `true` and `false` 
 
-All `struct`s defining functions, distributions, parameters, variables, domains, likelihoods, data or parameter points will be referred to as `object`s. All `object`s [must]{.smallcaps} always have a component `name` that [must]{.smallcaps} be unique among all `object`s. 
+All `struct`s defining functions, distributions, parameters, variables, domains, likelihoods, data or parameter points will be referred to as `object`s. All `object`s [must]{.smallcaps} always have a component `name`. These names are subject to the uniqueness rule given in [Global namespace](#sec:global-namespace){reference-type="ref" reference="sec:global-namespace"}. 
 
 Within most top-level `component`s, any one `string` given as a value to any component [should]{.smallcaps} refer to the `name` of another `object`, unless explicitly stated otherwise. Top-level `component`s in which this is not the case are explicitly marked as such. 
 
 ## File format 
 HS${}^3$ documents are encoded in the JSON format as defined in ISO/IEC 21778:2017 [@json]. Implementations [may]{.smallcaps} support other serialization formats that support a non-ambiguous mapping to JSON, such as TOML or YAML, in which case they [should]{.smallcaps} use a different file extension.
+
+An HS${}^3$ document that contains a JSON object with two or more members of the same name is invalid. All numeric values [must]{.smallcaps} be finite IEEE-754 double-precision numbers that are representable as JSON numbers; the non-standard literals `NaN`, `Infinity` and `-Infinity` [must not]{.smallcaps} be used.
 
 The recommended filename extension for HS${}^3$ JSON documents is `.hs3.json`.
 
