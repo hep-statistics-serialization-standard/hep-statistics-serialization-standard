@@ -29,7 +29,8 @@ In this section, $\chi^{y_s}_{b}(x)$ denotes a generic step function in the binn
 The $M_\kappa$ are the multiplicative modifiers, the $M_\delta$ are the additive modifiers. Each of the modifiers is either multiplicative ($\kappa$) or additive ($\delta$). All samples and modifiers share the same binning $b$. 
 The modifiers depend on a set of nuisance parameters $\theta$, where each modifier can only depend on one $\theta_i$, but the $\theta_i$ can take the form of vectors and the same $\theta_i$ can be shared by several modifiers. By convention, these are denoted $\alpha$ if they affect all bins in a correlated way, and $\gamma$ if they affect only one bin at a time. The types of modifiers are 
 
--   A *uncorrelated shape systematic* or `shapefactor` modifier is a     multiplicative modifier that scales each single bin by the value of     some independent parameter $\gamma$. Here, $\theta_i=\vec{\gamma}$,     where the length of $\vec{\gamma}$ is equal to the number of bins in     this region. *This type of modifier is sometimes called `shapesys`,     with some nuance in the meaning. However, both are synonymous in the     context of this standard.* 
+-   A *shape factor* or `shapefactor` modifier is a multiplicative modifier that scales each single bin by the value of some independent parameter $\gamma$. Here, $\theta_i=\vec{\gamma}$, where the length of $\vec{\gamma}$ is equal to the number of bins in this region. A `shapefactor` modifier does not carry a constraint of its own; its parameters are free.
+-   An *uncorrelated shape systematic* or `shapesys` modifier is a multiplicative modifier of the same form as `shapefactor`, scaling each single bin by an independent parameter $\gamma$, with $\theta_i=\vec{\gamma}$. Unlike `shapefactor`, each $\gamma$ is subject to a Poisson constraint built from the bin-wise values given in the array `vals` of the modifier's `data` section, as described below. `shapefactor` and `shapesys` are distinct modifier types and [must not]{.smallcaps} be used interchangeably.
 -   A *correlated shape systematic* or `histosys` modifier is an     additive modifier that adds or subtracts a constant step function     $\chi^f$, scaled with a single factor $\alpha$. The modifier     contains a `data` section, which contains the subsections     $\texttt{hi}$ and $\texttt{lo}$ that help to define the step     function $\chi^f$. They contain `contents`, which define the     bin-wise additions or subtractions for $\alpha=1$. The functional form of $\chi^f$ for intermediate and outlying $\alpha$ is set by the `interpolation` component, described below. Here,     $\theta_i=\alpha$. 
 -   A *normalization systematic* or `normsys` modifier is a     multiplicative modifier that scales the entire sample with the same     constant factor $f$ that is a function of $\alpha$. The modifier     contains a `data` section, which contains the values $\texttt{hi}$     and $\texttt{lo}$ that help to define $f$. There are different     functional forms that can be chosen for $f$. However, by convention     $f(\alpha=0)=1$, $f(\alpha=+1)=$"`hi`" and     $f(\alpha=-1)=$"`lo`". The functional form of $f$ for intermediate and outlying $\alpha$ is set by the `interpolation` component, described below. In this case, $\theta_i=\alpha$. 
 -   A *normalization factor* or `normfactor` modifier is a     multiplicative modifier that scales the entire sample in this region     with the value of the parameter $\mu$ itself. In this case,     $\theta_i=\mu$. 
@@ -42,10 +43,11 @@ The different modifies and their descriptions are also summarized in the followi
 | `histosys`                   | Correlated Shape systematic   | $\delta(x,\alpha) = \alpha * \chi_b^f$       | $\alpha$                      | 1                              |
 | `normsys`                    | Normalization systematic      | $\kappa(x,\alpha) = f(\alpha)$               | $\alpha$                      | 1                              |
 | `normfactor`                 | Normalization factor          | $\kappa(x,\mu) = \mu$                        | $\mu$                         | 1                              |
-| `shapefactor`, `staterror`   | Shape factor                  | $\kappa(x,\vec{\gamma}) = \chi_b^{\gamma}$   | $\gamma_0$, ..., $\gamma_n$   | #bins                          |
+| `shapefactor`                | Shape factor                  | $\kappa(x,\vec{\gamma}) = \chi_b^{\gamma}$   | $\gamma_0$, ..., $\gamma_n$   | #bins                          |
+| `shapesys`, `staterror`      | Uncorrelated shape systematic | $\kappa(x,\vec{\gamma}) = \chi_b^{\gamma}$   | $\gamma_0$, ..., $\gamma_n$   | #bins                          |
 
 
-The `staterror` modifier is a special subtype of `shapefactor`, where the mean of the constraint is given as the sum of the predictions of all the samples carrying a `staterror` modifier in this bin.  
+The `staterror` modifier is a special case of `shapesys`, where the mean of the constraint is given as the sum of the predictions of all the samples carrying a `staterror` modifier in this bin, instead of being taken from `vals`. `shapefactor` and `shapesys` differ only in their constraint: both scale the prediction bin by bin in the same way.  
 
 The way modifiers affect the yield in the corresponding bin is subject to an interpolation function. The `histosys` and `normsys` modifiers thus allow for an additional component `interpolation`, a struct with the components 
 
@@ -136,14 +138,14 @@ The components of a HistFactory distribution are:
 -   `samples`: array of structs containing the samples of this channel.     For details see below. 
 Struct of one sample:  
     -   `name`: ([optional]{.smallcaps}) custom string, unique within this     function 
-    -   `data`: struct containing the components `contents` and `errors`,     depicting the data contents and their errors. Both components are     arrays of the same length. 
+    -   `data`: struct containing the components `contents` and `errors`, depicting the data contents and their errors. `errors` is [optional]{.smallcaps}; if present, both components are arrays of the same length. If `errors` is absent, the sample contributes no statistical uncertainty to a `staterror` modifier. 
     -   `modifiers`: array of structs with each struct containing the modifiers for this sample.
     Struct of one modifier:
         -  `type`: type of the modifier
         -  `parameter` or `parameters`: defining a string or an array of strings, respectively. Relating to the name or names of parameters controlling this modifier. Two modifiers are correlated exactly if they share the same parameters as indicated by `parameter` or `parameters`. In such a case, it is mandatory that they share the same constraint term. If this is not the case, the behavior is undefined. 
         -  `data`: [optional]{.smallcaps} relevant data for modifier. Its format depends on `type`, which is described above.
         -  `constraint`: [optional]{.smallcaps} definition of how the modifier is constrained. Its format depends on `type`, which is described above.
-        -  `interpolation`: [optional]{.smallcaps} struct defining how the effect of the modifier is calculated within and outside of the boundaries $\theta=\pm 1$. It has the components `type`, `in` and `out` as described above. If this is omitted here for at least one modifier the top-level component `default_interpolation` becomes [required]{.smallcaps}.
+        -  `interpolation`: [optional]{.smallcaps} struct defining how the effect of the modifier is calculated within and outside of the boundaries $\theta=\pm 1$. It has the components `type`, `in` and `out` as described above. If this is omitted here for at least one modifier the top-level component `default_interpolation` becomes [required]{.smallcaps}. Implementations [must not]{.smallcaps} assume a default interpolation of their own; a document in which a modifier omits `interpolation` and no `default_interpolation` is given is invalid and [must]{.smallcaps} be rejected.
 
 ```json title="HistFactory"
 {
