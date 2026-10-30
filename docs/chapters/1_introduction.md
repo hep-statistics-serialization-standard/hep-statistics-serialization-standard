@@ -3,13 +3,15 @@ bibliography: hs3.bib
 ---
 
 # Introduction 
-*This section is non-normative.* 
+*This introductory text is non-normative. Sections of this chapter that are non-normative are marked as such; all other sections are normative.* 
 
 It is widely agreed upon that the publication of likelihood models from high energy physics experiments is imperative for the preservation and public access to these results. Detailed arguments have been made elsewhere already [@Cranmer_2022]. This document sets out to provide a standardized format to publish and archive statistical models of any size and across a wide range of mathematical formalisms in a way that is readable by both humans and machines. 
 With the introduction of `pyhf` [@pyhf; @pyhf-joss], a `JSON` format for likelihood serialization has been put forward. However, an interoperable format that encompasses likelihoods with a scope beyond stacks of binned histograms was lacking. With the release of `ROOT` 6.26/00 [@root] and the experimental `RooJSONFactoryWSTool` therein, this gap has now been filled. 
 This document sets out to document the syntax and features of the Statistics Serialization Standard (HS${}^3$) for likelihoods and statistical models in general, as to be adopted by any HS${}^3$-compatible statistics framework. The examples in this document employ the `JSON` notation, but are intended to encompass also representations as `YAML` or `TOML`. 
 
 ## How to use this document 
+*This section is non-normative.* 
+
 Developers of statistical toolkits are invited to specifically refer to versions of this document relating to the support of this standard in their respective implementations. 
 Please note that this document as well as the HS${}^3$ standard are still in development and can still undergo minor and major changes in the future. This document describes the syntax of HS${}^3$ version 0.3. Documents conforming to this version identify themselves with `"hs3_version": "0.3"` (see [Metadata](#sec:metadata){reference-type="ref" reference="sec:metadata"}). 
 
@@ -92,7 +94,11 @@ HS${}^3$ documents are encoded in the JSON format as defined in ISO/IEC 21778:20
 The recommended filename extension for HS${}^3$ JSON documents is `.hs3.json`.
 
 ## Validators 
+*This section is non-normative.* 
+
 Future versions of this standard will recommend official validator implementations and schemata. Currently, these have not been finalized. 
 
 ## How to get in touch 
+*This section is non-normative.* 
+
 Visit the GitHub page <https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard> 
