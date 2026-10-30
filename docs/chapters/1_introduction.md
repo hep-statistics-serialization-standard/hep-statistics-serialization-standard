@@ -33,7 +33,7 @@ Future versions of the standard may support array-shaped and record-of-arrays-sh
 
 ### Global namespace {#sec:global-namespace}
 
-The names of all named HS${}^3$ objects (distributions, functions, likelihoods, data, parameters, variables, domains, parameter points, etc.) form a single namespace and [must]{.smallcaps} be unique within an HS${}^3$ document. The names assigned to variate record entries and data fields/axes are not part of the global namespace.
+The names of all named HS${}^3$ objects (distributions, functions, likelihoods, data, parameters, variables, domains, parameter points, etc.) form a single namespace and [must]{.smallcaps} be unique within an HS${}^3$ document. The names assigned to variate record entries and data fields/axes are not part of the global namespace. Neither are the names of analyses (see [Analyses](#sec:analyses){reference-type="ref" reference="sec:analyses"}): the names of analyses [must]{.smallcaps} be unique among all analyses in an HS${}^3$ document, but an analysis [may]{.smallcaps} have the same name as an object in the global namespace, for example the likelihood it refers to. Future versions of this standard may restrict the latter.
 
 Only the definition of a named object introduces a name into the global namespace. Places where a name is merely used to refer to an existing object do not introduce a new name. In particular, the entries of `parameters` in a parameter point (see [Parameter points](#sec:parameterpoints){reference-type="ref" reference="sec:parameterpoints"}) refer to parameters of the model rather than defining new named objects, so the same parameter name may appear in several parameter points without violating the uniqueness requirement.
 
@@ -78,7 +78,7 @@ This is a list of used types and terms in this document.
 -   `number`: either floating or integer type values 
 -   `boolean`: boolean values; they can be encoded as `true` and `false` 
 
-All `struct`s defining functions, distributions, parameters, variables, domains, likelihoods, data or parameter points will be referred to as `object`s. All `object`s [must]{.smallcaps} always have a component `name` that [must]{.smallcaps} be unique among all `object`s. 
+All `struct`s defining functions, distributions, parameters, variables, domains, likelihoods, data or parameter points will be referred to as `object`s. All `object`s [must]{.smallcaps} always have a component `name`. These names are subject to the uniqueness rule given in [Global namespace](#sec:global-namespace){reference-type="ref" reference="sec:global-namespace"}. 
 
 Within most top-level `component`s, any one `string` given as a value to any component [should]{.smallcaps} refer to the `name` of another `object`, unless explicitly stated otherwise. Top-level `component`s in which this is not the case are explicitly marked as such. 
 
