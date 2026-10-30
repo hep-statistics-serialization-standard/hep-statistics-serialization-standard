@@ -66,7 +66,7 @@ The standard also encompasses the specification of Bayesian posterior distributi
 ## How to read this document 
 In the context of this document, any `JSON` object is referred to as a struct. A key-value-pair inside such a struct is referred to as a component. If not explicitly stated otherwise, all components mentioned are mandatory. 
 The components located inside the top-level struct are referred to as top-level components. 
-The keywords [optional]{.smallcaps} and [required]{.smallcaps}, as well as [should]{.smallcaps} and [may]{.smallcaps} are used in accordance with IETF requirement levels [@rfc2119]. 
+The keywords [must]{.smallcaps}, [must not]{.smallcaps}, [required]{.smallcaps}, [should]{.smallcaps}, [should not]{.smallcaps}, [may]{.smallcaps} and [optional]{.smallcaps} are used in accordance with IETF requirement levels [@rfc2119]. 
 
 ## Terms and Types 
 This is a list of used types and terms in this document. 
