@@ -60,5 +60,7 @@ title: HS3
 
 {% include-markdown "chapters/3.3_histfactory.md" %}
 
+{% include-markdown "chapters/3.4_auxiliary_measurements.md" %}
+
 # References 
 \bibliography
