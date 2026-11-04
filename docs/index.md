@@ -58,5 +58,7 @@ title: HS3
 
 {% include-markdown "chapters/3.2_authoring_primitives.md" %}
 
+{% include-markdown "chapters/3.3_histfactory.md" %}
+
 # References 
 \bibliography
