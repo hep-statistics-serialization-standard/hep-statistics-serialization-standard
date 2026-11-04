@@ -6,7 +6,9 @@ bibliography: hs3.bib
 *This section is non-normative.* 
 
 It is widely agreed upon that the publication of likelihood models from high energy physics experiments is imperative for the preservation and public access to these results. Detailed arguments have been made elsewhere already [@Cranmer_2022]. This document sets out to provide a standardized format to publish and archive statistical models of any size and across a wide range of mathematical formalisms in a way that is readable by both humans and machines. 
+
 With the introduction of `pyhf` [@pyhf; @pyhf-joss], a `JSON` format for likelihood serialization has been put forward. However, an interoperable format that encompasses likelihoods with a scope beyond stacks of binned histograms was lacking. With the release of `ROOT` 6.26/00 [@root] and the experimental `RooJSONFactoryWSTool` therein, this gap has now been filled. 
+
 This document sets out to document the syntax and features of the Statistics Serialization Standard (HS${}^3$) for likelihoods and statistical models in general, as to be adopted by any HS${}^3$-compatible statistics framework. The examples in this document employ the `JSON` notation, but are intended to encompass also representations as `YAML` or `TOML`. 
 
 ## How to use this document 
@@ -15,14 +17,30 @@ Please note that this document as well as the HS${}^3$ standard are still in dev
 
 ## Statistical semantics of HS${}^3$ {#sec:hs3-semantics} 
 
+A **variable** is a mathematical quantity whose value is chosen or generated,
+rather than directly computed from other quantities. A **parameter** is a
+variable whose value is chosen by a user of the model, such as a minimizer.
+There is no expectation that a distribution is normalized with respect to
+its parameters, or that parameters themselves have specified statistical
+properties or a distribution from which they can be drawn. A **variate**,
+also called an **observable**, is a statistical quantity modeled by a
+distribution; these two terms are used interchangeably in HS${}^3$.
+Both parameters and variates are variables. Their roles are relative to a
+particular use: the same variable may be a parameter in one use and a
+variate in another, for example a parameter of a likelihood model and a
+variate of a prior distribution.
+
 ### Statistical models, probability distributions and parameters {#sec:models-and-parameters} 
+
 HS${}^3$ takes a "forward-modelling" approach throughout: a statistical model $m$ maps a space $\Theta$ of free parameters $\theta$ to a space of probability distributions that describe the possible outcomes of a specific experiment. For any given parameters $\theta$, the model returns a concrete probability distribution $m(\theta)$. Observed data $x$ is then treated as random variate, presumed to be drawn from the model: $x \sim m(\theta)$. 
 Parameters in HS${}^3$ are always named, so semantically the elements of a parameter space $\Theta$ are records $\theta$ (i.e. tuples in which every entry has a name). Even if there is only a single free parameter, $\theta$ should be thought of as a single-entry record. In the current version of this standard, parameter tuples must be flat and only consist of real numbers (or strings for categorical parameters); vector-valued or nested entries are not supported yet. Future versions of the standard will likely be less restrictive, especially with respect to discrete or vector-valued parameters. Parameter domains defined as part of this standard may be of various types, even though the current version only supports product domains. Future versions are likely to be less restrictive in this regard. 
 Mathematically and computationally, it is often convenient to treat parameters as flat real-valued vectors instead of records, it is the responsibility of the implementation to map between these different views of parameters when and where necessary.
+
 Probability distributions in HS${}^3$ (see 
 [Distributions](#sec:distributions){reference-type="ref" reference="sec:distributions"}) are typically parameterized. Any instance of a distribution that has some of its parameters bound to names instead of concrete values, e.g. $m = d_{\mu = a, \sigma = 0.7, \lambda = b, ...}$, constitutes a valid statistical model $m(\theta)$ with model parameters $\theta = (a, b)$. 
 When probability distributions are combined via a Cartesian product (see 
 [Product distribution](#sec:product-distribution){reference-type="ref" reference="sec:product-distribution"}), then the records that contain their free parameter values are concatenated. So $m = d_{\mu = a, \sigma = b} \times d_{\mu = c, \sigma = 0.7}$ constitutes a model $m(\theta)$ with model parameters $\theta = (a, b, c)$.
+
 Distribution parameters may also be bound to the output of functions, and if those functions have inputs that are bound to names instead of values (or again bound to such functions, recursively), then those names become part of the model parameters. A configuration $m = d_{\mu = a, \sigma = 0.7, \lambda = f}, f = \texttt{sum}(4.2, g), g = \texttt{sum}(1.3, b)$, for example, also constitutes a (different) model $m(\theta)$ with parameters $\theta = (a, b, c)$. 
 If all parameter values of a probability distribution are set to concrete values, so if there are not directly (or indirectly via functions) bound to names, we call this probability distribution a concrete distribution here. Such distributions can be used as Bayesian 
 priors (see [Bayesian inference](#sec:bayesian-inference){reference-type="ref" reference="sec:bayesian-inference"}). 
@@ -40,8 +58,10 @@ multiple HS${}^3$ documents together, e.g. for combined analyses.
 
 ### Probability density functions (PDFs) {#sec:what-is-a-pdf} 
 Statistics literature often discriminates between probability density functions (PDF) for continuous probability distributions and probability mass functions (PMF) for discrete probability distributions. This standard use the term PDF for both continuous and discrete distributions. The concept of density is to be understood in terms of densities in the realm of measure theory here, that is the density of a probability measure (distribution) is its Radon-Nikodym derivative in respect to an (implied) reference measure. 
+
 The choice of reference measure would be arbitrary in principle, which scales likelihood functions 
 (Sec. [Likelihood](#sec:likelihood-definition){reference-type="ref" reference="sec:likelihood-definition"}) by a constant factor that depends on choice of reference. In this standard, a specific reference measures is implied for each probability distribution, typically the Lebesgue measure for continuous distributions and the counting measure for discrete distributions. The standard aims to match the PDF (resp.&nbsp;PMF) most commonly used in literature for each specific probability distribution and the mathematical form of the PDF is documented explicitly for each distribution in the standard. So within HS${}^3$, probability densities and likelihood functions are unambiguous. 
+
 Here we use $\text{PDF}(m(\theta), x)$ to denote the density value of the probability distribution/measure $m$, parameterized by $\theta$, at the point/variate $x$, in respect to the implied reference for $m$. 
 
 ### Observed and simulated data {#sec:data-generation} 
