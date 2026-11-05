@@ -3,15 +3,17 @@ bibliography: hs3.bib
 ---
 
 # Introduction 
-*This section is non-normative.* 
+*This introductory text is non-normative. Sections of this chapter that are non-normative are marked as such; all other sections are normative.* 
 
 It is widely agreed upon that the publication of likelihood models from high energy physics experiments is imperative for the preservation and public access to these results. Detailed arguments have been made elsewhere already [@Cranmer_2022]. This document sets out to provide a standardized format to publish and archive statistical models of any size and across a wide range of mathematical formalisms in a way that is readable by both humans and machines. 
 With the introduction of `pyhf` [@pyhf; @pyhf-joss], a `JSON` format for likelihood serialization has been put forward. However, an interoperable format that encompasses likelihoods with a scope beyond stacks of binned histograms was lacking. With the release of `ROOT` 6.26/00 [@root] and the experimental `RooJSONFactoryWSTool` therein, this gap has now been filled. 
 This document sets out to document the syntax and features of the Statistics Serialization Standard (HS${}^3$) for likelihoods and statistical models in general, as to be adopted by any HS${}^3$-compatible statistics framework. The examples in this document employ the `JSON` notation, but are intended to encompass also representations as `YAML` or `TOML`. 
 
 ## How to use this document 
+*This section is non-normative.* 
+
 Developers of statistical toolkits are invited to specifically refer to versions of this document relating to the support of this standard in their respective implementations. 
-Please note that this document as well as the HS${}^3$ standard are still in development and can still undergo minor and major changes in the future. This document describes the syntax of HS${}^3$ v0.2.9. 
+Please note that this document as well as the HS${}^3$ standard are still in development and can still undergo minor and major changes in the future. This document describes the syntax of HS${}^3$ version 0.3. Documents conforming to this version identify themselves with `"hs3_version": "0.3"` (see [Metadata](#sec:metadata){reference-type="ref" reference="sec:metadata"}). 
 
 ## Statistical semantics of HS${}^3$ {#sec:hs3-semantics} 
 
@@ -38,6 +40,12 @@ The names of all named HS${}^3$ objects (distributions, functions, likelihoods, 
 HS${}^3$ implementations will typically provide a renaming/aliasing mechanism that can be used to resolve name clashes when using
 multiple HS${}^3$ documents together, e.g. for combined analyses.
 
+#### Identifiers {#sec:identifiers}
+
+The names of HS${}^3$ objects that can be referenced from generic expressions, i.e. parameters, variables, functions and distributions, [must]{.smallcaps} be identifiers matching the regular expression `[A-Za-z_][A-Za-z0-9_]*`: an ASCII letter or underscore, followed by any number of ASCII letters, digits or underscores. The generic expression language (see [Generic Expressions](#sec:generic_expression){reference-type="ref" reference="sec:generic_expression"}) relies on this, since symbols in an expression that are not defined by the expression language refer to these objects by name, and names containing other characters could not be written there without an escaping mechanism.
+
+The names of data sets, likelihoods, analyses, domains and parameter points [should]{.smallcaps} follow the same rule, but are not required to.
+
 ### Probability density functions (PDFs) {#sec:what-is-a-pdf} 
 Statistics literature often discriminates between probability density functions (PDF) for continuous probability distributions and probability mass functions (PMF) for discrete probability distributions. This standard use the term PDF for both continuous and discrete distributions. The concept of density is to be understood in terms of densities in the realm of measure theory here, that is the density of a probability measure (distribution) is its Radon-Nikodym derivative in respect to an (implied) reference measure. 
 The choice of reference measure would be arbitrary in principle, which scales likelihood functions 
@@ -55,9 +63,13 @@ The concrete probability distribution $m(\theta)$ that a model $m$ returns for s
 the model (see [Data](#sec:data-generation){reference-type="ref" reference="sec:data-generation"}) to check for Monte-Carlo closure. 
 
 ### Frequentist parameter inference {#sec:frequentist-inference} 
+*This section is non-normative.* 
+
 The standard method of frequentist inference is the maximum (or, respectively, profile) likelihood method. In the vast majority of cases, the test statistic used here is the likelihood ratio, that is, the ratio of two values of the likelihood corresponding to two different points in parameter space: one that maximizes the likelihood unconditionally, and one that maximizes the likelihood under some condition such as the values of the parameters of interest expected in the absence of a deviation from the null hypothesis. The corresponding building blocks for such an analysis, such as the list of parameters of interest and the likelihood function to be used, are specified in the analysis section of an HS${}^3$ configuration (Sec. [Analyses](#sec:analyses){reference-type="ref" reference="sec:analyses"}). 
 
 ### Bayesian parameter inference {#sec:bayesian-inference} 
+*This section is non-normative.* 
+
 The standard also encompasses the specification of Bayesian posterior distributions over parameters by combining (Sec. 
 [Analyses](#sec:analyses){reference-type="ref" reference="sec:analyses"}) likelihoods with probabilty distributions that acts the priors. Here concrete distributions are used to describe the prior probability of parameters in addition to parameterized distributions that are used to describe of the probability of observing specific data. 
 
@@ -86,7 +98,11 @@ HS${}^3$ documents are encoded in the JSON format as defined in ISO/IEC 21778:20
 The recommended filename extension for HS${}^3$ JSON documents is `.hs3.json`.
 
 ## Validators 
+*This section is non-normative.* 
+
 Future versions of this standard will recommend official validator implementations and schemata. Currently, these have not been finalized. 
 
 ## How to get in touch 
+*This section is non-normative.* 
+
 Visit the GitHub page <https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard> 
