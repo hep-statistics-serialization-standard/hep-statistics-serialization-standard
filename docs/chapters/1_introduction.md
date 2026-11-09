@@ -3,21 +3,23 @@ bibliography: hs3.bib
 ---
 
 # Introduction 
-*This section is non-normative.* 
+*This introductory text is non-normative. Sections of this chapter that are non-normative are marked as such; all other sections are normative.* 
 
 It is widely agreed upon that the publication of likelihood models from high energy physics experiments is imperative for the preservation and public access to these results. Detailed arguments have been made elsewhere already [@Cranmer_2022]. This document sets out to provide a standardized format to publish and archive statistical models of any size and across a wide range of mathematical formalisms in a way that is readable by both humans and machines. 
 With the introduction of `pyhf` [@pyhf; @pyhf-joss], a `JSON` format for likelihood serialization has been put forward. However, an interoperable format that encompasses likelihoods with a scope beyond stacks of binned histograms was lacking. With the release of `ROOT` 6.26/00 [@root] and the experimental `RooJSONFactoryWSTool` therein, this gap has now been filled. 
 This document sets out to document the syntax and features of the Statistics Serialization Standard (HS${}^3$) for likelihoods and statistical models in general, as to be adopted by any HS${}^3$-compatible statistics framework. The examples in this document employ the `JSON` notation, but are intended to encompass also representations as `YAML` or `TOML`. 
 
 ## How to use this document 
+*This section is non-normative.* 
+
 Developers of statistical toolkits are invited to specifically refer to versions of this document relating to the support of this standard in their respective implementations. 
-Please note that this document as well as the HS${}^3$ standard are still in development and can still undergo minor and major changes in the future. This document describes the syntax of HS${}^3$ v0.2.9. 
+Please note that this document as well as the HS${}^3$ standard are still in development and can still undergo minor and major changes in the future. This document describes the syntax of HS${}^3$ version 0.3. Documents conforming to this version identify themselves with `"hs3_version": "0.3"` (see [Metadata](#sec:metadata){reference-type="ref" reference="sec:metadata"}). 
 
 ## Statistical semantics of HS${}^3$ {#sec:hs3-semantics} 
 
 ### Statistical models, probability distributions and parameters {#sec:models-and-parameters} 
-HS${}^3$ takes a "forward-modelling" approach throughout: a statistical model $m$ maps a space $\Theta$ of free parameters $\theta$ to a space of probability distributions that describe the possible outcomes of a specific experiment. For any given parameters $\theta$, the model returns a concrete probability distribution $m(\theta)$. Observed data $x$ is then treated as random variate, presumed to be drawn from the model: $x \sim m(\theta)$. In an HS${}^3$ document, $\Theta$ is the product of the domain axes of the free parameters (Sec. [Domains](#sec:domains){reference-type="ref" reference="sec:domains"}); parameters not listed in any domain are constant and are not part of $\Theta$ (Sec. [Parameters without a domain](#sec:parameters-without-domain){reference-type="ref" reference="sec:parameters-without-domain"}). 
-Parameters in HS${}^3$ are always named, so semantically the elements of a parameter space $\Theta$ are records $\theta$ (i.e. tuples in which every entry has a name). Even if there is only a single free parameter, $\theta$ should be thought of as a single-entry record. In the current version of this standard, parameter tuples must be flat and only consist of real numbers (or strings for categorical parameters); vector-valued or nested entries are not supported yet. Future versions of the standard will likely be less restrictive, especially with respect to discrete or vector-valued parameters. Parameter domains defined as part of this standard may be of various types, even though the current version only supports product domains. Future versions are likely to be less restrictive in this regard. 
+HS${}^3$ takes a "forward-modelling" approach throughout: a statistical model $m$ maps a space $\Theta$ of free parameters $\theta$ to a space of probability distributions that describe the possible outcomes of a specific experiment. For any given parameters $\theta$, the model returns a concrete probability distribution $m(\theta)$. Observed data $x$ is then treated as random variate, presumed to be drawn from the model: $x \sim m(\theta)$. 
+Parameters in HS${}^3$ are always named, so semantically the elements of a parameter space $\Theta$ are records $\theta$ (i.e. tuples in which every entry has a name). Even if there is only a single free parameter, $\theta$ should be thought of as a single-entry record. In the current version of this standard, parameter tuples [must]{.smallcaps} be flat and only consist of real numbers (or strings for categorical parameters); vector-valued or nested entries are not supported yet. Future versions of the standard will likely be less restrictive, especially with respect to discrete or vector-valued parameters. Parameter domains defined as part of this standard may be of various types, even though the current version only supports product domains. Future versions are likely to be less restrictive in this regard. 
 Mathematically and computationally, it is often convenient to treat parameters as flat real-valued vectors instead of records, it is the responsibility of the implementation to map between these different views of parameters when and where necessary.
 Probability distributions in HS${}^3$ (see 
 [Distributions](#sec:distributions){reference-type="ref" reference="sec:distributions"}) are typically parameterized. Any instance of a distribution that has some of its parameters bound to names instead of concrete values, e.g. $m = d_{\mu = a, \sigma = 0.7, \lambda = b, ...}$, constitutes a valid statistical model $m(\theta)$ with model parameters $\theta = (a, b)$. 
@@ -33,10 +35,18 @@ Future versions of the standard may support array-shaped and record-of-arrays-sh
 
 ### Global namespace {#sec:global-namespace}
 
-The names of all named HS${}^3$ objects (distributions, functions, likelihoods, data, parameters, variables, domains, parameter points, etc.) form a single namespace and must be unique within an HS${}^3$ document. The names assigned to variate record entries and data fields/axes are not part of the global namespace.
+The names of all named HS${}^3$ objects (distributions, functions, likelihoods, data, parameters, variables, domains, parameter points, etc.) form a single namespace and [must]{.smallcaps} be unique within an HS${}^3$ document. The names assigned to variate record entries and data fields/axes are not part of the global namespace. Neither are the names of analyses (see [Analyses](#sec:analyses){reference-type="ref" reference="sec:analyses"}): the names of analyses [must]{.smallcaps} be unique among all analyses in an HS${}^3$ document, but an analysis [may]{.smallcaps} have the same name as an object in the global namespace, for example the likelihood it refers to. Future versions of this standard may restrict the latter.
+
+Only the definition of a named object introduces a name into the global namespace. Places where a name is merely used to refer to an existing object do not introduce a new name. In particular, the entries of `parameters` in a parameter point (see [Parameter points](#sec:parameterpoints){reference-type="ref" reference="sec:parameterpoints"}) refer to parameters of the model rather than defining new named objects, so the same parameter name may appear in several parameter points without violating the uniqueness requirement.
 
 HS${}^3$ implementations will typically provide a renaming/aliasing mechanism that can be used to resolve name clashes when using
 multiple HS${}^3$ documents together, e.g. for combined analyses.
+
+#### Identifiers {#sec:identifiers}
+
+The names of HS${}^3$ objects that can be referenced from generic expressions, i.e. parameters, variables, functions and distributions, [must]{.smallcaps} be identifiers matching the regular expression `[A-Za-z_][A-Za-z0-9_]*`: an ASCII letter or underscore, followed by any number of ASCII letters, digits or underscores. The generic expression language (see [Generic Expressions](#sec:generic_expression){reference-type="ref" reference="sec:generic_expression"}) relies on this, since symbols in an expression that are not defined by the expression language refer to these objects by name, and names containing other characters could not be written there without an escaping mechanism.
+
+The names of data sets, likelihoods, analyses, domains and parameter points [should]{.smallcaps} follow the same rule, but are not required to.
 
 ### Probability density functions (PDFs) {#sec:what-is-a-pdf} 
 Statistics literature often discriminates between probability density functions (PDF) for continuous probability distributions and probability mass functions (PMF) for discrete probability distributions. This standard use the term PDF for both continuous and discrete distributions. The concept of density is to be understood in terms of densities in the realm of measure theory here, that is the density of a probability measure (distribution) is its Radon-Nikodym derivative in respect to an (implied) reference measure. 
@@ -46,7 +56,7 @@ Here we use $\text{PDF}(m(\theta), x)$ to denote the density value of the probab
 
 ### Observed and simulated data {#sec:data-generation} 
 The term data refers here to any collection of values that represents the outcome of an experiment. Data takes the same form as variates of distributions (see 
-[Distributions](#sec:distributions){reference-type="ref" reference="sec:distributions"}, i. e.&nbsp;a record of real values or vectors. To compare given data with a given model, the names and shapes of the data entries must match the variates of the probability distributions $m(\theta)$ that the model returns for a specific choice of parameters $\theta$. 
+[Distributions](#sec:distributions){reference-type="ref" reference="sec:distributions"}, i. e.&nbsp;a record of real values or vectors. To compare given data with a given model, the names and shapes of the data entries [must]{.smallcaps} match the variates of the probability distributions $m(\theta)$ that the model returns for a specific choice of parameters $\theta$. 
 This means that given a model $m$ and concrete parameter values $\theta$, drawing a set of random values from the probability distribution $m(\theta)$ produces a valid set of simulated observations. Implementations can use this to provide mock-data generation capabilities. 
 
 ### Likelihood functions {#sec:likelihood-definition} 
@@ -55,16 +65,20 @@ The concrete probability distribution $m(\theta)$ that a model $m$ returns for s
 the model (see [Data](#sec:data-generation){reference-type="ref" reference="sec:data-generation"}) to check for Monte-Carlo closure. 
 
 ### Frequentist parameter inference {#sec:frequentist-inference} 
+*This section is non-normative.* 
+
 The standard method of frequentist inference is the maximum (or, respectively, profile) likelihood method. In the vast majority of cases, the test statistic used here is the likelihood ratio, that is, the ratio of two values of the likelihood corresponding to two different points in parameter space: one that maximizes the likelihood unconditionally, and one that maximizes the likelihood under some condition such as the values of the parameters of interest expected in the absence of a deviation from the null hypothesis. The corresponding building blocks for such an analysis, such as the list of parameters of interest and the likelihood function to be used, are specified in the analysis section of an HS${}^3$ configuration (Sec. [Analyses](#sec:analyses){reference-type="ref" reference="sec:analyses"}). 
 
 ### Bayesian parameter inference {#sec:bayesian-inference} 
+*This section is non-normative.* 
+
 The standard also encompasses the specification of Bayesian posterior distributions over parameters by combining (Sec. 
 [Analyses](#sec:analyses){reference-type="ref" reference="sec:analyses"}) likelihoods with probabilty distributions that acts the priors. Here concrete distributions are used to describe the prior probability of parameters in addition to parameterized distributions that are used to describe of the probability of observing specific data. 
 
 ## How to read this document 
 In the context of this document, any `JSON` object is referred to as a struct. A key-value-pair inside such a struct is referred to as a component. If not explicitly stated otherwise, all components mentioned are mandatory. 
 The components located inside the top-level struct are referred to as top-level components. 
-The keywords [optional]{.smallcaps} and [required]{.smallcaps}, as well as [should]{.smallcaps} and [may]{.smallcaps} are used in accordance with IETF requirement levels [@rfc2119]. 
+The keywords [must]{.smallcaps}, [must not]{.smallcaps}, [required]{.smallcaps}, [should]{.smallcaps}, [should not]{.smallcaps}, [may]{.smallcaps} and [optional]{.smallcaps} are used in accordance with IETF requirement levels [@rfc2119]. 
 
 ## Terms and Types 
 This is a list of used types and terms in this document. 
@@ -76,17 +90,23 @@ This is a list of used types and terms in this document.
 -   `number`: either floating or integer type values 
 -   `boolean`: boolean values; they can be encoded as `true` and `false` 
 
-All `struct`s defining functions, distributions, parameters, variables, domains, likelihoods, data or parameter points will be referred to as `object`s. All `object`s [must]{.smallcaps} always have a component `name` that [must]{.smallcaps} be unique among all `object`s. 
+All `struct`s defining functions, distributions, parameters, variables, domains, likelihoods, data or parameter points will be referred to as `object`s. All `object`s [must]{.smallcaps} always have a component `name`. These names are subject to the uniqueness rule given in [Global namespace](#sec:global-namespace){reference-type="ref" reference="sec:global-namespace"}. 
 
 Within most top-level `component`s, any one `string` given as a value to any component [should]{.smallcaps} refer to the `name` of another `object`, unless explicitly stated otherwise. Top-level `component`s in which this is not the case are explicitly marked as such. 
 
 ## File format 
 HS${}^3$ documents are encoded in the JSON format as defined in ISO/IEC 21778:2017 [@json]. Implementations [may]{.smallcaps} support other serialization formats that support a non-ambiguous mapping to JSON, such as TOML or YAML, in which case they [should]{.smallcaps} use a different file extension.
 
+An HS${}^3$ document that contains a JSON object with two or more members of the same name is invalid. All numeric values [must]{.smallcaps} be finite IEEE-754 double-precision numbers that are representable as JSON numbers; the non-standard literals `NaN`, `Infinity` and `-Infinity` [must not]{.smallcaps} be used.
+
 The recommended filename extension for HS${}^3$ JSON documents is `.hs3.json`.
 
 ## Validators 
+*This section is non-normative.* 
+
 Future versions of this standard will recommend official validator implementations and schemata. Currently, these have not been finalized. 
 
 ## How to get in touch 
+*This section is non-normative.* 
+
 Visit the GitHub page <https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard> 
