@@ -341,5 +341,10 @@ function Pandoc(doc)
   local resolved = resolve_includes_text(raw, 0, dirname(top))
   resolved = mkdocs_fences_to_pandoc(resolved)
   local parsed = parse_markdown(resolved)
+  -- Keep metadata that did not come from the top-level file itself (e.g.
+  -- --metadata-file / --metadata); document metadata still takes precedence.
+  for k, v in pairs(doc.meta) do
+    if parsed.meta[k] == nil then parsed.meta[k] = v end
+  end
   return parsed
 end

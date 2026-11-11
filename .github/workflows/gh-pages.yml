@@ -18,6 +18,17 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # 0) Check that everyone in the git history is credited in markdown.yaml
+  check-contributors:
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check contributor list
+        run: tools/check_contributors.sh
+
   # 1) Build PDF (Pandoc/LaTeX) — runs on PR events and on push to master
   build-pdf:
     if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master') }}

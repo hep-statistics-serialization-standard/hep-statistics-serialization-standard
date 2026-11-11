@@ -55,8 +55,10 @@
 <body>
     <header>
         <h1>$title$</h1>
-        <p>$author$</p>
+        <p>$for(author)$$author$$sep$, $endfor$</p>
         <p>$date$</p>
+$for(include-before)$        $include-before$
+$endfor$
     </header>
     <main>
         $body$

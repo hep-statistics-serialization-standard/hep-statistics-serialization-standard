@@ -82,9 +82,10 @@ In order to submit ideas, proposals and examples, you can either start a
 discussion using issues or add the document(s), if you have some, in the
 proposals (draft or pending) folder and create a PR to discussion them.
 
-Please make sure to read the [authorship
+Please make sure to read the [authoring
 guidelines](https://github.com/hep-statistics-serialization-standard/hep-statistics-serialization-standard/blob/master/docs/chapters/3.2_authoring_primitives.md)
-before you contribute or review content.
+before you contribute or review content. How contributions are credited is
+described in the [Committee](#committee) section below.
 
 If you are interested to become part of the core committee, please open an
 issue. Anyone is allowed to join.
@@ -149,5 +150,23 @@ The ATLAS Collaboration has published measurements in this format. They can be f
 
 # Committee
 
-The comittee is responsible for the acceptance and denial of new
+The committee is responsible for the acceptance and denial of new
 proposals and has to approve a new version of the standard.
+
+Membership is open and defined by participation: everyone who approved at
+least one pull request since the last tagged release of the standard, either
+through a GitHub review or a 👍 reaction (see above), is a member of the
+committee and is listed as an author of the specification. Everyone else who
+contributed to this repository (commits or co-authored commits, as recorded in
+the git history) is listed as a contributor. As is customary in academia,
+people are listed under their real names only; pseudonymous or anonymous
+contributions remain in the git history but are not credited in the
+specification until the contributor has provided their name.
+
+Both lists live in [`markdown.yaml`](markdown.yaml) and are rendered on the
+title page of the specification; `tools/check_contributors.sh` (run in CI)
+verifies that nobody in the git history is missing. If you contributed in
+another way (e.g. by opening an issue that led to a change) and would like to be
+listed, or if your name is rendered differently from how you would like it to
+appear, please open an issue or a pull request against `markdown.yaml` and
+`.mailmap`.

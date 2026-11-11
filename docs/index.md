@@ -1,21 +1,6 @@
---- 
-author: 
-    - Carsten Burgard
-    - Tomas Dado
-    - Jonas Eschle
-    - Matthew Feickert
-    - Cornelius   Grunwald
-    - Alexander Held
-    - Jerry Ling
-    - Robin Pelkner
-    - Jonas Rembser
-    - Oliver Schulz
-
-bibliography: hs3.bib 
-
-date: 2025-09-01
-
+---
 title: HS3
+bibliography: hs3.bib
 ---
 
 # About this document {#about-this-document .unnumbered} 

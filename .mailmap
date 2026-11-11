@@ -1,0 +1,11 @@
+# Canonical names for contributors (see tools/check_contributors.sh).
+# Format: Canonical Name <canonical@email> [Alias Name] <alias@email>
+Carsten Burgard <cburgard@cern.ch> <carsten.burgard@gmail.com>
+Carsten Burgard <cburgard@cern.ch> cburgard <cburgard@users.noreply.github.com>
+Cornelius Grunwald <Cornelius-G@users.noreply.github.com> Cornelius-G <Cornelius-G@users.noreply.github.com>
+Jessica Cox <bcox@mpp.mpg.de>
+Mikhail Mikhasenko <mikhail.mikhasenko@cern.ch> Misha Mikhasenko <mikhail.mikhasenko@gmail.com>
+Simon Cello <simon.cello@web.de> Phmonski <simon.cello@web.de>
+Simon Cello <simon.cello@web.de> <87865105+Phmonski@users.noreply.github.com>
+Steffen Albrecht <steffen.albrecht@uni-hamburg.de> <steffen.alb@posteo.de>
+Him C. <himc29z@gmail.com> HimC29 <himc29z@gmail.com>

@@ -1,0 +1,4 @@
+# Git authors deliberately NOT listed in markdown.yaml, one canonical name
+# (after .mailmap) per line. Lines starting with '#' are ignored.
+# Only pseudonymous/anonymous contributors belong here (see README, "Committee").
+Him C.
