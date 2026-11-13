@@ -1,16 +1,33 @@
-author: 
-    - Carsten Burgard
-    - Tomas Dado
-    - Jonas Eschle
-    - Matthew Feickert
-    - Cornelius   Grunwald
-    - Alexander Held
-    - Jerry Ling
-    - Robin Pelkner
-    - Jonas Rembser
-    -  Oliver Schulz
-bibliography: ./hs3.bib 
-date: 2025-01-24
+# Metadata for the pandoc PDF/HTML builds of the specification (see Makefile).
+#
+# `author`: the HS3 committee, i.e. everyone who approved at least one pull
+#           request since the last tagged release (see README.md, "Committee").
+# `contributors`: everyone else who contributed to this repository.
+# tools/check_contributors.sh verifies both lists against the git history.
+# Both lists are sorted alphabetically by surname.
+author:
+  - Steffen Albrecht
+  - Andy Buckley
+  - Carsten Burgard
+  - Simon Cello
+  - Jessica Cox
+  - Uwe Hernandez Acosta
+  - Mikhail Mikhasenko
+  - Jonas Rembser
+  - Oliver Schulz
+  - Sebastian Schwalbe
+  - Giordon Stark
+contributors:
+  - Tomas Dado
+  - Jonas Eschle
+  - Matthew Feickert
+  - Cornelius Grunwald
+  - Alexander Held
+  - Jerry Ling
+  - Robin Pelkner
+  - Anton Reinhard
+bibliography: ./hs3.bib
+date: 2026-11-11
 title: HS<sup>3</sup> v0.2.9
 
 resource-path:
