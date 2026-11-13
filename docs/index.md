@@ -62,5 +62,7 @@ title: HS3
 
 {% include-markdown "chapters/3.4_auxiliary_measurements.md" %}
 
+{% include-markdown "chapters/3.5_axes.md" %}
+
 # References 
 \bibliography

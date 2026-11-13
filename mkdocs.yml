@@ -48,6 +48,7 @@ nav:
       - Generic Expressions: chapters/3.1_generic_expressions.md
       - Authoring Primitives: chapters/3.2_authoring_primitives.md
       - Auxiliary Measurements: chapters/3.4_auxiliary_measurements.md
+      - Axes: chapters/3.5_axes.md
   - PDF version: files/hs3.pdf
     
 
