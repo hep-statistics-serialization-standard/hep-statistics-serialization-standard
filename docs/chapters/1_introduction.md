@@ -24,8 +24,8 @@ Mathematically and computationally, it is often convenient to treat parameters a
 Probability distributions in HS${}^3$ (see 
 [Distributions](#sec:distributions){reference-type="ref" reference="sec:distributions"}) are typically parameterized. Any instance of a distribution that has some of its parameters bound to names instead of concrete values, e.g. $m = d_{\mu = a, \sigma = 0.7, \lambda = b, ...}$, constitutes a valid statistical model $m(\theta)$ with model parameters $\theta = (a, b)$. 
 When probability distributions are combined via a Cartesian product (see 
-[Product distribution](#sec:product-distribution){reference-type="ref" reference="sec:product-distribution"}), then the records that contain their free parameter values are concatenated. So $m = d_{\mu = a, \sigma = b} \times d_{\mu = c, \sigma = 0.7}$ constitutes a model $m(\theta)$ with model parameters $\theta = (a, b, c)$.
-Distribution parameters may also be bound to the output of functions, and if those functions have inputs that are bound to names instead of values (or again bound to such functions, recursively), then those names become part of the model parameters. A configuration $m = d_{\mu = a, \sigma = 0.7, \lambda = f}, f = \texttt{sum}(4.2, g), g = \texttt{sum}(1.3, b)$, for example, also constitutes a (different) model $m(\theta)$ with parameters $\theta = (a, b, c)$. 
+[Product distribution](#sec:product-distribution){reference-type="ref" reference="sec:product-distribution"}), then the records that contain their free parameter values are merged by name: a name that occurs in several of them denotes one and the same parameter. So $m = d_{\mu = a, \sigma = b} \times d_{\mu = c, \sigma = 0.7}$ constitutes a model $m(\theta)$ with model parameters $\theta = (a, b, c)$, and $m = d_{\mu = a, \sigma = b} \times d_{\mu = a, \sigma = 0.7}$ a model with model parameters $\theta = (a, b)$.
+Distribution parameters may also be bound to the output of functions, and if those functions have inputs that are bound to names instead of values (or again bound to such functions, recursively), then those names become part of the model parameters. A configuration $m = d_{\mu = a, \sigma = 0.7, \lambda = f}, f = \texttt{sum}(4.2, g), g = \texttt{sum}(1.3, b)$, for example, also constitutes a (different) model $m(\theta)$ with parameters $\theta = (a, b)$. 
 If all parameter values of a probability distribution are set to concrete values, so if there are not directly (or indirectly via functions) bound to names, we call this probability distribution a concrete distribution here. Such distributions can be used as Bayesian 
 priors (see [Bayesian inference](#sec:bayesian-inference){reference-type="ref" reference="sec:bayesian-inference"}). 
 
@@ -46,6 +46,8 @@ multiple HS${}^3$ documents together, e.g. for combined analyses.
 
 The names of HS${}^3$ objects that can be referenced from generic expressions, i.e. parameters, variables, functions and distributions, [must]{.smallcaps} be identifiers matching the regular expression `[A-Za-z_][A-Za-z0-9_]*`: an ASCII letter or underscore, followed by any number of ASCII letters, digits or underscores. The generic expression language (see [Generic Expressions](#sec:generic_expression){reference-type="ref" reference="sec:generic_expression"}) relies on this, since symbols in an expression that are not defined by the expression language refer to these objects by name, and names containing other characters could not be written there without an escaping mechanism.
 
+The names that the generic expression language reserves for itself, i.e. `PI`, `EULER`, `TRUE`, `FALSE`, `ifelse` and the names of the functions listed in [Generic Expressions](#sec:generic_expression){reference-type="ref" reference="sec:generic_expression"}, [must not]{.smallcaps} be used as the name of any of these objects.
+
 The names of data sets, likelihoods, analyses, domains and parameter points [should]{.smallcaps} follow the same rule, but are not required to.
 
 ### Identity {#sec:identity}
@@ -64,7 +66,7 @@ Since names are unique (see [Global namespace](#sec:global-namespace){reference-
 
 ### Probability density functions (PDFs) {#sec:what-is-a-pdf} 
 Statistics literature often discriminates between probability density functions (PDF) for continuous probability distributions and probability mass functions (PMF) for discrete probability distributions. This standard use the term PDF for both continuous and discrete distributions. The concept of density is to be understood in terms of densities in the realm of measure theory here, that is the density of a probability measure (distribution) is its Radon-Nikodym derivative in respect to an (implied) reference measure. 
-The choice of reference measure would be arbitrary in principle, which scales likelihood functions 
+In principle, any reference measure can be chosen that dominates all distributions of the model and does not depend on the model parameters. A different choice scales likelihood functions 
 (Sec. [Likelihood](#sec:likelihood-definition){reference-type="ref" reference="sec:likelihood-definition"}) by a constant factor that depends on choice of reference. In this standard, a specific reference measures is implied for each probability distribution, typically the Lebesgue measure for continuous distributions and the counting measure for discrete distributions. The standard aims to match the PDF (resp.&nbsp;PMF) most commonly used in literature for each specific probability distribution and the mathematical form of the PDF is documented explicitly for each distribution in the standard. So within HS${}^3$, probability densities and likelihood functions are unambiguous. 
 Here we use $\text{PDF}(m(\theta), x)$ to denote the density value of the probability distribution/measure $m$, parameterized by $\theta$, at the point/variate $x$, in respect to the implied reference for $m$. 
 
@@ -99,10 +101,11 @@ This is a list of used types and terms in this document.
 
 -   `struct`: represented with { }, containing a *key:value* mapping,     keys are of type `string`. 
 -   `component`: key-value pair within a struct 
--   `array` array of items (either `string`s or `number`s) without keys. Represented with `[...]`. 
+-   `array`: ordered sequence of values without keys, represented with `[...]`. The permitted types of the elements are stated for each component; they can be `number`s, `string`s, `boolean`s, `struct`s, `array`s or `null`. 
 -   `string`: references to objects, names and arbitrary information.     Represented with `"..."`
 -   `number`: either floating or integer type values 
 -   `boolean`: boolean values; they can be encoded as `true` and `false` 
+-   `null`: the JSON value `null`. It is permitted only where a component explicitly allows it. 
 
 All `struct`s defining functions, distributions, parameters, variables, domains, likelihoods, data or parameter points will be referred to as `object`s. All `object`s [must]{.smallcaps} always have a component `name`. These names are subject to the uniqueness rule given in [Global namespace](#sec:global-namespace){reference-type="ref" reference="sec:global-namespace"}. 
 
