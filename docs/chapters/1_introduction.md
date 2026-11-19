@@ -48,6 +48,20 @@ The names of HS${}^3$ objects that can be referenced from generic expressions, i
 
 The names of data sets, likelihoods, analyses, domains and parameter points [should]{.smallcaps} follow the same rule, but are not required to.
 
+### Identity {#sec:identity}
+
+Names in HS${}^3$ are labels and carry no meaning of their own. Whether two nodes of the computational graph described by a document are the same is therefore decided by what they encode and not by how they are named. Two nodes are *identical* if an implementation cannot distinguish them:
+
+- A parameter, a variable or a data axis is identical only to itself, that is, to the object of the same name.
+- Two numeric literals are identical if they are the same number in the number representation used by the implementation.
+- Two other nodes, such as functions, distributions or the components of an [Array distribution](#sec:array-distribution){reference-type="ref" reference="sec:array-distribution"}, are identical if they have the same `type` and all of their components are identical, after all references have been resolved and all defaults have been applied.
+
+Relative to a domain, an implementation [may]{.smallcaps} treat a parameter with a fixed axis (see [Domains](#sec:domains){reference-type="ref" reference="sec:domains"}) as the numeric literal of its `value`. The component `const` of a parameter point has no such effect.
+
+Identity is an equivalence, not a tolerance: two numbers that are merely close to each other [must not]{.smallcaps} be treated as identical. Nodes of different `type` are never identical, also if they describe the same density or function.
+
+Since names are unique (see [Global namespace](#sec:global-namespace){reference-type="ref" reference="sec:global-namespace"}), two references to the same name always refer to identical nodes, and every implementation [must]{.smallcaps} recognize this. An implementation [may]{.smallcaps} establish the identity of nodes with different names, with as much or as little effort as it chooses. Nodes whose identity it has not established [must]{.smallcaps} be treated as not identical. Where this standard requires nodes to be identical, an implementation that has not established their identity [must]{.smallcaps} reject the model. A model can therefore be accepted by one implementation and rejected by another, but two implementations that both accept it obtain the same result, up to the precision of their number representations. Authors [should]{.smallcaps} refer to a shared node by a single name wherever a model relies on its identity, since this is the only form that every implementation recognizes.
+
 ### Probability density functions (PDFs) {#sec:what-is-a-pdf} 
 Statistics literature often discriminates between probability density functions (PDF) for continuous probability distributions and probability mass functions (PMF) for discrete probability distributions. This standard use the term PDF for both continuous and discrete distributions. The concept of density is to be understood in terms of densities in the realm of measure theory here, that is the density of a probability measure (distribution) is its Radon-Nikodym derivative in respect to an (implied) reference measure. 
 The choice of reference measure would be arbitrary in principle, which scales likelihood functions 
